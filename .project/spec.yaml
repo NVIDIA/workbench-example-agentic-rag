@@ -1,8 +1,8 @@
 specVersion: v2
 specMinorVersion: 1
 meta:
-  name: advanced-rag-agent
-  image: project-advanced-rag-agent
+  name: agentic-rag
+  image: project-agentic-rag
   description: An example project for advanced RAG using agents
   labels: []
   createdOn: "2024-07-15T21:09:46Z"
