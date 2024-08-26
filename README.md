@@ -205,15 +205,15 @@ Some users may choose to use the **CLI tool only** instead of the Desktop App. I
    $ nvwb open <project_name>
    ```
 
-5. Start **Jupyterlab** by
+5. Start **Chat** by
 
    ```
-   $ nvwb start jupyterlab
+   $ nvwb start chat
    ```
 
    * Specify the NVIDIA API Key and Tavily Search Key as project secrets.
 
-6. Navigate to the `code` directory of the project. Then, open your fine-tuning notebook and get started. Happy coding!
+6. A frontend user interface should automatically open in a new browser tab. Happy chatting!
 
 # License
 This NVIDIA AI Workbench example project is under the [Apache 2.0 License](https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/LICENSE.txt)
