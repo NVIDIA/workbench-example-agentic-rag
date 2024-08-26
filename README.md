@@ -169,9 +169,7 @@ If you do not NVIDIA AI Workbench installed, first complete the installation for
 
    * `Environment` &rarr; `Secrets` &rarr; `Configure`. Specify the NVIDIA API Key and Tavily Search Key as project secrets.
 
-6. On the top right of the window, select **Jupyterlab**. 
-
-7. Navigate to the `code` directory of the project. Then, open your fine-tuning notebook and get started. Happy coding!
+6. On the top right of the window, select **Chat**. A frontend user interface should automatically open in a new browser tab. Happy chatting!
 
 ## Tutorial (CLI-Only)
 Some users may choose to use the **CLI tool only** instead of the Desktop App. If you do not NVIDIA AI Workbench installed, first complete the installation for AI Workbench [here](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/). Then, 
