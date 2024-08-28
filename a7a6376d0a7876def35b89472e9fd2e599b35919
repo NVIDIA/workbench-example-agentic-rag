@@ -1,0 +1,1 @@
+{"schema":"v1","records":[{"type":"ENVIRONMENT","operation":"CREATED","data":[{"data":"Added packages through apt package manager: poppler-utils, python3-pil, tesseract-ocr, libtesseract-dev, tesseract-ocr-eng, tesseract-ocr-script-latn; Added packages through pip package manager: onnxruntime==1.18.0, tesseract==0.1.3, nltk==3.8.1","mime":"text/plain"}],"important":null}]}
