@@ -1,1 +1,7 @@
 # apt packages to install should be listed one per line
+poppler-utils
+python3-pil
+tesseract-ocr
+libtesseract-dev
+tesseract-ocr-eng
+tesseract-ocr-script-latn
