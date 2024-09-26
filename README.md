@@ -171,6 +171,8 @@ If you do not NVIDIA AI Workbench installed, first complete the installation for
 
 6. On the top right of the window, select **Chat**. A frontend user interface should automatically open in a new browser tab. Happy chatting!
 
+7. **Note:** When doing RAG, make sure you (1) upload the document AND (2) Change the Router prompt to focus on the topic of your uploaded documents. Both changes are required for successful RAG!
+
 ## Tutorial (CLI-Only)
 Some users may choose to use the **CLI tool only** instead of the Desktop App. If you do not NVIDIA AI Workbench installed, first complete the installation for AI Workbench [here](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/). Then, 
 1. Fork this Project to your own GitHub namespace and copying the link
@@ -214,6 +216,8 @@ Some users may choose to use the **CLI tool only** instead of the Desktop App. I
    * Specify the NVIDIA API Key and Tavily Search Key as project secrets.
 
 6. A frontend user interface should automatically open in a new browser tab. Happy chatting!
+
+7. **Note:** When doing RAG, make sure you (1) upload the document AND (2) Change the Router prompt to focus on the topic of your uploaded documents. Both changes are required for successful RAG!
 
 # License
 This NVIDIA AI Workbench example project is under the [Apache 2.0 License](https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/LICENSE.txt)
