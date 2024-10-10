@@ -10,7 +10,7 @@ beautifulsoup4==4.12.2
 lxml==5.2.2
 
 dataclass_wizard==0.22.2
-gradio==4.15.0
+gradio==5.0.0
 unstructured[pdf]==0.15.0
 onnxruntime==1.18.0
 tesseract==0.1.3
