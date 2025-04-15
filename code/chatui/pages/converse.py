@@ -161,8 +161,33 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
             with gr.Column(scale=10, min_width=350) as settings_column:
                 with gr.Tabs(selected=0) as settings_tabs:
 
+                    with gr.TabItem("Instructions", id=0) as instructions_tab:
+                        gr.Markdown(
+                            """
+
+                            ##### Use the Models tab to configure inference individual components
+                            - Click a component name (e.g. Router) to configure it
+                            - Select an API endpoint or a self-hosted NIM (requires remote GPU)
+                            - Customize component behavior by changing the prompts
+
+                            ##### Use the Documents tab to create a RAG context
+                            - Webpages: Enter URLs of webpages for the context
+                            - PDFs: Upload PDFs for the context
+                            - Add to Context: Add documents to the context (can repeat)
+                            - Clear Context: Resets the context to be empty
+
+                            ##### Use the Monitor tab to see the agent in action
+                            - Actions Console: Conclusions and actions of the agent
+                            - Response Trace: Full text of what's behind the response
+
+                            """
+                        )
+
+
+
+
                     # Settings for each component model of the agentic workflow
-                    with gr.TabItem("Models", id=0) as agent_settings:
+                    with gr.TabItem("Models", id=1) as agent_settings:
     
                         ########################
                         ##### ROUTER MODEL #####
@@ -500,10 +525,10 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                                   show_label=False,
                                                                   interactive=True)
                         
-                    # Second tab item is for uploading to and clearing the vector database
-                    with gr.TabItem("Documents", id=1) as document_settings:
+                    # Thirdtab item is for uploading to and clearing the vector database
+                    with gr.TabItem("Documents", id=2) as document_settings:
                         gr.Markdown("")
-                        gr.Markdown("Upload webpages or PDF files to be stored persistently in the vector database.\n")
+                        gr.Markdown("Embed websites and PDFs into a vector database to create a context. You can do this in multiple rounds. Context is stored until you clear it.\n")
                         with gr.Tabs(selected=0) as document_tabs:
                             with gr.TabItem("Webpages", id=0) as url_tab:
                                 url_docs = gr.Textbox(value="https://lilianweng.github.io/posts/2023-06-23-agent/\nhttps://lilianweng.github.io/posts/2023-03-15-prompt-engineering/\nhttps://lilianweng.github.io/posts/2023-10-25-adv-attack-llm/",
@@ -513,18 +538,18 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                       interactive=True)
                             
                                 with gr.Row():
-                                    url_docs_upload = gr.Button(value="Upload Docs")
-                                    url_docs_clear = gr.Button(value="Clear Docs")
+                                    url_docs_upload = gr.Button(value="Add to Context")
+                                    url_docs_clear = gr.Button(value="Clear Context")
 
                             with gr.TabItem("PDFs", id=1) as pdf_tab:
                                 pdf_docs_upload = gr.File(interactive=True, 
                                                           show_label=False, 
                                                           file_types=[".pdf"], 
                                                           file_count="multiple")
-                                pdf_docs_clear = gr.Button(value="Clear Docs")
+                                pdf_docs_clear = gr.Button(value="Clear Context")
     
-                    # Third tab item is for the actions output console. 
-                    with gr.TabItem("Monitor", id=2) as console_settings:
+                    # Fourth tab item is for the actions output console. 
+                    with gr.TabItem("Monitor", id=3) as console_settings:
                         gr.Markdown("")
                         gr.Markdown("Monitor agentic actions and view the pipeline trace of the latest response.\n")
                         with gr.Tabs(selected=0) as console_tabs:
@@ -539,7 +564,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                 )
                     
                     # Third tab item is for collapsing the entire settings pane for readability. 
-                    with gr.TabItem("Hide All Settings", id=3) as hide_all_settings:
+                    with gr.TabItem("Hide All Settings", id=4) as hide_all_settings:
                         gr.Markdown("")
 
         page.load(logger.read_logs, None, logs, every=1)

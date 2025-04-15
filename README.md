@@ -1,5 +1,5 @@
 # Overview: An Easy Button for Agentic RAG
-This Retrieval Augmented Generation (RAG) application uses an agentic approach to combine web search, hallucination controls and accuracy checks with RAG. It's easy to modify because its a simple Gradio app.
+This RAG application uses an agentic approach to combine web search, hallucination control and accuracy checks with RAG. It's easy to modify because its a simple Gradio app.
 
 > **Note**
 >This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html). It's a free, lightweight developer platform that you can run on your own systems to get up and running with complex AI applications and workloads in a short amount of time. 
@@ -13,6 +13,11 @@ This Retrieval Augmented Generation (RAG) application uses an agentic approach t
 <!-- Links -->
 *Other Resources:* [:arrow_down: Download AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) | [:book: User Guide](https://docs.nvidia.com/ai-workbench/) |[:open_file_folder: Other Projects](https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/example-projects.html) | [:rotating_light: User Forum](https://forums.developer.nvidia.com/t/support-workbench-example-project-agentic-rag/303414)
 
+## Need, Don't Need and Nice to Have
+
+- Need: internet access because the chat app uses [Tavily](https://tavily.com/) for web-searches, as well as endpoints on build.nvidia.com
+- Don't Need: Local GPU
+- Nice to Have: Remote GPU system where you self-host an endpoint
 
 ## The Agentic RAG Application
 #### Using the Application
@@ -22,7 +27,7 @@ This Retrieval Augmented Generation (RAG) application uses an agentic approach t
    * Select from a drop down of endpoints or use a self-hosted endpoint.
    * Modify the prompt.
 3. You submit your query.
-4. An LLM evaluates your query for relevance to the index and then routes it to the DB or to search by [Tavily](https://tavily.com/).
+4. An LLM evaluates its relevance to the index and then routes it to the DB or to search by [Tavily](https://tavily.com/).
 5. Answers are checked for hallucination and relevance. "Failing"" answers are run through the  process again.
 
 The diagram **below** shows this agentic flow. 
