@@ -151,7 +151,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                         )
 
                     with gr.Column(scale=1, min_width=150):
-                        _ = gr.ClearButton([msg, chatbot], value="Clear history")
+                        _ = gr.ClearButton([msg, chatbot], value="Clear chat history")
             
             # Hidden column to be rendered when the user collapses all settings.
             with gr.Column(scale=1, min_width=100, visible=False) as hidden_settings_column:
