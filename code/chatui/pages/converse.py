@@ -164,6 +164,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                     with gr.TabItem("Instructions", id=0) as instructions_tab:
                         gr.Markdown(
                             """
+                            ## Configure your API keys before using this application
 
                             ##### Use the Models tab to configure individual components
                             - Click a component name (e.g. Router) to configure it
@@ -188,6 +189,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                     with gr.TabItem("Models", id=1) as agent_settings:
                             gr.Markdown(
                                         """
+                                        ## Using API endpoints requires an API key
                                         ##### Select and configure each component of the agentic RAG pipeline
                                         - Click a component below (e.g. Router) and select API or NIM 
                                         - For APIs, select the model from the dropdown
@@ -537,6 +539,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                         gr.Markdown("")
                         gr.Markdown(
                             """
+                            ## Document embedding requires an API key
                             ##### Embed websites and PDFs into a vector database to create a context. 
                             - You can do this in multiple rounds. 
                             - Context is stored until you clear it.
