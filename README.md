@@ -1,5 +1,5 @@
 # Overview: An Easy Button for Agentic RAG
-This RAG application uses an agentic approach to combine web search, hallucination control and accuracy checks with RAG. It's easy to modify because its a simple Gradio app.
+This RAG application uses an agentic approach to combine web search, hallucination control and accuracy checks with RAG. It's easy to use and modify.
 
 > **Note**
 >This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html). It's a free, lightweight developer platform that you can run on your own systems to get up and running with complex AI applications and workloads in a short amount of time. 
@@ -15,20 +15,21 @@ This RAG application uses an agentic approach to combine web search, hallucinati
 
 ## Need, Don't Need and Nice to Have
 
-- Need: internet access because the chat app uses [Tavily](https://tavily.com/) for web-searches, as well as endpoints on build.nvidia.com
+- Need:
+   - Internet access while running the chat app
+   - Two API keys configured ([Tavily](https://tavily.com/) and [NVIDIA API key](https://org.ngc.nvidia.com/setup/api-keys))
 - Don't Need: Local GPU
-- Nice to Have: Remote GPU system where you self-host an endpoint
+- Nice to Have: Remote GPU system if you want to self-host a NIM endpoint
 
 ## The Agentic RAG Application
 #### Using the Application
-1. You embed your documents (pdfs or webpages) to the vector database. 
 
-2. You configure each of the separate components for the pipeline. For each component you can:
-   * Select from a drop down of endpoints or use a self-hosted endpoint.
-   * Modify the prompt.
-3. You submit your query.
-4. An LLM evaluates its relevance to the index and then routes it to the DB or to search by [Tavily](https://tavily.com/).
-5. Answers are checked for hallucination and relevance. "Failing"" answers are run through the  process again.
+1. You clone the project with AI Workbench, and configure the relevant API keys
+2. You start the chat app
+3. You configure the separate components for the pipeline
+4. You add your documents to the context (vector db) 
+5. You make a query.
+6. The agent evaluates your query in multiple ways and returns and answer that has be checked for relevance and hallucination. 
 
 The diagram **below** shows this agentic flow. 
  
@@ -61,18 +62,19 @@ The quickest path is with the pre-configured build.nvidia.com endpoints.
    * Create account, verify email.
    * Make a Cloud Account.
    * Click your initial > `API Keys`.
-   * Create and save your key.
+   * Create and save your key because you may need it for other projects.
 
 3. Get a Tavily account and an API key.
    * Go to [Tavily](https://tavily.com/) and create an account.
    * Create an API key on the overview page.
      
-4. Have some pdfs or web pages to put in the RAG.
-
-5. NVIDIA Employees: Configure `INTERNAL_API` API key to use internal endpoints instead of public ones.
+4. Configure the NVIDIA and Tavily API keys as [secret environment variables in Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables)
 
 
-#### Opening the Chat
+> **Note**: NVIDIA Employees: Configure `INTERNAL_API` environment variable for internal endpoints instead of public ones.
+
+
+### Start the Chat
    
 1. Open NVIDIA AI Workbench. Select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html).
    
