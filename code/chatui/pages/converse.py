@@ -184,353 +184,353 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                         )
 
 
-
-
                     # Settings for each component model of the agentic workflow
                     with gr.TabItem("Models", id=1) as agent_settings:
                             gr.Markdown(
                                         """
-                                        ##### Model Configuration
-                                        Select and configure the models for each stage of the Agentic RAG pipeline.
-                                        You can use either API-hosted models or NIM microservices.
+                                        ##### Select and configure each component of the agentic RAG pipeline
+                                        - Click a component below (e.g. Router) and select API or NIM 
+                                        - For APIs, select the model from the dropdown
+                                        - For NIM, see instructions here
+                                        - (optional) Customize component behavior by configuring the prompt
                                         """
                             )
                                     
-                        ########################
-                        ##### ROUTER MODEL #####
-                        ########################
-                        router_btn = gr.Button("Router", variant="sm")
-                        with gr.Group(visible=False) as group_router:
-                            with gr.Tabs(selected=0) as router_tabs:
-                                with gr.TabItem("API Endpoints", id=0) as router_api:
-                                    model_router = gr.Dropdown(model_list, 
-                                                               value=model_list[0],
-                                                               label="Select a Model",
-                                                               elem_id="rag-inputs", 
-                                                               interactive=True)
-                                    
-                                with gr.TabItem("NIM Endpoints", id=1) as router_nim:
-                                    with gr.Row():
-                                        nim_router_gpu_type = gr.Dropdown(
-                                            choices=gpu_compatibility.get_gpu_types(),
-                                            label="GPU Type",
-                                            info="Select your GPU type",
-                                            elem_id="rag-inputs",
-                                            scale=2
-                                        )
-                                        nim_router_gpu_count = gr.Dropdown(
+                            ########################
+                            ##### ROUTER MODEL #####
+                            ########################
+                            router_btn = gr.Button("Router", variant="sm")
+                            with gr.Group(visible=False) as group_router:
+                                with gr.Tabs(selected=0) as router_tabs:
+                                    with gr.TabItem("API Endpoints", id=0) as router_api:
+                                        model_router = gr.Dropdown(model_list, 
+                                                                value=model_list[0],
+                                                                label="Select a Model",
+                                                                elem_id="rag-inputs", 
+                                                                interactive=True)
+                                        
+                                    with gr.TabItem("NIM Endpoints", id=1) as router_nim:
+                                        with gr.Row():
+                                            nim_router_gpu_type = gr.Dropdown(
+                                                choices=gpu_compatibility.get_gpu_types(),
+                                                label="GPU Type",
+                                                info="Select your GPU type",
+                                                elem_id="rag-inputs",
+                                                scale=2
+                                            )
+                                            nim_router_gpu_count = gr.Dropdown(
+                                                choices=[],
+                                                label="Number of GPUs",
+                                                info="Select number of GPUs",
+                                                elem_id="rag-inputs",
+                                                scale=1,
+                                                interactive=False
+                                            )
+                                        
+                                        with gr.Row():
+                                            nim_router_ip = gr.Textbox(
+                                                placeholder="10.123.45.678",
+                                                label="Microservice Host",
+                                                info="IP Address running the microservice",
+                                                elem_id="rag-inputs",
+                                                scale=2
+                                            )
+                                            nim_router_port = gr.Textbox(
+                                                placeholder="8000",
+                                                label="Port",
+                                                info="Optional, (default: 8000)",
+                                                elem_id="rag-inputs",
+                                                scale=1
+                                            )
+                                        
+                                        nim_router_id = gr.Dropdown(
                                             choices=[],
-                                            label="Number of GPUs",
-                                            info="Select number of GPUs",
+                                            label="Model running in microservice",
+                                            info="Select a compatible model for your GPU configuration",
                                             elem_id="rag-inputs",
-                                            scale=1,
                                             interactive=False
                                         )
-                                    
-                                    with gr.Row():
-                                        nim_router_ip = gr.Textbox(
-                                            placeholder="10.123.45.678",
-                                            label="Microservice Host",
-                                            info="IP Address running the microservice",
-                                            elem_id="rag-inputs",
-                                            scale=2
-                                        )
-                                        nim_router_port = gr.Textbox(
-                                            placeholder="8000",
-                                            label="Port",
-                                            info="Optional, (default: 8000)",
-                                            elem_id="rag-inputs",
-                                            scale=1
-                                        )
-                                    
-                                    nim_router_id = gr.Dropdown(
-                                        choices=[],
-                                        label="Model running in microservice",
-                                        info="Select a compatible model for your GPU configuration",
-                                        elem_id="rag-inputs",
-                                        interactive=False
-                                    )
 
-                                    # Add warning box for compatibility issues
-                                    nim_router_warning = gr.Markdown(visible=False, value="")
+                                        # Add warning box for compatibility issues
+                                        nim_router_warning = gr.Markdown(visible=False, value="")
 
-                                with gr.TabItem("Hide", id=2) as router_hide:
-                                    gr.Markdown("")
+                                    with gr.TabItem("Hide", id=2) as router_hide:
+                                        gr.Markdown("")
 
-                            with gr.Accordion("Configure the Router Prompt", 
-                                              elem_id="rag-inputs", open=False) as accordion_router:
-                                prompt_router = gr.Textbox(value=prompts_llama3.router_prompt,
-                                                           lines=12,
-                                                           show_label=False,
-                                                           interactive=True)
-    
-                        ##################################
-                        ##### RETRIEVAL GRADER MODEL #####
-                        ##################################
-                        retrieval_btn = gr.Button("Retrieval Grader", variant="sm")
-                        with gr.Group(visible=False) as group_retrieval:
-                            with gr.Tabs(selected=0) as retrieval_tabs:
-                                with gr.TabItem("API Endpoints", id=0) as retrieval_api:
-                                    model_retrieval = gr.Dropdown(model_list, 
-                                                                         value=model_list[0],
-                                                                         label="Select a Model",
-                                                                         elem_id="rag-inputs", 
-                                                                         interactive=True)
-                                with gr.TabItem("NIM Endpoints", id=1) as retrieval_nim:
-                                    with gr.Row():
-                                        nim_retrieval_gpu_type = gr.Dropdown(
-                                            choices=gpu_compatibility.get_gpu_types(),
-                                            label="GPU Type",
-                                            info="Select your GPU type",
-                                            elem_id="rag-inputs",
-                                            scale=2
-                                        )
-                                        nim_retrieval_gpu_count = gr.Dropdown(
+                                with gr.Accordion("Configure the Router Prompt", 
+                                                elem_id="rag-inputs", open=False) as accordion_router:
+                                    prompt_router = gr.Textbox(value=prompts_llama3.router_prompt,
+                                                            lines=12,
+                                                            show_label=False,
+                                                            interactive=True)
+        
+                            ##################################
+                            ##### RETRIEVAL GRADER MODEL #####
+                            ##################################
+                            retrieval_btn = gr.Button("Retrieval Grader", variant="sm")
+                            with gr.Group(visible=False) as group_retrieval:
+                                with gr.Tabs(selected=0) as retrieval_tabs:
+                                    with gr.TabItem("API Endpoints", id=0) as retrieval_api:
+                                        model_retrieval = gr.Dropdown(model_list, 
+                                                                            value=model_list[0],
+                                                                            label="Select a Model",
+                                                                            elem_id="rag-inputs", 
+                                                                            interactive=True)
+                                    with gr.TabItem("NIM Endpoints", id=1) as retrieval_nim:
+                                        with gr.Row():
+                                            nim_retrieval_gpu_type = gr.Dropdown(
+                                                choices=gpu_compatibility.get_gpu_types(),
+                                                label="GPU Type",
+                                                info="Select your GPU type",
+                                                elem_id="rag-inputs",
+                                                scale=2
+                                            )
+                                            nim_retrieval_gpu_count = gr.Dropdown(
+                                                choices=[],
+                                                label="Number of GPUs",
+                                                info="Select number of GPUs",
+                                                elem_id="rag-inputs",
+                                                scale=1,
+                                                interactive=False
+                                            )
+                                        
+                                        with gr.Row():
+                                            nim_retrieval_ip = gr.Textbox(
+                                                placeholder="10.123.45.678",
+                                                label="Microservice Host",
+                                                info="IP Address running the microservice",
+                                                elem_id="rag-inputs",
+                                                scale=2
+                                            )
+                                            nim_retrieval_port = gr.Textbox(
+                                                placeholder="8000",
+                                                label="Port",
+                                                info="Optional, (default: 8000)",
+                                                elem_id="rag-inputs",
+                                                scale=1
+                                            )
+                                        
+                                        nim_retrieval_id = gr.Dropdown(
                                             choices=[],
-                                            label="Number of GPUs",
-                                            info="Select number of GPUs",
+                                            label="Model running in microservice",
+                                            info="Select a compatible model for your GPU configuration",
                                             elem_id="rag-inputs",
-                                            scale=1,
                                             interactive=False
                                         )
-                                    
-                                    with gr.Row():
-                                        nim_retrieval_ip = gr.Textbox(
-                                            placeholder="10.123.45.678",
-                                            label="Microservice Host",
-                                            info="IP Address running the microservice",
-                                            elem_id="rag-inputs",
-                                            scale=2
-                                        )
-                                        nim_retrieval_port = gr.Textbox(
-                                            placeholder="8000",
-                                            label="Port",
-                                            info="Optional, (default: 8000)",
-                                            elem_id="rag-inputs",
-                                            scale=1
-                                        )
-                                    
-                                    nim_retrieval_id = gr.Dropdown(
-                                        choices=[],
-                                        label="Model running in microservice",
-                                        info="Select a compatible model for your GPU configuration",
-                                        elem_id="rag-inputs",
-                                        interactive=False
-                                    )
 
-                                    # Add warning box for compatibility issues
-                                    nim_retrieval_warning = gr.Markdown(visible=False, value="")
+                                        # Add warning box for compatibility issues
+                                        nim_retrieval_warning = gr.Markdown(visible=False, value="")
 
-                                with gr.TabItem("Hide", id=2) as retrieval_hide:
-                                    gr.Markdown("")
-                            
-                            with gr.Accordion("Configure the Retrieval Grader Prompt", 
-                                              elem_id="rag-inputs", open=False) as accordion_retrieval:
-                                prompt_retrieval = gr.Textbox(value=prompts_llama3.retrieval_prompt,
-                                                                     lines=21,
-                                                                     show_label=False,
-                                                                     interactive=True)
-    
-                        ###########################
-                        ##### GENERATOR MODEL #####
-                        ###########################
-                        generator_btn = gr.Button("Generator", variant="sm")
-                        with gr.Group(visible=False) as group_generator:
-                            with gr.Tabs(selected=0) as generator_tabs:
-                                with gr.TabItem("API Endpoints", id=0) as generator_api:
-                                    model_generator = gr.Dropdown(model_list, 
-                                                                  value=model_list[0],
-                                                                  label="Select a Model",
-                                                                  elem_id="rag-inputs", 
-                                                                  interactive=True)
-                                with gr.TabItem("NIM Endpoints", id=1) as generator_nim:
-                                    with gr.Row():
-                                        nim_generator_gpu_type = gr.Dropdown(
-                                            choices=gpu_compatibility.get_gpu_types(),
-                                            label="GPU Type",
-                                            info="Select your GPU type",
-                                            elem_id="rag-inputs",
-                                            scale=2
-                                        )
-                                        nim_generator_gpu_count = gr.Dropdown(
+                                    with gr.TabItem("Hide", id=2) as retrieval_hide:
+                                        gr.Markdown("")
+                                
+                                with gr.Accordion("Configure the Retrieval Grader Prompt", 
+                                                elem_id="rag-inputs", open=False) as accordion_retrieval:
+                                    prompt_retrieval = gr.Textbox(value=prompts_llama3.retrieval_prompt,
+                                                                        lines=21,
+                                                                        show_label=False,
+                                                                        interactive=True)
+        
+                            ###########################
+                            ##### GENERATOR MODEL #####
+                            ###########################
+                            generator_btn = gr.Button("Generator", variant="sm")
+                            with gr.Group(visible=False) as group_generator:
+                                with gr.Tabs(selected=0) as generator_tabs:
+                                    with gr.TabItem("API Endpoints", id=0) as generator_api:
+                                        model_generator = gr.Dropdown(model_list, 
+                                                                    value=model_list[0],
+                                                                    label="Select a Model",
+                                                                    elem_id="rag-inputs", 
+                                                                    interactive=True)
+                                    with gr.TabItem("NIM Endpoints", id=1) as generator_nim:
+                                        with gr.Row():
+                                            nim_generator_gpu_type = gr.Dropdown(
+                                                choices=gpu_compatibility.get_gpu_types(),
+                                                label="GPU Type",
+                                                info="Select your GPU type",
+                                                elem_id="rag-inputs",
+                                                scale=2
+                                            )
+                                            nim_generator_gpu_count = gr.Dropdown(
+                                                choices=[],
+                                                label="Number of GPUs",
+                                                info="Select number of GPUs",
+                                                elem_id="rag-inputs",
+                                                scale=1,
+                                                interactive=False
+                                            )
+                                        
+                                        with gr.Row():
+                                            nim_generator_ip = gr.Textbox(
+                                                placeholder="10.123.45.678",
+                                                label="Microservice Host",
+                                                info="IP Address running the microservice",
+                                                elem_id="rag-inputs",
+                                                scale=2
+                                            )
+                                            nim_generator_port = gr.Textbox(
+                                                placeholder="8000",
+                                                label="Port",
+                                                info="Optional, (default: 8000)",
+                                                elem_id="rag-inputs",
+                                                scale=1
+                                            )
+                                        
+                                        nim_generator_id = gr.Dropdown(
                                             choices=[],
-                                            label="Number of GPUs",
-                                            info="Select number of GPUs",
+                                            label="Model running in microservice",
+                                            info="Select a compatible model for your GPU configuration",
                                             elem_id="rag-inputs",
-                                            scale=1,
                                             interactive=False
                                         )
-                                    
-                                    with gr.Row():
-                                        nim_generator_ip = gr.Textbox(
-                                            placeholder="10.123.45.678",
-                                            label="Microservice Host",
-                                            info="IP Address running the microservice",
-                                            elem_id="rag-inputs",
-                                            scale=2
-                                        )
-                                        nim_generator_port = gr.Textbox(
-                                            placeholder="8000",
-                                            label="Port",
-                                            info="Optional, (default: 8000)",
-                                            elem_id="rag-inputs",
-                                            scale=1
-                                        )
-                                    
-                                    nim_generator_id = gr.Dropdown(
-                                        choices=[],
-                                        label="Model running in microservice",
-                                        info="Select a compatible model for your GPU configuration",
-                                        elem_id="rag-inputs",
-                                        interactive=False
-                                    )
 
-                                    # Add warning box for compatibility issues
-                                    nim_generator_warning = gr.Markdown(visible=False, value="")
+                                        # Add warning box for compatibility issues
+                                        nim_generator_warning = gr.Markdown(visible=False, value="")
 
-                                with gr.TabItem("Hide", id=2) as generator_hide:
-                                    gr.Markdown("")
-                            
-                            with gr.Accordion("Configure the Generator Prompt", 
-                                              elem_id="rag-inputs", open=False) as accordion_generator:
-                                prompt_generator = gr.Textbox(value=prompts_llama3.generator_prompt,
-                                                          lines=15,
-                                                          show_label=False,
-                                                          interactive=True)
-    
-                        ######################################
-                        ##### HALLUCINATION GRADER MODEL #####
-                        ######################################
-                        hallucination_btn = gr.Button("Hallucination Grader", variant="sm")
-                        with gr.Group(visible=False) as group_hallucination:
-                            with gr.Tabs(selected=0) as hallucination_tabs:
-                                with gr.TabItem("API Endpoints", id=0) as hallucination_api:
-                                    model_hallucination = gr.Dropdown(model_list, 
-                                                                             value=model_list[0],
-                                                                             label="Select a Model",
-                                                                             elem_id="rag-inputs", 
-                                                                             interactive=True)
-                                with gr.TabItem("NIM Endpoints", id=1) as hallucination_nim:
-                                    with gr.Row():
-                                        nim_hallucination_gpu_type = gr.Dropdown(
-                                            choices=gpu_compatibility.get_gpu_types(),
-                                            label="GPU Type",
-                                            info="Select your GPU type",
-                                            elem_id="rag-inputs",
-                                            scale=2
-                                        )
-                                        nim_hallucination_gpu_count = gr.Dropdown(
+                                    with gr.TabItem("Hide", id=2) as generator_hide:
+                                        gr.Markdown("")
+                                
+                                with gr.Accordion("Configure the Generator Prompt", 
+                                                elem_id="rag-inputs", open=False) as accordion_generator:
+                                    prompt_generator = gr.Textbox(value=prompts_llama3.generator_prompt,
+                                                            lines=15,
+                                                            show_label=False,
+                                                            interactive=True)
+        
+                            ######################################
+                            ##### HALLUCINATION GRADER MODEL #####
+                            ######################################
+                            hallucination_btn = gr.Button("Hallucination Grader", variant="sm")
+                            with gr.Group(visible=False) as group_hallucination:
+                                with gr.Tabs(selected=0) as hallucination_tabs:
+                                    with gr.TabItem("API Endpoints", id=0) as hallucination_api:
+                                        model_hallucination = gr.Dropdown(model_list, 
+                                                                                value=model_list[0],
+                                                                                label="Select a Model",
+                                                                                elem_id="rag-inputs", 
+                                                                                interactive=True)
+                                    with gr.TabItem("NIM Endpoints", id=1) as hallucination_nim:
+                                        with gr.Row():
+                                            nim_hallucination_gpu_type = gr.Dropdown(
+                                                choices=gpu_compatibility.get_gpu_types(),
+                                                label="GPU Type",
+                                                info="Select your GPU type",
+                                                elem_id="rag-inputs",
+                                                scale=2
+                                            )
+                                            nim_hallucination_gpu_count = gr.Dropdown(
+                                                choices=[],
+                                                label="Number of GPUs",
+                                                info="Select number of GPUs",
+                                                elem_id="rag-inputs",
+                                                scale=1,
+                                                interactive=False
+                                            )
+                                        
+                                        with gr.Row():
+                                            nim_hallucination_ip = gr.Textbox(
+                                                placeholder="10.123.45.678",
+                                                label="Microservice Host",
+                                                info="IP Address running the microservice",
+                                                elem_id="rag-inputs",
+                                                scale=2
+                                            )
+                                            nim_hallucination_port = gr.Textbox(
+                                                placeholder="8000",
+                                                label="Port",
+                                                info="Optional, (default: 8000)",
+                                                elem_id="rag-inputs",
+                                                scale=1
+                                            )
+                                        
+                                        nim_hallucination_id = gr.Dropdown(
                                             choices=[],
-                                            label="Number of GPUs",
-                                            info="Select number of GPUs",
+                                            label="Model running in microservice",
+                                            info="Select a compatible model for your GPU configuration",
                                             elem_id="rag-inputs",
-                                            scale=1,
                                             interactive=False
                                         )
-                                    
-                                    with gr.Row():
-                                        nim_hallucination_ip = gr.Textbox(
-                                            placeholder="10.123.45.678",
-                                            label="Microservice Host",
-                                            info="IP Address running the microservice",
-                                            elem_id="rag-inputs",
-                                            scale=2
-                                        )
-                                        nim_hallucination_port = gr.Textbox(
-                                            placeholder="8000",
-                                            label="Port",
-                                            info="Optional, (default: 8000)",
-                                            elem_id="rag-inputs",
-                                            scale=1
-                                        )
-                                    
-                                    nim_hallucination_id = gr.Dropdown(
-                                        choices=[],
-                                        label="Model running in microservice",
-                                        info="Select a compatible model for your GPU configuration",
-                                        elem_id="rag-inputs",
-                                        interactive=False
-                                    )
 
-                                    # Add warning box for compatibility issues
-                                    nim_hallucination_warning = gr.Markdown(visible=False, value="")
+                                        # Add warning box for compatibility issues
+                                        nim_hallucination_warning = gr.Markdown(visible=False, value="")
 
-                                with gr.TabItem("Hide", id=2) as hallucination_hide:
-                                    gr.Markdown("")
-                            
-                            with gr.Accordion("Configure the Hallucination Prompt", 
-                                              elem_id="rag-inputs", open=False) as accordion_hallucination:
-                                prompt_hallucination = gr.Textbox(value=prompts_llama3.hallucination_prompt,
-                                                                         lines=17,
-                                                                         show_label=False,
-                                                                         interactive=True)
-    
-                        ###############################
-                        ##### ANSWER GRADER MODEL #####
-                        ###############################
-                        answer_btn = gr.Button("Answer Grader", variant="sm")
-                        with gr.Group(visible=False) as group_answer:
-                            with gr.Tabs(selected=0) as answer_tabs:
-                                with gr.TabItem("API Endpoints", id=0) as answer_api:
-                                    model_answer = gr.Dropdown(model_list, 
-                                                                      value=model_list[0],
-                                                                      elem_id="rag-inputs",
-                                                                      label="Select a Model",
-                                                                      interactive=True)
-                                with gr.TabItem("NIM Endpoints", id=1) as answer_nim:
-                                    with gr.Row():
-                                        nim_answer_gpu_type = gr.Dropdown(
-                                            choices=gpu_compatibility.get_gpu_types(),
-                                            label="GPU Type",
-                                            info="Select your GPU type",
-                                            elem_id="rag-inputs",
-                                            scale=2
-                                        )
-                                        nim_answer_gpu_count = gr.Dropdown(
+                                    with gr.TabItem("Hide", id=2) as hallucination_hide:
+                                        gr.Markdown("")
+                                
+                                with gr.Accordion("Configure the Hallucination Prompt", 
+                                                elem_id="rag-inputs", open=False) as accordion_hallucination:
+                                    prompt_hallucination = gr.Textbox(value=prompts_llama3.hallucination_prompt,
+                                                                            lines=17,
+                                                                            show_label=False,
+                                                                            interactive=True)
+        
+                            ###############################
+                            ##### ANSWER GRADER MODEL #####
+                            ###############################
+                            answer_btn = gr.Button("Answer Grader", variant="sm")
+                            with gr.Group(visible=False) as group_answer:
+                                with gr.Tabs(selected=0) as answer_tabs:
+                                    with gr.TabItem("API Endpoints", id=0) as answer_api:
+                                        model_answer = gr.Dropdown(model_list, 
+                                                                        value=model_list[0],
+                                                                        elem_id="rag-inputs",
+                                                                        label="Select a Model",
+                                                                        interactive=True)
+                                    with gr.TabItem("NIM Endpoints", id=1) as answer_nim:
+                                        with gr.Row():
+                                            nim_answer_gpu_type = gr.Dropdown(
+                                                choices=gpu_compatibility.get_gpu_types(),
+                                                label="GPU Type",
+                                                info="Select your GPU type",
+                                                elem_id="rag-inputs",
+                                                scale=2
+                                            )
+                                            nim_answer_gpu_count = gr.Dropdown(
+                                                choices=[],
+                                                label="Number of GPUs",
+                                                info="Select number of GPUs",
+                                                elem_id="rag-inputs",
+                                                scale=1,
+                                                interactive=False
+                                            )
+                                        
+                                        with gr.Row():
+                                            nim_answer_ip = gr.Textbox(
+                                                placeholder="10.123.45.678",
+                                                label="Microservice Host",
+                                                info="IP Address running the microservice",
+                                                elem_id="rag-inputs",
+                                                scale=2
+                                            )
+                                            nim_answer_port = gr.Textbox(
+                                                placeholder="8000",
+                                                label="Port",
+                                                info="Optional, (default: 8000)",
+                                                elem_id="rag-inputs",
+                                                scale=1
+                                            )
+                                        
+                                        nim_answer_id = gr.Dropdown(
                                             choices=[],
-                                            label="Number of GPUs",
-                                            info="Select number of GPUs",
+                                            label="Model running in microservice",
+                                            info="Select a compatible model for your GPU configuration",
                                             elem_id="rag-inputs",
-                                            scale=1,
                                             interactive=False
                                         )
-                                    
-                                    with gr.Row():
-                                        nim_answer_ip = gr.Textbox(
-                                            placeholder="10.123.45.678",
-                                            label="Microservice Host",
-                                            info="IP Address running the microservice",
-                                            elem_id="rag-inputs",
-                                            scale=2
-                                        )
-                                        nim_answer_port = gr.Textbox(
-                                            placeholder="8000",
-                                            label="Port",
-                                            info="Optional, (default: 8000)",
-                                            elem_id="rag-inputs",
-                                            scale=1
-                                        )
-                                    
-                                    nim_answer_id = gr.Dropdown(
-                                        choices=[],
-                                        label="Model running in microservice",
-                                        info="Select a compatible model for your GPU configuration",
-                                        elem_id="rag-inputs",
-                                        interactive=False
-                                    )
 
-                                    # Add warning box for compatibility issues
-                                    nim_answer_warning = gr.Markdown(visible=False, value="")
+                                        # Add warning box for compatibility issues
+                                        nim_answer_warning = gr.Markdown(visible=False, value="")
 
-                                with gr.TabItem("Hide", id=2) as answer_hide:
-                                    gr.Markdown("")
-                                    
-                            with gr.Accordion("Configure the Answer Prompt", 
-                                              elem_id="rag-inputs", open=False) as accordion_answer:
-                                prompt_answer = gr.Textbox(value=prompts_llama3.answer_prompt,
-                                                                  lines=17,
-                                                                  show_label=False,
-                                                                  interactive=True)
+                                    with gr.TabItem("Hide", id=2) as answer_hide:
+                                        gr.Markdown("")
+                                        
+                                with gr.Accordion("Configure the Answer Prompt", 
+                                                elem_id="rag-inputs", open=False) as accordion_answer:
+                                    prompt_answer = gr.Textbox(value=prompts_llama3.answer_prompt,
+                                                                    lines=17,
+                                                                    show_label=False,
+                                                                    interactive=True)
                         
                     # Thirdtab item is for uploading to and clearing the vector database
                     with gr.TabItem("Documents", id=2) as document_settings:
