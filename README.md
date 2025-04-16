@@ -66,7 +66,7 @@ The diagram **below** shows this agentic flow.
 4. Configure the NVIDIA and Tavily API keys as [secret environment variables in Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables)
 
 
-> **Note**: NVIDIA Employees: Configure `INTERNAL_API` environment variable for internal endpoints instead of public ones.
+> **Note**: NVIDIA Employees: Configure the `INTERNAL_API` environment variable to use endpoints.
 
 
 ### Start the Chat
