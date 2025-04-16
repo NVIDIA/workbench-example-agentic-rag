@@ -26,7 +26,7 @@ This RAG application uses an agentic approach to combine web search, hallucinati
 2. **Configure** the separate model components for agent
 3. **Add** your documents to the context (vector db) 
 4. **Make** a query.
-5. **Agent retuns** an answer vetted for relevance, accuracy and hallucination. 
+5. **Agent returns** an answer vetted for relevance, accuracy and hallucination. 
 
 The diagram **below** shows this agentic flow. 
  
@@ -55,7 +55,7 @@ The diagram **below** shows this agentic flow.
 2. Get an NVIDIA Developer Account and an API key.
    * Go to [build.nvidia.com](https://build.nvidia.com/) and click `Login`.
    * Create account, verify email.
-   * Make a Cloud Account.
+   * Create a Cloud Account.
    * Click your initial > `API Keys`.
    * Create and save your key because you may need it for other projects.
 
@@ -85,7 +85,7 @@ The diagram **below** shows this agentic flow.
 
 ## Deep Dive on Self-Hosted Endpoints
 
-> **Note** This assumes you've done the **Get Started** steps.
+> **Note** This assumes you've done the "Get Started" steps.
 
 #### Using Self-Hosted Endpoints
 
