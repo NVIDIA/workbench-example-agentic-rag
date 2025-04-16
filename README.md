@@ -15,21 +15,18 @@ This RAG application uses an agentic approach to combine web search, hallucinati
 
 ## Need, Don't Need and Nice to Have
 
-- Need:
-   - Internet access while running the chat app
-   - Two API keys configured ([Tavily](https://tavily.com/) and [NVIDIA API key](https://org.ngc.nvidia.com/setup/api-keys))
-- Don't Need: Local GPU
-- Nice to Have: Remote GPU system if you want to self-host a NIM endpoint
+- **Need**: Internet access while running the chat app and two API keys ([Tavily](https://tavily.com/) and [NVIDIA API key](https://org.ngc.nvidia.com/setup/api-keys))
+- **Don't Need**: Local GPU
+- **Nice to Have**: Remote GPU system if you want to self-host a NIM endpoint
 
 ## The Agentic RAG Application
 #### Using the Application
 
-1. You clone the project with AI Workbench, and configure the relevant API keys
-2. You start the chat app
-3. You configure the separate components for the pipeline
-4. You add your documents to the context (vector db) 
-5. You make a query.
-6. The agent evaluates your query in multiple ways and returns and answer that has be checked for relevance and hallucination. 
+1. **Clone** the project with AI Workbench, **configure** the relevant API keys, and **start** the chat app
+2. **Configure** the separate model components for agent
+3. **Add** your documents to the context (vector db) 
+4. **Make** a query.
+5. **Agent retuns** an answer vetted for relevance, accuracy and hallucination. 
 
 The diagram **below** shows this agentic flow. 
  
@@ -38,12 +35,12 @@ The diagram **below** shows this agentic flow.
 
 #### Modifying the Application
 
-* Directly within the app you can:
+* **Within the app you can**:
    * Change the prompts for the different components, e.g. the hallucination grader.
    * Change the webpages and pdfs you want to use for the context in the RAG.
    * Select different endpoints from [build.nvidia.com](https://build.nvidia.com/explore/discover) for the inference components.
    * Configure it to use self-hosted endpoints with [NVIDIA Inference Microservices (NIMs)](https://catalog.ngc.nvidia.com/orgs/nim/teams/meta/containers/llama3-8b-instruct/tags) or [Ollama](https://hub.docker.com/r/ollama/ollama).
-* You can also modify the application code to:
+* **Within the code you can**:
    * Add new endpoints and endpoint providers
    * Change the Gradio interface or the application structure and logic.
 
@@ -51,9 +48,7 @@ The diagram **below** shows this agentic flow.
 
 ## Get Started
 
-The quickest path is with the pre-configured build.nvidia.com endpoints. 
-
-#### Prerequisites for Using Pre-configured Endpoints
+#### Prerequisites 
 
 1. Install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html).
 
@@ -110,7 +105,6 @@ To set up NIM endpoints for your components:
 3. Components not set to self-hosted will continue using their configured cloud endpoints
 
 The application will validate your GPU configuration for each component and prevent incompatible model selections. You can use different GPU configurations for different components based on their computational needs.
-
 
 
 # License
