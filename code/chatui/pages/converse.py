@@ -165,7 +165,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                         gr.Markdown(
                             """
 
-                            ##### Use the Models tab to configure inference individual components
+                            ##### Use the Models tab to configure individual components
                             - Click a component name (e.g. Router) to configure it
                             - Select an API endpoint or a self-hosted NIM (requires remote GPU)
                             - Customize component behavior by changing the prompts
@@ -174,11 +174,11 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             - Webpages: Enter URLs of webpages for the context
                             - PDFs: Upload PDFs for the context
                             - Add to Context: Add documents to the context (can repeat)
-                            - Clear Context: Resets the context to be empty
+                            - Clear Context: Resets the context to empty
 
                             ##### Use the Monitor tab to see the agent in action
                             - Actions Console: Conclusions and actions of the agent
-                            - Response Trace: Full text of what's behind the response
+                            - Response Trace: Full text behind the response
 
                             """
                         )
@@ -188,7 +188,14 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
 
                     # Settings for each component model of the agentic workflow
                     with gr.TabItem("Models", id=1) as agent_settings:
-    
+                            gr.Markdown(
+                                        """
+                                        ##### Model Configuration
+                                        Select and configure the models for each stage of the Agentic RAG pipeline.
+                                        You can use either API-hosted models or NIM microservices.
+                                        """
+                            )
+                                    
                         ########################
                         ##### ROUTER MODEL #####
                         ########################
@@ -528,7 +535,17 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                     # Thirdtab item is for uploading to and clearing the vector database
                     with gr.TabItem("Documents", id=2) as document_settings:
                         gr.Markdown("")
-                        gr.Markdown("Embed websites and PDFs into a vector database to create a context. You can do this in multiple rounds. Context is stored until you clear it.\n")
+                        gr.Markdown(
+                            """
+                            ##### Embed websites and PDFs into a vector database to create a context. 
+                            - You can do this in multiple rounds. 
+                            - Context is stored until you clear it.
+
+                            ##### URLs in Webpages are examples related to prompt engineering.
+                            - They are **not** yet in the context
+                            - You can replace them with your own URLs. \n
+                            """
+                            )
                         with gr.Tabs(selected=0) as document_tabs:
                             with gr.TabItem("Webpages", id=0) as url_tab:
                                 url_docs = gr.Textbox(value="https://lilianweng.github.io/posts/2023-06-23-agent/\nhttps://lilianweng.github.io/posts/2023-03-15-prompt-engineering/\nhttps://lilianweng.github.io/posts/2023-10-25-adv-attack-llm/",
