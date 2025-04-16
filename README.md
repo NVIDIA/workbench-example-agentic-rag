@@ -1,5 +1,5 @@
 # Overview: An Easy Button for Agentic RAG
-This RAG application uses an agentic approach to combine web search, hallucination control and accuracy checks with RAG. It's easy to use and modify.
+This application uses an agentic approach to combine web search, hallucination control and accuracy checks with RAG. It's easy to use and modify.
 
 > **Note**
 >This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html). It's a free, lightweight developer platform that you can run on your own systems to get up and running with complex AI applications and workloads in a short amount of time. 
@@ -28,7 +28,6 @@ This RAG application uses an agentic approach to combine web search, hallucinati
 4. **Make** a query.
 5. **Agent returns** an answer vetted for relevance, accuracy and hallucination. 
 
-The diagram **below** shows this agentic flow. 
  
 <img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto">
 
@@ -89,9 +88,9 @@ The diagram **below** shows this agentic flow.
 
 #### Using Self-Hosted Endpoints
 
-You can configure any or all pipeline components (Router, Generator, Retrieval, Hallucination Check, Answer Check) to use self-hosted endpoints independently. This means you can mix and match between hosted and self-hosted components based on your needs. The application includes built-in GPU compatibility checking to help you select appropriate models for your hardware configuration.
+You can configure pipeline components (Router, Generator, Retrieval, Hallucination Check, Answer Check) separately to use either an endpoint or a self-hosted NIM, as well as selecting different models. In otherwords, you can mix and match between hosted and self-hosted components based on your needs. The application includes built-in GPU compatibility checking **for the remote host GPUs** to help you select appropriate models for that hardware configuration.
 
-Prerequisites:
+Prerequisites for the remote GPU:
 * NVIDIA GPU(s) with appropriate VRAM
 * Ubuntu 22.04 or later with latest NVIDIA drivers
 * Docker and NVIDIA Container Toolkit
