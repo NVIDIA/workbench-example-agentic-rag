@@ -14,7 +14,7 @@
 - **Free out-of-the-box**: use free endpoints on build.nvidia.com
 - **Self-hosted**: Point to NIM or other models on your own GPUs
 
-#### Make it your own:
+#### Make the application your own:
 - Switch models and settings in the UI
 - [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) to customize and share changes
  
@@ -26,8 +26,8 @@
 
 ### 5 minutes or less (Workbench already installed)
 1. Grab two keys:  
-   - **NVIDIA_API_KEY** → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  
-   - **TAVILY_API_KEY** → [Generate](https://tavily.com)  
+   - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  
+   - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
 2. In AI Workbench, clone this repo and paste the keys when prompted.  
 3. Click **Open Chat**, upload docs or URLs for context.  
 4. Ask your first question - the answers come from free cloud endpoints.
