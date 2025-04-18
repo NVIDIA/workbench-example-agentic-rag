@@ -4,3 +4,5 @@ Running on local URL:  http://0.0.0.0:8080
 To create a public link, set `share=True` in `launch()`.
 IMPORTANT: You are using gradio version 4.15.0, however version 4.44.1 is available, please upgrade.
 --------
+[upload] Skipping https://docs.nvidia.c: HTTPSConnectionPool(host='docs.nvidia.c', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f458ee63190>: Failed to establish a new connection: [Errno -2] Name or service not known'))
+[upload] No URLs provided.

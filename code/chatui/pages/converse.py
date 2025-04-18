@@ -543,7 +543,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                                     show_label=False,
                                                                     interactive=True)
                         
-                    # Thirdtab item is for uploading to and clearing the vector database
+                    # Third tab item is for uploading to and clearing the vector database
                     with gr.TabItem("Documents", id=2) as document_settings:
                         gr.Markdown("")
                         gr.Markdown(
@@ -592,7 +592,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                     elem_id="contextbox",
                                 )
                     
-                    # Third tab item is for collapsing the entire settings pane for readability. 
+                    # Fifth tab item is for collapsing the entire settings pane for readability. 
                     with gr.TabItem("Hide All Settings", id=4) as hide_all_settings:
                         gr.Markdown("")
 
@@ -809,21 +809,28 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
             time.sleep(0.75)
             progress(0.4, desc="Processing URL List")
             docs_list = docs.splitlines()
-            progress(0.6, desc="Uploading Docs")
-            database.upload(docs_list)
+            progress(0.6, desc="Creating Context")
+            vectorstore = database.upload(docs_list)
             progress(0.8, desc="Cleaning Up")
             time.sleep(0.75)
+            if vectorstore is None:
+                return {
+                    url_docs_upload: gr.update(value="No valid URLS - Try again", variant="secondary", interactive=True),
+                    url_docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=False),
+                    pdf_docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=False),
+                    agentic_flow: gr.update(visible=False),  # or leave as-is if flow is independent
+                }
             return {
-                url_docs_upload: gr.update(value="Docs Uploaded", variant="primary", interactive=False),
-                url_docs_clear: gr.update(value="Clear Docs", variant="secondary", interactive=True),
-                pdf_docs_clear: gr.update(value="Clear Docs", variant="secondary", interactive=True),
+                url_docs_upload: gr.update(value="Context Created", variant="primary", interactive=False),
+                url_docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=True),
+                pdf_docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=True),
                 agentic_flow: gr.update(visible=True),
             }
 
         def _clear_documents(progress=gr.Progress()):
             progress(0.25, desc="Initializing Task")
             time.sleep(0.75)
-            progress(0.5, desc="Clearing Database")
+            progress(0.5, desc="Clearing Context")
             database.clear()
             progress(0.75, desc="Cleaning Up")
             time.sleep(0.75)

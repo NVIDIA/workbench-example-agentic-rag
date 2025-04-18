@@ -18,6 +18,7 @@ from langchain_community.document_loaders import WebBaseLoader, UnstructuredPDFL
 from langchain_community.vectorstores import Chroma
 from langchain_nvidia_ai_endpoints import NVIDIAEmbeddings
 from typing import Any, Dict, List, Tuple, Union
+from urllib.parse import urlparse
 
 import os
 INTERNAL_API = os.getenv('INTERNAL_API', '')
@@ -35,10 +36,39 @@ nltk.download("punkt")
 nltk.download("averaged_perceptron_tagger")
 
 
+def is_valid_url(url: str) -> bool:
+    try:
+        result = urlparse(url)
+        return all([result.scheme, result.netloc])
+    except:
+        return False
+
+def safe_load(url):
+    try:
+        return WebBaseLoader(url).load()
+    except Exception as e:
+        print(f"[upload] Skipping {url}: {e}")
+        return None
+
+
+
 def upload(urls: List[str]):
     """ This is a helper function for parsing the user inputted URLs and uploading them into the vector store. """
-    docs = [WebBaseLoader(url).load() for url in urls]
+
+    urls = [url for url in urls if is_valid_url(url)]
+
+    docs = []
+    for url in urls:
+        result = safe_load(url)
+        if result is not None:
+            docs.append(result)
+
     docs_list = [item for sublist in docs for item in sublist]
+
+    if not docs_list:
+        # If no documents were loaded, return None
+        print("[upload] No URLs provided.")
+        return None
     
     text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
         chunk_size=250, chunk_overlap=0
@@ -56,6 +86,11 @@ def upload(urls: List[str]):
 
 def upload_pdf(documents: List[str]):
     """ This is a helper function for parsing the user inputted URLs and uploading them into the vector store. """
+
+    if not docs:
+        print("[upload] No URLs provided.")
+        return None
+
     docs = [UnstructuredPDFLoader(document).load() for document in documents]
     docs_list = [item for sublist in docs for item in sublist]
     
