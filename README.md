@@ -1,6 +1,6 @@
 
 
-### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free developer platform that gets you up and running with AI applications and workloads in a short amount of time on your own systems, no cloud needed.
+#### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free developer platform that gets you up and running with AI applications and workloads on your own systems, no cloud needed.
 
 <br>
 
