@@ -14,21 +14,17 @@
 - **Free out-of-the-box**: use free endpoints on build.nvidia.com
 - **Self-hosted**: Point to NIM or other models on your own GPUs
 
-#### Make the application your own:
-- Switch models and settings in the UI
-- [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) to customize and share changes
- 
 
 
 ## Get Started 
 
-#### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free developer platform with a cloud-like UX locally - No cloud needed.
+#### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free developer platform with a cloud-like UX that runs wherever you want it to - no cloud needed.
 
 ### 5 minutes or less (Workbench already installed)
 1. Grab two keys:  
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  
    - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
-2. In AI Workbench, clone this repo and paste the keys when prompted.  
+2. In AI Workbench, clone this repo and [configure the keys](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables) when prompted.  
 3. Click **Open Chat**, upload docs or URLs for context.  
 4. Ask your first question - the answers come from free cloud endpoints.
 
@@ -39,6 +35,10 @@
 
 See [step-by-step instructions here](agentic-rag-docs/self-host.md)
 
+## Going Deeper
+
+### Make the application your own:
+This repository is read-only, so if you want to customize this app and share the changes, then you should [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository before you clone it. 
 
 *Navigating the README:* [Application Overview](#the-agentic-rag-application) | [Get Started](#get-started) | [Deep Dive](#deep-dive-on-self-hosted-endpoints) | [License](#license)
 
@@ -94,7 +94,7 @@ See [step-by-step instructions here](agentic-rag-docs/self-host.md)
    * Go to [Tavily](https://tavily.com/) and create an account.
    * Create an API key on the overview page.
      
-4. Configure the NVIDIA and Tavily API keys as [secret environment variables in Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables)
+4. Configure the NVIDIA and Tavily API keys as
 
 
 > **Note**: NVIDIA Employees: Configure the `INTERNAL_API` environment variable to use endpoints.
