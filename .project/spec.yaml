@@ -17,6 +17,9 @@ layout:
     - path: readme-images/
       type: data
       storage: gitlfs
+    - path: agentic-rag-docs/
+      type: code
+      storage: git
     - path: data/
       type: data
       storage: gitignore
