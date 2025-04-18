@@ -1,6 +1,5 @@
 
 
-#### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free, lightweight developer platform on your own systems for a cloud-like-UX, no cloud needed.
 
 <br>
 
@@ -24,7 +23,9 @@
 
 ## Get Started 
 
-#### Be up and running in 4 minutes (Workbench already installed) 
+#### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free, lightweight developer platform on your own systems for a cloud-like-UX, no cloud needed.
+
+### Be up and running in 4 minutes (Workbench already installed) 
 - Have your [NVIDIA API key](https://org.ngc.nvidia.com/setup/api-keys) on hand
 - Have your [Tavily API key](https://tavily.com/) on hand
 - Clone this project in Workbench and enter your API keys when prompted
