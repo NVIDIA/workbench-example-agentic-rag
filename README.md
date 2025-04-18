@@ -1,3 +1,9 @@
+
+> **Note**
+>This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html). Workbench is a free, lightweight developer platform that gets you up and running with AI applications and workloads in a short amount of time. 
+
+<br>
+
 ![User interface for the Agentic RAG project](readme-images/static/agentic-rag-screen-shot.png "User interface for the Agentic RAG project")
 
 # Agentic RAG - Idea to answers in minutes
@@ -14,10 +20,7 @@
 - [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository instead of cloning
 - Edit the code to change the Gradio app and logic of agent
  
-> **Note**
->This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html). Workbench is a free, lightweight developer platform that gets you up and running with AI applications and workloads in a short amount of time. 
 
-<br>
 
 ## Get Started 
 
