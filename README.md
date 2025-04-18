@@ -28,12 +28,12 @@
 3. Click **Open Chat**, upload docs or URLs for context.  
 4. Ask your first question - the answers come from free cloud endpoints.
 
-### Or, spend a little more time and use self-hosted GPUs
+### Or, spend a little more time and use self-hosted GPUs See ([full instructions](agentic-rag-docs/self-host.md))
 1. Set up a Linux box with an NVIDIA GPU and Docker.  
 2. Deploy an **NVIDIA NIM** container on that host.  
 3. Configure the chat app to use the NIM.
 
-See [step-by-step instructions here](agentic-rag-docs/self-host.md)
+
 
 ## Going Deeper
 
