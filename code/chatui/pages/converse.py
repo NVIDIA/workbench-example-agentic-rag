@@ -32,13 +32,22 @@ INTERNAL_API = os.getenv('INTERNAL_API', '')
 LLAMA = "meta/llama3-70b-instruct"
 MISTRAL = "mistralai/mixtral-8x22b-instruct-v0.1"
 
-
-
 if INTERNAL_API != '':
     LLAMA = f'{INTERNAL_API}/meta/llama-3.1-70b-instruct'  
     MISTRAL = f'{INTERNAL_API}/mistralai/mixtral-8x22b-instruct-v0.1'
 
+# URLs for default example docs for the RAG.
+doc_links = (
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/projects/compose.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/environment.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/git/git.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/integrations/integrations.html"
+)
+EXAMPLE_LINKS_LEN = len(doc_links)
 
+EXAMPLE_LINKS = "\n".join(doc_links)
 
 from chatui import assets, chat_client
 from chatui.prompts import prompts_llama3, prompts_mistral
@@ -551,8 +560,8 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             )
                         with gr.Tabs(selected=0) as document_tabs:
                             with gr.TabItem("Webpages", id=0) as url_tab:
-                                url_docs = gr.Textbox(value="https://lilianweng.github.io/posts/2023-06-23-agent/\nhttps://lilianweng.github.io/posts/2023-03-15-prompt-engineering/\nhttps://lilianweng.github.io/posts/2023-10-25-adv-attack-llm/",
-                                                      lines=5, 
+                                url_docs = gr.Textbox(value=EXAMPLE_LINKS,
+                                                      lines=EXAMPLE_LINKS_LEN, 
                                                       info="Enter a list of URLs, one per line", 
                                                       show_label=False, 
                                                       interactive=True)

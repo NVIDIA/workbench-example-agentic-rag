@@ -42,7 +42,6 @@
 ## The Details
 
 ### Easy Mode Details 
-Use these details if you just want to use the free endpoints and work with the app. 
 
 #### Prequisites
 - Get an NVIDIA Developer Account and an API key.
@@ -59,11 +58,11 @@ Use these details if you just want to use the free endpoints and work with the a
 - Install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
 
 
-### Clone this project and start the Chat App
+### Clone this project in Workbench and start the Chat App
    
 1. Open NVIDIA AI Workbench on your laptop, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html).
    
-2. Click the **Clone Project** button at the top right, paste in the repository URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone**
+2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone**
 
 <p align="center">
 <img src="./readme-images/static/clone-button.png" width="20%" height="auto">
