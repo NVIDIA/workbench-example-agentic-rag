@@ -1,13 +1,10 @@
 
 
 
-<br>
-
-![User interface for the Agentic RAG project](readme-images/static/agentic-rag-screen-shot.png "User interface for the Agentic RAG project")
-
+<img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto">
 # Agentic RAG - Idea to answers in minutes
 #### Improve RAG with an agentic approach that:
-- handles relevance and accuracy checks, triggering web search if needed
+- handles relevance and accuracy, adding in web search if needed
 - does hallucination control on results
 - lets you configure prompts for each part of the pipeline
 
@@ -23,7 +20,7 @@
 
 ## Get Started 
 
-#### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free developer platform with a cloud-like UX on your own systems, no cloud needed.
+#### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free developer platform with a cloud-like UX locally - No cloud needed.
 
 ### Be up and running in 4 minutes (Workbench already installed) 
 - Have your [NVIDIA API key](https://org.ngc.nvidia.com/setup/api-keys) on hand
@@ -32,7 +29,11 @@
 - Click "Open Chat" and add documents and websites for your context
 - Start chatting using the API endpoints
 
-
+### Or, spend a little more time and use self-hosted GPUs
+- Setup your remote GPU instance
+- Pull and run an NVIDIA NIM onto the remote
+- Switch the application to point at the NIM
+- Start chatting 
 
 
 *Navigating the README:* [Application Overview](#the-agentic-rag-application) | [Get Started](#get-started) | [Deep Dive](#deep-dive-on-self-hosted-endpoints) | [License](#license)
