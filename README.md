@@ -65,19 +65,19 @@ Use these details if you just want to use the free endpoints and work with the a
    
 2. Click the **Clone Project** button at the top right, paste in the repository URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone**
 
-<p align="left">
-<img src="./readme-images/static/clone-button.png" width="30%" height="auto">
+<p align="center">
+<img src="./readme-images/static/clone-button.png" width="20%" height="auto">
 </p>
 
 3. Click **Resolve Now** in the warning banner to enter the NVIDIA and Tavily API keys.
 
 <p align="center">
-<img src="./readme-images/static/unconfigured-env-var.png" width="70%" height="auto">
+<img src="./readme-images/static/unconfigured-env-var.png" width="50%" height="auto">
 </p>
 
 4. Click **Open Chat** in Workbench. It should automatically open in a new browser tab.
 
-<p align="left">
+<p align="center">
 <img src="./readme-images/static/open-chat-screen-shot.png" width="20%" height="auto">
 </p>
 
