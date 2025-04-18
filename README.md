@@ -1,14 +1,31 @@
 ![User interface for the Agentic RAG project](readme-images/static/agentic-rag-screen-shot.png "User interface for the Agentic RAG project")
 
-# Overview: An Easy Button for Agentic RAG
-This application uses an agentic approach to combine web search, hallucination control and accuracy checks with RAG. It's easy to use and modify.
+# Agentic RAG - Idea to answers in minutes
+Improve RAG with an agentic approach that:
+- handles relevance and accuracy checks
+- triggers web search if needed
+- does hallucination control on results
+- lets you configure prompts for each part of the pipeline
 
+Use API endpoints or self-host on your own GPUs:
+- Pre-configured to use free API endpoints on build.nvidia.com
+- OR, configure to use self-hosted models on remote GPUs
+
+Modify this application and make it your own:
+- [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository instead of cloning
+- Edit the code to change the Gradio app and logic of agent
+ 
 > **Note**
->This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html). It's a free, lightweight developer platform that you can run on your own systems to get up and running with complex AI applications and workloads in a short amount of time. 
-
-> You may want to [**fork**](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository into your own account before proceeding. Otherwise you won't be able to save your local changes to GitHub because this NVIDIA owned repository is **read-only**.
+>This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html). Workbench is a free, lightweight developer platform that gets you up and running with AI applications and workloads in a short amount of time. 
 
 <br>
+
+## Get Started 
+
+#### If you have AI Workbench already installed locally, be up and running in 4 minutes with the pre-configured endpoints
+
+
+
 
 *Navigating the README:* [Application Overview](#the-agentic-rag-application) | [Get Started](#get-started) | [Deep Dive](#deep-dive-on-self-hosted-endpoints) | [License](#license)
 
