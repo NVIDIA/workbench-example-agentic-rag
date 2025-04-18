@@ -14,6 +14,9 @@ layout:
     - path: models/
       type: models
       storage: gitlfs
+    - path: readme-images/
+      type: data
+      storage: gitlfs
     - path: data/
       type: data
       storage: gitignore

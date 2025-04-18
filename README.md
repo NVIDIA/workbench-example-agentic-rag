@@ -1,3 +1,5 @@
+![User interface for the Agentic RAG project](readme-images/static/agentic-rag-screen-shot.png "User interface for the Agentic RAG project")
+
 # Overview: An Easy Button for Agentic RAG
 This application uses an agentic approach to combine web search, hallucination control and accuracy checks with RAG. It's easy to use and modify.
 
