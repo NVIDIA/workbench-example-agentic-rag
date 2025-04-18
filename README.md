@@ -69,7 +69,9 @@ Use these details if you just want to use the free endpoints and work with the a
    
 3. Click **Resolve Now** in the warning banner to enter the NVIDIA and Tavily API keys.
 
+<p align="right">
 <img src="./readme-images/static/unconfigured-env-var.png" width="50%" height="auto">
+</p>
 
 4. Open the **Chat** from Workbench. It should automatically open in a new browser tab.
 
