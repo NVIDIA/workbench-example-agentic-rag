@@ -828,10 +828,10 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
             progress(0.75, desc="Cleaning Up")
             time.sleep(0.75)
             return {
-                url_docs_upload: gr.update(value="Upload Docs", variant="secondary", interactive=True),
-                url_docs_clear: gr.update(value="Docs Cleared", variant="primary", interactive=False),
+                url_docs_upload: gr.update(value="Add to Context", variant="secondary", interactive=True),
+                url_docs_clear: gr.update(value="Context Cleared", variant="primary", interactive=False),
                 pdf_docs_upload: gr.update(value=None),
-                pdf_docs_clear: gr.update(value="Docs Cleared", variant="primary", interactive=False),
+                pdf_docs_clear: gr.update(value="Context Cleared", variant="primary", interactive=False),
                 agentic_flow: gr.update(visible=True),
             }
 
