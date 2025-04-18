@@ -3,6 +3,11 @@
 
 <img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto">
 
+*Navigating the README:* [Application Overview](#the-agentic-rag-application) | [Get Started](#get-started) | [Deep Dive](#deep-dive-on-self-hosted-endpoints) | [License](#license)
+
+<!-- Links -->
+*Other Resources:* [:arrow_down: Download AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) | [:book: User Guide](https://docs.nvidia.com/ai-workbench/) |[:open_file_folder: Other Projects](https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/example-projects.html) | [:rotating_light: User Forum](https://forums.developer.nvidia.com/t/support-workbench-example-project-agentic-rag/303414)
+
 # Agentic RAG - Idea to answers in minutes
 
 #### Boost RAG with an agentic layer that:
@@ -28,7 +33,7 @@
 3. Click **Open Chat**, upload docs or URLs for context.  
 4. Ask your first question - the answers come from free cloud endpoints.
 
-### Or, spend a little more time and use self-hosted GPUs See ([full instructions](agentic-rag-docs/self-host.md))
+### Or, spend more time and use self-hosted GPUs ([full instructions](agentic-rag-docs/self-host.md))
 1. Set up a Linux box with an NVIDIA GPU and Docker.  
 2. Deploy an **NVIDIA NIM** container on that host.  
 3. Configure the chat app to use the NIM.
@@ -37,13 +42,10 @@
 
 ## Going Deeper
 
-### Make the application your own:
+### You can make the application your own:
 This repository is read-only, so if you want to customize this app and share the changes, then you should [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository before you clone it. 
 
-*Navigating the README:* [Application Overview](#the-agentic-rag-application) | [Get Started](#get-started) | [Deep Dive](#deep-dive-on-self-hosted-endpoints) | [License](#license)
 
-<!-- Links -->
-*Other Resources:* [:arrow_down: Download AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) | [:book: User Guide](https://docs.nvidia.com/ai-workbench/) |[:open_file_folder: Other Projects](https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/example-projects.html) | [:rotating_light: User Forum](https://forums.developer.nvidia.com/t/support-workbench-example-project-agentic-rag/303414)
 
 ## Need, Don't Need and Nice to Have
 
