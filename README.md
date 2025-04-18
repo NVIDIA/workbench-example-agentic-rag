@@ -29,7 +29,7 @@
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  
    - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
 2. In AI Workbench, clone this repo and [configure the keys](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables) when prompted.  
-3. Click **Open Chat**, upload docs or URLs for context.  
+3. Click **Open Chat** upload docs or URLs for context.  
 4. Ask your first question - the answers come from free cloud endpoints.
 
 ### Or, spend more time and use self-hosted GPUs ([full instructions](agentic-rag-docs/self-host.md))
@@ -65,24 +65,30 @@
 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone**
 
 <p align="center">
-<img src="./readme-images/static/clone-button.png" width="20%" height="auto">
+<img src="./readme-images/static/clone-button.png" width="10%" height="auto">
 </p>
 
 3. Click **Resolve Now** in the warning banner to enter the NVIDIA and Tavily API keys.
 
 <p align="center">
-<img src="./readme-images/static/unconfigured-env-var.png" width="50%" height="auto">
+<img src="./readme-images/static/unconfigured-env-var.png" width="40%" height="auto">
 </p>
 
 4. Click **Open Chat** in Workbench. It should automatically open in a new browser tab.
 
 <p align="center">
-<img src="./readme-images/static/open-chat-screen-shot.png" width="20%" height="auto">
+<img src="./readme-images/static/open-chat-screen-shot.png" width="10%" height="auto">
 </p>
 
-5. Upload your documents and change the Router prompt to focus on your uploaded documents. 
+5. Click the Documents tab and click "Create Context" to pull information from the Workbench docs into the RAG context.
 
-6. Start chatting.
+<p align="center">
+<img src="./readme-images/static/document-tab.png" width="20%" height="auto">
+</p>
+
+6. Start asking questions about Workbench.
+
+
 
 ### Advanced Mode Details
 
