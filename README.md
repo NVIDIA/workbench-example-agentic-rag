@@ -20,13 +20,12 @@
 - **Self-hosted**: Point to NIM or other models on your own GPUs
 
 
-
 ## Get Started 
 
-#### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free developer platform with a cloud-like UX that runs wherever you want it to - no cloud needed.
+#### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free platform with a cloud-like UX that runs wherever you want - no cloud needed.
 
 ### 5 minutes or less (Workbench already installed)
-1. Grab two keys:  
+1. Grab two API keys:  
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  
    - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
 2. In AI Workbench, clone this repo and [configure the keys](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables) when prompted.  
@@ -40,7 +39,47 @@
 
 
 
-## Going Deeper
+## The Details
+
+
+### Easy Mode Details 
+Use these details if you just want to use the free endpoints and work with the app. 
+
+#### Prequisites
+- Get an NVIDIA Developer Account and an API key.
+   * Go to [build.nvidia.com](https://build.nvidia.com/) and click `Login`.
+   * Create account, verify email.
+   * Create a Cloud Account.
+   * Click your initial in the top right corner of the page > `API Keys`.
+   * Create the key and **save** it somewhere on your laptop. 
+
+- Get a Tavily account and an API key.
+   * Go to [Tavily](https://tavily.com/) and create an account.
+   * Create an API key on the overview page and **save** it somewhere on your laptop.
+
+- Install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
+
+
+
+### Clone this project and start the Chat
+   
+1. Open NVIDIA AI Workbench on your laptop, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html).
+   
+2. Click the **Clone Project** button at the top right, paste in the repository URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone**
+   
+3. Click **Resolve Now** in the warning banner to enter the NVIDIA and Tavily API keys.
+
+<img src="./readme-images/static/unconfigured-env-var.png" width="50%" height="auto">
+
+4. Open the **Chat** from Workbench. It should automatically open in a new browser tab.
+
+5. Upload your documents and change the Router prompt to focus on your uploaded documents. 
+
+6. Start chatting.
+
+### Advanced Mode Details
+
+Use these details if you are more technically inclined and want to push the limits of this project. 
 
 ### You can make the application your own:
 This repository is read-only, so if you want to customize this app and share the changes, then you should [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository before you clone it. 
@@ -83,38 +122,7 @@ This repository is read-only, so if you want to customize this app and share the
 
 #### Prerequisites 
 
-1. Install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html).
 
-2. Get an NVIDIA Developer Account and an API key.
-   * Go to [build.nvidia.com](https://build.nvidia.com/) and click `Login`.
-   * Create account, verify email.
-   * Create a Cloud Account.
-   * Click your initial > `API Keys`.
-   * Create and save your key because you may need it for other projects.
-
-3. Get a Tavily account and an API key.
-   * Go to [Tavily](https://tavily.com/) and create an account.
-   * Create an API key on the overview page.
-     
-4. Configure the NVIDIA and Tavily API keys as
-
-
-> **Note**: NVIDIA Employees: Configure the `INTERNAL_API` environment variable to use endpoints.
-
-
-### Start the Chat
-   
-1. Open NVIDIA AI Workbench. Select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html).
-   
-2. Use the repository URL to clone this project with AI Workbench and wait for it to build.
-   
-3. Add your NVIDIA API key and the Tavily API key when prompted.
-
-4. Open the **Chat** from Workbench. It should automatically open in a new browser tab.
-
-5. Upload your documents and change the Router prompt to focus on your uploaded documents. 
-
-6. Start chatting.
 
 ## Deep Dive on Self-Hosted Endpoints
 
