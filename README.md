@@ -41,7 +41,6 @@
 
 ## The Details
 
-
 ### Easy Mode Details 
 Use these details if you just want to use the free endpoints and work with the app. 
 
@@ -60,20 +59,27 @@ Use these details if you just want to use the free endpoints and work with the a
 - Install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
 
 
-
-### Clone this project and start the Chat
+### Clone this project and start the Chat App
    
 1. Open NVIDIA AI Workbench on your laptop, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html).
    
 2. Click the **Clone Project** button at the top right, paste in the repository URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone**
-   
-3. Click **Resolve Now** in the warning banner to enter the NVIDIA and Tavily API keys.
 
-<p align="right">
-<img src="./readme-images/static/unconfigured-env-var.png" width="50%" height="auto">
+<p align="center">
+<img src="./readme-images/static/clone-button.png" width="60%" height="auto">
 </p>
 
-4. Open the **Chat** from Workbench. It should automatically open in a new browser tab.
+3. Click **Resolve Now** in the warning banner to enter the NVIDIA and Tavily API keys.
+
+<p align="center">
+<img src="./readme-images/static/unconfigured-env-var.png" width="70%" height="auto">
+</p>
+
+4. Click **Open Chat** in Workbench. It should automatically open in a new browser tab.
+
+<p align="center">
+<img src="./readme-images/static/unconfigured-env-var.png" width="70%" height="auto">
+</p>
 
 5. Upload your documents and change the Router prompt to focus on your uploaded documents. 
 
@@ -88,11 +94,7 @@ This repository is read-only, so if you want to customize this app and share the
 
 
 
-## Need, Don't Need and Nice to Have
 
-- **Need**: Internet access while running the chat app and two API keys and [NVIDIA API key](https://org.ngc.nvidia.com/setup/api-keys))
-- **Don't Need**: Local GPU
-- **Nice to Have**: Remote GPU system if you want to self-host a NIM endpoint
 
 ## The Agentic RAG Application
 #### Using the Application
