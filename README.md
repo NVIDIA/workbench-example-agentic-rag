@@ -2,19 +2,21 @@
 
 
 <img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto">
+
 # Agentic RAG - Idea to answers in minutes
-#### Improve RAG with an agentic approach that:
-- handles relevance and accuracy, adding in web search if needed
-- does hallucination control on results
-- lets you configure prompts for each part of the pipeline
 
-#### Do inference with free API endpoints or self-host on your own GPUs:
-- Pre-configured to use free endpoints on build.nvidia.com
-- OR, configure to use self-hosted models on your remote GPUs
+#### Boost RAG with an agentic layer that:
+- routes queries and adds live web search context is thin
+- grades responses for relevance and accuracy, flags hallucinations
+- lets you edit prompts for every stage from the UI
 
-#### Modify this application and make it your own:
-- Change inference options directly within the UI
-- [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository to own your changes to the code
+#### Run inference your way:
+- **Free out-of-the-box**: use free endpoints on build.nvidia.com
+- **Self-hosted**: Point to NIM or other models on your own GPUs
+
+#### Make it your own:
+- Switch models and settings in the UI
+- [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) to customize and share changes
  
 
 
@@ -22,18 +24,20 @@
 
 #### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free developer platform with a cloud-like UX locally - No cloud needed.
 
-### Be up and running in 4 minutes (Workbench already installed) 
-- Have your [NVIDIA API key](https://org.ngc.nvidia.com/setup/api-keys) on hand
-- Have your [Tavily API key](https://tavily.com/) on hand
-- Clone this project in Workbench and enter your API keys when prompted
-- Click "Open Chat" and add documents and websites for your context
-- Start chatting using the API endpoints
+### 5 minutes or less (Workbench already installed)
+1. Grab two keys:  
+   - **NVIDIA_API_KEY** → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  
+   - **TAVILY_API_KEY** → [Generate](https://tavily.com)  
+2. In AI Workbench, clone this repo and paste the keys when prompted.  
+3. Click **Open Chat**, upload docs or URLs for context.  
+4. Ask your first question - the answers come from free cloud endpoints.
 
 ### Or, spend a little more time and use self-hosted GPUs
-- Setup your remote GPU instance
-- Pull and run an NVIDIA NIM onto the remote
-- Switch the application to point at the NIM
-- Start chatting 
+1. Set up a Linux box with an NVIDIA GPU and Docker.  
+2. Deploy an **NVIDIA NIM** container on that host.  
+3. Configure the chat app to use the NIM.
+
+Step‑by‑step instructions live in **/docs/self‑host.md**.
 
 
 *Navigating the README:* [Application Overview](#the-agentic-rag-application) | [Get Started](#get-started) | [Deep Dive](#deep-dive-on-self-hosted-endpoints) | [License](#license)
