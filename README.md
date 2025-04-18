@@ -16,14 +16,14 @@
 - OR, configure to use self-hosted models on your remote GPUs
 
 #### Modify this application and make it your own:
-- [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository instead of cloning
-- Edit the code to change the Gradio app and logic of agent
+- Change inference options directly within the UI
+- [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository to own your changes to the code
  
 
 
 ## Get Started 
 
-#### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free, lightweight developer platform on your own systems for a cloud-like-UX, no cloud needed.
+#### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free developer platform with a cloud-like UX on your own systems, no cloud needed.
 
 ### Be up and running in 4 minutes (Workbench already installed) 
 - Have your [NVIDIA API key](https://org.ngc.nvidia.com/setup/api-keys) on hand
