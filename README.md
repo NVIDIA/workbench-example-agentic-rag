@@ -37,7 +37,7 @@
 2. Deploy an **NVIDIA NIM** container on that host.  
 3. Configure the chat app to use the NIM.
 
-jSee [step‑by‑step instructions here](./agentic-rag-docs/self‑host.md).
+See [step-by-step instructions here](agentic-rag-docs/self-host.md)
 
 
 *Navigating the README:* [Application Overview](#the-agentic-rag-application) | [Get Started](#get-started) | [Deep Dive](#deep-dive-on-self-hosted-endpoints) | [License](#license)
