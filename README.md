@@ -1,17 +1,16 @@
 ![User interface for the Agentic RAG project](readme-images/static/agentic-rag-screen-shot.png "User interface for the Agentic RAG project")
 
 # Agentic RAG - Idea to answers in minutes
-Improve RAG with an agentic approach that:
-- handles relevance and accuracy checks
-- triggers web search if needed
+#### Improve RAG with an agentic approach that:
+- handles relevance and accuracy checks, triggering web search if needed
 - does hallucination control on results
 - lets you configure prompts for each part of the pipeline
 
-Use API endpoints or self-host on your own GPUs:
-- Pre-configured to use free API endpoints on build.nvidia.com
-- OR, configure to use self-hosted models on remote GPUs
+#### Do inference with free API endpoints or self-host on your own GPUs:
+- Pre-configured to use free endpoints on build.nvidia.com
+- OR, configure to use self-hosted models on your remote GPUs
 
-Modify this application and make it your own:
+#### Modify this application and make it your own:
 - [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository instead of cloning
 - Edit the code to change the Gradio app and logic of agent
  
@@ -22,7 +21,12 @@ Modify this application and make it your own:
 
 ## Get Started 
 
-#### If you have AI Workbench already installed locally, be up and running in 4 minutes with the pre-configured endpoints
+#### Be up and running in 4 minutes (Workbench already installed) 
+- Have your [NVIDIA API key](https://org.ngc.nvidia.com/setup/api-keys) on hand
+- Have your [Tavily API key](https://tavily.com/) on hand
+- Clone this project in Workbench and enter your API keys when prompted
+- Click "Open Chat" and add documents and websites for your context
+- Start chatting using the API endpoints
 
 
 
@@ -34,7 +38,7 @@ Modify this application and make it your own:
 
 ## Need, Don't Need and Nice to Have
 
-- **Need**: Internet access while running the chat app and two API keys ([Tavily](https://tavily.com/) and [NVIDIA API key](https://org.ngc.nvidia.com/setup/api-keys))
+- **Need**: Internet access while running the chat app and two API keys and [NVIDIA API key](https://org.ngc.nvidia.com/setup/api-keys))
 - **Don't Need**: Local GPU
 - **Nice to Have**: Remote GPU system if you want to self-host a NIM endpoint
 
