@@ -51,15 +51,15 @@ You can do everything through the Workbench Desktop App
 | 3. Click **Resolve Now** in the warning banner > Enter NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto"> | You miss the warning. **Fix**: go to **Project Container > Variables > Configure** for the API key. See [here for more](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html) | 
 | 4. Click **Open Chat**. | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto"> | Very little can go wrong here |
 | 5. Click **Documents > Create Context**. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto"> | Your NVIDIA API isn't correct. Fix per Step 3 above. | 
-| 6. Ask your question < Hit  enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto"> | One of the API keys isn't correct. Fix per Step 3 above. | 
+| 6. Ask your question > Hit  enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto"> | One of the API keys isn't correct. Fix per Step 3 above. | 
 
 ### Then: clear the context, change the URLs, create the context, and ask your questions
 
 | Step | What happens | What can go wrong | 
 |------|--------------|-------------------|
-| 1. Click **Documents > Clear Context**. | This resets the vector database so you can customize your context to the topic. | Very little.
-| 2. Delete the URLs > Add your own > Click **Add to Context**. | These are the new sites you want to build the context from. |  You added URLs that can't be resolved. **Fix**: Enter appropriate URLs | 
-| 3. Ask your question about your topic and hit enter. | This triggers the agent to answer your query | Your API keys are incorrect. **Fix**: Make sure they are correct. | 
+| 1. Click **Documents > Clear Context**. | Resets vector database to create a new context. | Very little.
+| 2. Delete the URLs > Add your own > Click **Add to Context**. | New sites to build the context. |  You added URLs that can't be resolved. **Fix**: Enter appropriate URLs | 
+| 3. Ask your question > Hit enter. | Triggers the agent to run the pipeline. | Your API keys are incorrect. **Fix**: Make sure they are correct. | 
 
 
 
