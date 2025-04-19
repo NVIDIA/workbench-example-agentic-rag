@@ -5,7 +5,7 @@
 <!-- Links -->
 *Other Resources:* [:arrow_down: Download AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) | [:book: User Guide](https://docs.nvidia.com/ai-workbench/) |[:open_file_folder: Other Projects](https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/example-projects.html) | [:rotating_light: User Forum](https://forums.developer.nvidia.com/t/support-workbench-example-project-agentic-rag/303414)
 
-# Agentic RAG - Idea to answers in minutes
+# Agentic RAG - Control RAG for accuracy and hallucination
 
 ### Boost RAG with an agentic layer that:
 - routes queries and adds live web search context is thin
@@ -16,21 +16,21 @@
 - **Free out-of-the-box**: use free endpoints on build.nvidia.com
 - **Self-hosted**: Point to NIM or other models on your own GPUs
 
-### Prerequisites
+
+## Get Started 
+
+#### Prerequisites
 This app runs in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a cloud-like UX with no cloud necessary.
 
 To follow this readme, you must first install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
 
-## Get Started 
-
-### Easy Mode (5 minutes or less and Workbench already installed)
-1. Grab two API keys:  
-   - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  
+### Easy Mode (5 minutes or less if Workbench already installed)
+1. Get NVIDIA and Tavily API keys:  
+   - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  See instructions [here](https://docs.nvidia.com/ai-enterprise/deployment/spark-rapids-accelerator/latest/appendix-ngc.html).
    - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
-2. In AI Workbench, clone this repo and [configure the keys](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables) when prompted.  
-3. Click **Open Chat** in the Workbench Destkop App.
-4. When the app opens, go to the Document tab and click **Add to Context**.  
-4. When the context is set, ask your questions about AI Workbench - the answers come from free cloud endpoints.
+2. **Clone** this repo with AI Workbench > [configure the keys](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables) when prompted.  
+3. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
+4. Type in your question > Hit enter  - the answers come from free cloud endpoints.
 
 ### Advanced Mode (need to self-host GPUs)
 
