@@ -19,12 +19,11 @@
 
 ## Get Started 
 
-#### Prerequisites
+### Prerequisites
 This app runs in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a free, cloud-like UX that runs on your own systems.
-
 To follow this readme, you must first install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
 
-#### Easy Mode (5 minutes or less if Workbench already installed)
+### Easy Mode (5 minutes or less if Workbench already installed)
 1. Get NVIDIA and Tavily API keys:  
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  See instructions [here](https://docs.nvidia.com/ai-enterprise/deployment/spark-rapids-accelerator/latest/appendix-ngc.html).
    - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
@@ -32,7 +31,7 @@ To follow this readme, you must first install [AI Workbench](https://docs.nvidia
 3. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
 4. Type in your question > Hit enter  - the answers come from free cloud endpoints.
 
-#### Advanced Mode (need to self-host GPUs)
+### Advanced Mode (need to self-host GPUs)
 
 1. Set up a Linux box with an NVIDIA GPU and Docker.  
 2. Deploy an **NVIDIA NIM** container on that host.  
@@ -42,8 +41,9 @@ See [full instructions here](agentic-rag-docs/self-host.md).
 
 
 ## Easy Mode Details 
+Follow these steps if you want to get up and running but don't care about modifying the application or adding your own endpoints.
 
-### First: clone this project, start the chat, create the context, and ask your questions
+### First: Clone this project > Start the chat >  Create the context >  Ask your questions
 
 | Step | Screenshot | What can go wrong |
 |------|------------|-------------------|
@@ -54,7 +54,7 @@ See [full instructions here](agentic-rag-docs/self-host.md).
 | 5. Click **Documents > Create Context**. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto"> | Incorrect API key. Fix per Step 3 above. | 
 | 6. Ask your question > Hit  enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto"> | Incorrect API key. Fix per Step 3 above. | 
 
-### Then: clear the context, change the URLs, create the context, and ask your questions
+### Then: Clear the context > Change the URLs > Create the context > Ask your questions
 
 | Step | What happens | What can go wrong | 
 |------|--------------|-------------------|
@@ -63,55 +63,23 @@ See [full instructions here](agentic-rag-docs/self-host.md).
 | 3. Ask your question > Hit enter. | Triggers the agent. | Incorrect API key. **Fix**: Fix per Step 3 in table above. | 
 
 
-
-
-
 ## Advanced Mode Details
 
-Use these details if you are more technically inclined and want to push the limits of this project. 
+<img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto">
 
-### You can make the application your own:
+Use these details if you want to modify the application, e.g. by adding your own endpoints, changing the Gradio app or whatever else occurs to you.
+
+### First: Fork this repo to your GitHub account > Clone it in Workbench 
 This repository is read-only, so if you want to customize this app and share the changes, then you should [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository before you clone it. 
 
 
 
 
 
-## The Agentic RAG Application
-#### Using the Application
-
-1. **Clone** the project with AI Workbench, **configure** the relevant API keys, and **start** the chat app
-2. **Configure** the separate model components for agent
-3. **Add** your documents to the context (vector db) 
-4. **Make** a query.
-5. **Agent returns** an answer vetted for relevance, accuracy and hallucination. 
-
  
-<img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto">
-
-
-#### Modifying the Application
-
-* **Within the app you can**:
-   * Change the prompts for the different components, e.g. the hallucination grader.
-   * Change the webpages and pdfs you want to use for the context in the RAG.
-   * Select different endpoints from [build.nvidia.com](https://build.nvidia.com/explore/discover) for the inference components.
-   * Configure it to use self-hosted endpoints with [NVIDIA Inference Microservices (NIMs)](https://catalog.ngc.nvidia.com/orgs/nim/teams/meta/containers/llama3-8b-instruct/tags) or [Ollama](https://hub.docker.com/r/ollama/ollama).
-* **Within the code you can**:
-   * Add new endpoints and endpoint providers
-   * Change the Gradio interface or the application structure and logic.
-
-> **Note** Setting up self-hosted endpoints is relatively advanced because you will need to do it manually. 
-
-## Get Started
-
-#### Prerequisites 
 
 
 
-## Deep Dive on Self-Hosted Endpoints
-
-> **Note** This assumes you've done the "Get Started" steps.
 
 #### Using Self-Hosted Endpoints
 
