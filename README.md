@@ -66,14 +66,8 @@
 | 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone** | <img src="./readme-images/static/clone-button.png" width="200" height="auto"> | 
 | 3. Click **Resolve Now** in the warning banner to enter the NVIDIA and Tavily API keys. | <img src="./readme-images/static/unconfigured-env-var.png" width="200" height="auto"> | 
 | 4. Click **Open Chat** in Workbench. It should automatically open in a new browser tab. | <img src="./readme-images/static/open-chat-screen-shot.png" width="200" height="auto"> | 
-
-5. Click the Documents tab and click "Create Context" to pull information from the Workbench docs into the RAG context.
-
-<p align="center">
-<img src="./readme-images/static/document-tab.png" width="40%" height="auto">
-</p>
-
-6. Start asking questions about Workbench.
+| 5. Click the Documents tab and click "Create Context" to pull information from the Workbench docs into the RAG context. | <img src="./readme-images/static/document-tab.png" width="200" height="auto"> | 
+| 6. Ask your question about Workbench and hit enter. | |
 
 
 
