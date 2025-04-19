@@ -46,12 +46,12 @@ You can do everything through the Workbench Desktop App
 
 | Step | Screenshot | What can go wrong |
 |------|------------|-------------------|
-| 1. Open the Workbench Desktop App, and select [local](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/desktop-icon.png" width="120" height="auto"> | Probably an issue with Docker Desktop (if selected on install). **Fix**:  Make sure you're logged in to Docker Desktop. See more [troubleshooting here](https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/troubleshooting.html) | 
-| 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone** | <img src="./readme-images/clone-button.png" width="250" height="auto"> | You used an incorrect URL. **Fix**: use the correct URL. | 
-| 3. Click **Resolve Now** in the warning banner, and enter the NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto"> | You miss the warning. **Fix**: go to **Project Container > Variables > Configure** for the API key. See [here for more](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html) | 
+| 1. Open the Desktop App > Select [local](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/desktop-icon.png" width="120" height="auto"> | Probably an issue with Docker Desktop (if selected on install). **Fix**:  Make sure you're logged in to Docker Desktop. See more [troubleshooting here](https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/troubleshooting.html) | 
+| 2. Click **Clone Project** > Paste URL (https://github.com/NVIDIA/workbench-example-agentic-rag) > **Clone** | <img src="./readme-images/clone-button.png" width="250" height="auto"> | You used an incorrect URL. **Fix**: use the correct URL. | 
+| 3. Click **Resolve Now** in the warning banner > Enter NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto"> | You miss the warning. **Fix**: go to **Project Container > Variables > Configure** for the API key. See [here for more](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html) | 
 | 4. Click **Open Chat**. | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto"> | Very little can go wrong here |
-| 5. Click **Documents > Create Context** to add the site content for URLS to the RAG context. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto"> | Your NVIDIA API isn't correct. Fix per Step 3 above. | 
-| 6. Ask your question about Workbench and hit enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto"> | One of the API keys isn't correct. Fix per Step 3 above. | 
+| 5. Click **Documents > Create Context**. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto"> | Your NVIDIA API isn't correct. Fix per Step 3 above. | 
+| 6. Ask your question < Hit  enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto"> | One of the API keys isn't correct. Fix per Step 3 above. | 
 
 ### Then: clear the context, change the URLs, create the context, and ask your questions
 
