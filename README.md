@@ -63,15 +63,9 @@
 | Step | Screenshot |
 |------|------------|
 | 1. Open NVIDIA AI Workbench on your laptop, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/static/desktop-icon.png" width="150" height="auto"> |
-| 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone** | <img src="./readme-images/static/clone-button.png" width="150%" height="auto"> | 
+| 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone** | <img src="./readme-images/static/clone-button.png" width="200" height="auto"> | 
 | 3. Click **Resolve Now** in the warning banner to enter the NVIDIA and Tavily API keys. | <img src="./readme-images/static/unconfigured-env-var.png" width="200" height="auto"> | 
-
-
-4. Click **Open Chat** in Workbench. It should automatically open in a new browser tab.
-
-<p align="center">
-<img src="./readme-images/static/open-chat-screen-shot.png" width="20%" height="auto">
-</p>
+| 4. Click **Open Chat** in Workbench. It should automatically open in a new browser tab. | <img src="./readme-images/static/open-chat-screen-shot.png" width="200" height="auto"> | 
 
 5. Click the Documents tab and click "Create Context" to pull information from the Workbench docs into the RAG context.
 
