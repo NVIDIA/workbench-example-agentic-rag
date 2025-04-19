@@ -41,7 +41,7 @@ To follow this readme, you must first install [AI Workbench](https://docs.nvidia
 
 ## Easy Mode Details 
 
-### Start by cloning  this project in Workbench and working with the Workbench documentation context
+### First, clone this project, start the Chat, create the context, and ask your questions
 
 You can do everything through the Workbench Desktop App
 
@@ -54,7 +54,7 @@ You can do everything through the Workbench Desktop App
 | 5. Click the Documents tab and click "Create Context" to pull information from the Workbench docs into the RAG context. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto"> | 
 | 6. Ask your question about Workbench and hit enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto"> |
 
-### Then, clear the context and use your own documents
+### Then, clear the context, add your own URLs, create another context, and and ask your questions
 
 
 
