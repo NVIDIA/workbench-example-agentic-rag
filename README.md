@@ -1,6 +1,6 @@
 <img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto">
 
-*Navigating the README:* [Application Overview](#the-agentic-rag-application) | [Get Started](#get-started) | [Deep Dive](#deep-dive-on-self-hosted-endpoints) | [License](#license)
+*Navigating the README:* [Get Started](#get-started) | [Easy Mode Details](#easy-mode-details) | [Advanced Mode Details](#advanced-mode-details) | [Repository License](#license)
 
 <!-- Links -->
 *Other Resources:* [:arrow_down: Download AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) | [:book: User Guide](https://docs.nvidia.com/ai-workbench/) |[:open_file_folder: Other Projects](https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/example-projects.html) | [:rotating_light: User Forum](https://forums.developer.nvidia.com/t/support-workbench-example-project-agentic-rag/303414)
@@ -23,7 +23,7 @@ To follow this readme, you must first install [AI Workbench](https://docs.nvidia
 
 ## Get Started 
 
-### 5 minutes or less (Workbench already installed)
+### Easy Mode (5 minutes or less and Workbench already installed)
 1. Grab two API keys:  
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  
    - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
@@ -32,17 +32,18 @@ To follow this readme, you must first install [AI Workbench](https://docs.nvidia
 4. When the app opens, go to the Document tab and click **Add to Context**.  
 4. When the context is set, ask your questions about AI Workbench - the answers come from free cloud endpoints.
 
-### Or, spend more time and use self-hosted GPUs ([full instructions](agentic-rag-docs/self-host.md))
+### Advanced Mode (need to self-host GPUs)
+
 1. Set up a Linux box with an NVIDIA GPU and Docker.  
 2. Deploy an **NVIDIA NIM** container on that host.  
 3. Configure the chat app to use the NIM.
+
+See [full instructions here](agentic-rag-docs/self-host.md).
 
 
 ## Easy Mode Details 
 
 ### First: clone this project, start the chat, create the context, and ask your questions
-
-You can do everything through the Workbench Desktop App
 
 | Step | Screenshot | What can go wrong |
 |------|------------|-------------------|
@@ -60,7 +61,6 @@ You can do everything through the Workbench Desktop App
 | 1. Click **Documents > Clear Context**. | Resets vector database. | Very little.
 | 2. Delete the URLs > Add your own > Click **Add to Context**. | Creates a new context. |  URLs that can't be resolved. **Fix**: Enter appropriate URLs | 
 | 3. Ask your question > Hit enter. | Triggers the agent. | Incorrect API key. **Fix**: Fix per Step 3 in table above. | 
-
 
 
 
