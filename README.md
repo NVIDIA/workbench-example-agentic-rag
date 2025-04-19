@@ -38,10 +38,9 @@ To follow this readme, you must first install [AI Workbench](https://docs.nvidia
 3. Configure the chat app to use the NIM.
 
 
-
 ## Easy Mode Details 
 
-### First, clone this project, start the Chat, create the context, and ask your questions
+### First: clone this project, start the Chat, create the context, and ask your questions
 
 You can do everything through the Workbench Desktop App
 
@@ -51,15 +50,24 @@ You can do everything through the Workbench Desktop App
 | 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone** | <img src="./readme-images/clone-button.png" width="250" height="auto"> | 
 | 3. Click **Resolve Now** in the warning banner, and enter the NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto"> | 
 | 4. Click **Open Chat**. | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto"> | 
-| 5. Click the Documents tab and click "Create Context" to pull information from the Workbench docs into the RAG context. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto"> | 
+| 5. Click the **Documents** tab and click **Create Context** to add the Workbench docs to the RAG context. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto"> | 
 | 6. Ask your question about Workbench and hit enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto"> |
 
-### Then, clear the context, add your own URLs, create another context, and and ask your questions
+### Then: clear the context, add your URLs, create another context, and ask your questions
+
+| Step | What Happens |
+|------|--------------|
+| 1. Click the **Documents** tab and click the **Clear Context** component | This resets the vector database so you can customize your context to the topic |
+| 2. Delete all of the URLs in the box, and add your own. Each one on its own line. | These are the sites you want to build the context from |
+| 3. Click **Add to Context** | This embeds the sites into the vector database |
+| 4. Ask your question about your topic and hit enter. | This triggers the agent to answer your query |
 
 
 
 
-### Advanced Mode Details
+
+
+## Advanced Mode Details
 
 Use these details if you are more technically inclined and want to push the limits of this project. 
 
