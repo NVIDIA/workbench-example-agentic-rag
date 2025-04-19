@@ -48,15 +48,15 @@ You can do everything through the Workbench Desktop App
 |------|------------|-------------------|
 | 1. Open the Workbench Desktop App, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/desktop-icon.png" width="120" height="auto"> | You don't have AI Workbench installed locally | 
 | 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone** | <img src="./readme-images/clone-button.png" width="250" height="auto"> | You input the URL incorrectly or you tried to clone using ordinary Git | 
-| 3. Click **Resolve Now** in the warning banner, and enter the NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto"> | Very little | 
-| 4. Click **Open Chat**. | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto"> | You can't open the chat app because you didn't add the API keys in the previous step |
+| 3. Click **Resolve Now** in the warning banner, and enter the NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto"> | You don't see the warning banner. **To fix**: go to **Project Container --> Variables** and click configure for the API key and enter the value. | 
+| 4. Click **Open Chat**. | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto"> | Very little can go wrong here |
 | 5. Click the **Documents** tab and click **Create Context** to add the Workbench docs to the RAG context. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto"> | Your NVIDIA API isn't correct | 
 | 6. Ask your question about Workbench and hit enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto"> | Either your NVIDIA API key or your Tavily key are incorrect | 
 
 ### Then: clear the context, add your URLs, create another context, and ask your questions
 
-| Step | What Happens |
-|------|--------------|
+| Step | What happens | What can go wrong | 
+|------|--------------|-------------------|
 | 1. Click the **Documents** tab and click the **Clear Context** component | This resets the vector database so you can customize your context to the topic |
 | 2. Delete all of the URLs in the box, and add your own. Each one on its own line. | These are the sites you want to build the context from |
 | 3. Click **Add to Context** | This embeds the sites into the vector database |
