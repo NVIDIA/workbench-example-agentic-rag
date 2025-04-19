@@ -44,14 +44,14 @@ To follow this readme, you must first install [AI Workbench](https://docs.nvidia
 
 You can do everything through the Workbench Desktop App
 
-| Step | Screenshot |
-|------|------------|
-| 1. Open the Workbench Desktop App, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/desktop-icon.png" width="120" height="auto"> |
-| 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone** | <img src="./readme-images/clone-button.png" width="250" height="auto"> | 
-| 3. Click **Resolve Now** in the warning banner, and enter the NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto"> | 
-| 4. Click **Open Chat**. | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto"> | 
-| 5. Click the **Documents** tab and click **Create Context** to add the Workbench docs to the RAG context. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto"> | 
-| 6. Ask your question about Workbench and hit enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto"> |
+| Step | Screenshot | What can go wrong |
+|------|------------|-------------------|
+| 1. Open the Workbench Desktop App, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/desktop-icon.png" width="120" height="auto"> | You don't have AI Workbench installed locally | 
+| 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone** | <img src="./readme-images/clone-button.png" width="250" height="auto"> | You input the URL incorrectly or you tried to clone using ordinary Git | 
+| 3. Click **Resolve Now** in the warning banner, and enter the NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto"> | Very little | 
+| 4. Click **Open Chat**. | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto"> | You can't open the chat app because you didn't add the API keys in the previous step |
+| 5. Click the **Documents** tab and click **Create Context** to add the Workbench docs to the RAG context. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto"> | Your NVIDIA API isn't correct | 
+| 6. Ask your question about Workbench and hit enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto"> | Either your NVIDIA API key or your Tavily key are incorrect | 
 
 ### Then: clear the context, add your URLs, create another context, and ask your questions
 
