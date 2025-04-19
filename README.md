@@ -58,9 +58,8 @@ You can do everything through the Workbench Desktop App
 | Step | What happens | What can go wrong | 
 |------|--------------|-------------------|
 | 1. Click **Documents > Clear Context**. | This resets the vector database so you can customize your context to the topic. | Very little.
-| 2. Delete the URLs in the box > Add your own, each on its own line. | These are the sites you want to build the context from. | Very little. | 
-| 3. Click **Add to Context** | This embeds the sites into the vector database | You added URLs that can't be resolved. **Fix**: Enter appropriate URLs | 
-| 4. Ask your question about your topic and hit enter. | This triggers the agent to answer your query | Your API keys are incorrect. **Fix**: Make sure they are correct. | 
+| 2. Delete the URLs > Add your own > Click **Add to Context**. | These are the new sites you want to build the context from. |  You added URLs that can't be resolved. **Fix**: Enter appropriate URLs | 
+| 3. Ask your question about your topic and hit enter. | This triggers the agent to answer your query | Your API keys are incorrect. **Fix**: Make sure they are correct. | 
 
 
 
