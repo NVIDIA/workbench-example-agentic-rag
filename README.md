@@ -23,9 +23,9 @@
 This app runs in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a free, cloud-like UX that runs on your own systems.
 To follow this readme, you must first install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
 
-### Easy Mode (< 5 minutes if Workbench already installed)
+> You **must** be connected to the internet to **run** the application.
 
-> You **must** be connected to the internet to run the application.
+### Easy Mode (< 5 minutes if Workbench already installed)
 
 1. Get NVIDIA and Tavily API keys:  
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  See instructions [here](https://docs.nvidia.com/ai-enterprise/deployment/spark-rapids-accelerator/latest/appendix-ngc.html).
