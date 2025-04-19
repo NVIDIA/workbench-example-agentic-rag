@@ -46,21 +46,21 @@ You can do everything through the Workbench Desktop App
 
 | Step | Screenshot | What can go wrong |
 |------|------------|-------------------|
-| 1. Open the Workbench Desktop App, and select [local](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/desktop-icon.png" width="120" height="auto"> | Most likely an issue with Docker Desktop (if you selected it on install). **Fix**:  Check if Docker Desktop is running and make sure you're properly logged in. | 
+| 1. Open the Workbench Desktop App, and select [local](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/desktop-icon.png" width="120" height="auto"> | Probably an issue with Docker Desktop (if selected on install). **Fix**:  Make sure you're logged in to Docker Desktop. | 
 | 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone** | <img src="./readme-images/clone-button.png" width="250" height="auto"> | You used an incorrect URL. **Fix**: use the correct URL. | 
 | 3. Click **Resolve Now** in the warning banner, and enter the NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto"> | You miss the warning. **Fix**: go to **Project Container -> Variables** and configure the API key. | 
 | 4. Click **Open Chat**. | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto"> | Very little can go wrong here |
 | 5. Click the **Documents** tab and click **Create Context** to add the Workbench docs to the RAG context. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto"> | Your NVIDIA API isn't correct. Fix per Step 3 above. | 
 | 6. Ask your question about Workbench and hit enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto"> | Either your NVIDIA API key or your Tavily key are incorrect. Fix per Step 3 above. | 
 
-### Then: clear the context, add your URLs, create another context, and ask your questions
+### Then: clear the context, change the URLs, create the context, and ask your questions
 
 | Step | What happens | What can go wrong | 
 |------|--------------|-------------------|
-| 1. Click the **Documents** tab and click the **Clear Context** component | This resets the vector database so you can customize your context to the topic |
-| 2. Delete all of the URLs in the box, and add your own. Each one on its own line. | These are the sites you want to build the context from |
-| 3. Click **Add to Context** | This embeds the sites into the vector database |
-| 4. Ask your question about your topic and hit enter. | This triggers the agent to answer your query |
+| 1. Click the **Documents** tab and click the **Clear Context** component | This resets the vector database so you can customize your context to the topic. | Very little.
+| 2. Delete all of the URLs in the box, and add your own. Each one on its own line. | These are the sites you want to build the context from. | Very little. | 
+| 3. Click **Add to Context** | This embeds the sites into the vector database | You added URLs that can't be resolved. **Fix**: Enter appropriate URLs | 
+| 4. Ask your question about your topic and hit enter. | This triggers the agent to answer your query | Your API keys are incorrect. **Fix**: Make sure they are correct. | 
 
 
 
