@@ -26,6 +26,13 @@ INTERNAL_API = os.getenv('INTERNAL_API', '')
 # Set the embeddings model target
 EMBEDDINGS_MODEL = 'NV-Embed-QA'
 
+# Set the chunk size and overlap for the text splitter. Uses defaults but allows them to be set as environment variables.
+DEFAULT_CHUNK_SIZE = 250
+DEFAULT_CHUNK_OVERLAP = 0
+
+CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", DEFAULT_CHUNK_SIZE))
+CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", DEFAULT_CHUNK_OVERLAP))
+
 #
 if INTERNAL_API != '':
     EMBEDDINGS_MODEL = 'nvdev/nvidia/nv-embedqa-e5-v5'
@@ -70,19 +77,24 @@ def upload(urls: List[str]):
         print("[upload] No URLs provided.")
         return None
     
-    text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-        chunk_size=250, chunk_overlap=0
-    )
-    doc_splits = text_splitter.split_documents(docs_list)
-    
-    # Add to vectorDB
-    vectorstore = Chroma.from_documents(
-        documents=doc_splits,
-        collection_name="rag-chroma",
-        embedding=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
-        persist_directory="/project/data",
-    )
-    return vectorstore
+    try:
+        text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
+            chunk_size=CHUNK_SIZE, chunk_overlap=0
+        )
+        doc_splits = text_splitter.split_documents(docs_list)
+
+        vectorstore = Chroma.from_documents(
+            documents=doc_splits,
+            collection_name="rag-chroma",
+            embedding=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
+            persist_directory="/project/data",
+        )
+        return vectorstore
+
+    except Exception as e:
+        print(f"[upload] Vectorstore creation failed: {e}")
+        return None
+
 
 def upload_pdf(documents: List[str]):
     """ This is a helper function for parsing the user inputted URLs and uploading them into the vector store. """
@@ -95,7 +107,7 @@ def upload_pdf(documents: List[str]):
     docs_list = [item for sublist in docs for item in sublist]
     
     text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-        chunk_size=250, chunk_overlap=0
+        chunk_size=CHUNK_SIZE, chunk_overlap=0
     )
     doc_splits = text_splitter.split_documents(docs_list)
     

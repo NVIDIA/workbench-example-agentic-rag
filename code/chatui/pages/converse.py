@@ -38,12 +38,14 @@ if INTERNAL_API != '':
 
 # URLs for default example docs for the RAG.
 doc_links = (
+    "https://github.com/NVIDIA/workbench-example-agentic-rag",
+    "https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/code/chatui/pages/converse.py",
+    "https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/agentic-rag-docs/self-host.md"
+    "https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_agentic_rag/#graph",
     "https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html",
-    "https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html",
-    "https://docs.nvidia.com/ai-workbench/user-guide/latest/projects/compose.html",
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/desktop-app.html",
     "https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/environment.html",
-    "https://docs.nvidia.com/ai-workbench/user-guide/latest/git/git.html",
-    "https://docs.nvidia.com/ai-workbench/user-guide/latest/integrations/integrations.html"
+    "https://docs.nvidia.com/ai-workbench/user-guide/latest/git/git.html"
 )
 EXAMPLE_LINKS_LEN = len(doc_links)
 

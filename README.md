@@ -47,7 +47,7 @@ Follow these steps if you want to get up and running but don't care about modify
 
 ### Clone this project > Start the chat >  Create the context >  Ask your questions
 
-| Step | Screenshot | What can go wrong |
+| Steps | Screenshot | What can go wrong |
 |------|------------|-------------------|
 | 1. Open the Desktop App > Select [local](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <p align="center"><img src="./readme-images/desktop-icon.png" width="120" alt="Desktop App Icon"></p> | Probably a  Docker Desktop issue (if selected on install). **Fix**:  See [troubleshooting here](https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/troubleshooting.html) | 
 | 2. Click **Clone Project** > Paste repository [URL](https://github.com/NVIDIA/workbench-example-agentic-rag) > **Clone** | <img src="./readme-images/clone-button.png" width="250" height="auto" alt="Clone Button"> | Incorrect URL. **Fix**: use the correct URL. | 
@@ -58,7 +58,7 @@ Follow these steps if you want to get up and running but don't care about modify
 
 ### Clear the context > Change the URLs > Create the context > Ask your questions
 
-| Step | What happens | What can go wrong | 
+| Steps | What happens | What can go wrong | 
 |------|--------------|-------------------|
 | 1. Click **Documents > Clear Context**. | Vector DB reset. | Very little.
 | 2. Delete the URLs > Add your own > Click **Add to Context**. | New context. |  URLs that can't be resolved. **Fix**: Enter appropriate URLs | 
@@ -71,7 +71,7 @@ Follow these steps if you want to get up and running but don't care about modify
 
 Use these details if you want to modify the application, e.g. by configuring prompts, adding your own endpoints, changing the Gradio app or whatever else occurs to you.
 
-### Fork this repo to your GitHub account > Clone it in Workbench 
+### Fork this repo > Clone it in Workbench 
 This repository is read-only, so if you want to customize this app and share the changes, then you should [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository before you clone it. 
 
 
