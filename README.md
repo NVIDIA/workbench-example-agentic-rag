@@ -1,4 +1,4 @@
-
+### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free platform with a cloud-like UX - no cloud needed.
 
 
 <img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto">
@@ -19,29 +19,7 @@
 - **Free out-of-the-box**: use free endpoints on build.nvidia.com
 - **Self-hosted**: Point to NIM or other models on your own GPUs
 
-
-## Get Started 
-
-#### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free platform with a cloud-like UX that runs wherever you want - no cloud needed.
-
-### 5 minutes or less (Workbench already installed)
-1. Grab two API keys:  
-   - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  
-   - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
-2. In AI Workbench, clone this repo and [configure the keys](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables) when prompted.  
-3. Click **Open Chat** upload docs or URLs for context.  
-4. Ask your first question - the answers come from free cloud endpoints.
-
-### Or, spend more time and use self-hosted GPUs ([full instructions](agentic-rag-docs/self-host.md))
-1. Set up a Linux box with an NVIDIA GPU and Docker.  
-2. Deploy an **NVIDIA NIM** container on that host.  
-3. Configure the chat app to use the NIM.
-
-
-
-## Easy Mode Details 
-
-#### Prequisites
+### Prequisites
 - Get an NVIDIA Developer Account and an API key.
    * Go to [build.nvidia.com](https://build.nvidia.com/) and click `Login`.
    * Create account, verify email.
@@ -55,6 +33,25 @@
 
 - Install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
 
+## Get Started 
+
+### 5 minutes or less (Workbench already installed)
+1. Grab two API keys:  
+   - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  
+   - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
+2. In AI Workbench, clone this repo and [configure the keys](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables) when prompted.  
+3. Click **Open Chat** in the Workbench Destkop App.
+4. When the app opens, go to the Document tab and click **Add to Context**.  
+4. When the context is set, ask your questions about AI Workbench - the answers come from free cloud endpoints.
+
+### Or, spend more time and use self-hosted GPUs ([full instructions](agentic-rag-docs/self-host.md))
+1. Set up a Linux box with an NVIDIA GPU and Docker.  
+2. Deploy an **NVIDIA NIM** container on that host.  
+3. Configure the chat app to use the NIM.
+
+
+
+## Easy Mode Details 
 
 ### Start by cloning  this project in Workbench and working with the Workbench documentation context
 
