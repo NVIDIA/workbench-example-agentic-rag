@@ -58,15 +58,17 @@
 - Install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
 
 
-### Clone this project in Workbench and start the Chat App
+#### Clone this project in Workbench and start the Chat App
+
+You can do everything through the Workbench Desktop App
 
 | Step | Screenshot |
 |------|------------|
-| 1. Open NVIDIA AI Workbench on your laptop, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/static/desktop-icon.png" width="150" height="auto"> |
-| 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone** | <img src="./readme-images/static/clone-button.png" width="200" height="auto"> | 
-| 3. Click **Resolve Now** in the warning banner to enter the NVIDIA and Tavily API keys. | <img src="./readme-images/static/unconfigured-env-var.png" width="200" height="auto"> | 
-| 4. Click **Open Chat** in Workbench. It should automatically open in a new browser tab. | <img src="./readme-images/static/open-chat-screen-shot.png" width="200" height="auto"> | 
-| 5. Click the Documents tab and click "Create Context" to pull information from the Workbench docs into the RAG context. | <img src="./readme-images/static/document-tab.png" width="200" height="auto"> | 
+| 1. Open the Workbench Desktop App, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/desktop-icon.png" width="150" height="auto"> |
+| 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone** | <img src="./readme-images/clone-button.png" width="200" height="auto"> | 
+| 3. Click **Resolve Now** in the warning banner to enter the NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto"> | 
+| 4. Click **Open Chat** in Workbench. It should automatically open in a new browser tab. | <img src="./readme-images/open-chat-screen-shot.png" width="200" height="auto"> | 
+| 5. Click the Documents tab and click "Create Context" to pull information from the Workbench docs into the RAG context. | <img src="./readme-images/static/add-to-context-button.png" width="200" height="auto"> | 
 | 6. Ask your question about Workbench and hit enter. | |
 
 
