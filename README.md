@@ -39,9 +39,7 @@
 
 
 
-## The Details
-
-### Easy Mode Details 
+## Easy Mode Details 
 
 #### Prequisites
 - Get an NVIDIA Developer Account and an API key.
@@ -58,18 +56,21 @@
 - Install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
 
 
-#### Clone this project in Workbench and start the Chat App
+### Start by cloning  this project in Workbench and working with the Workbench documentation context
 
 You can do everything through the Workbench Desktop App
 
 | Step | Screenshot |
 |------|------------|
-| 1. Open the Workbench Desktop App, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/desktop-icon.png" width="150" height="auto"> |
+| 1. Open the Workbench Desktop App, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/desktop-icon.png" width="120" height="auto"> |
 | 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone** | <img src="./readme-images/clone-button.png" width="250" height="auto"> | 
-| 3. Click **Resolve Now** in the warning banner to enter the NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto"> | 
-| 4. Click **Open Chat** in Workbench. It should automatically open in a new browser tab. | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto"> | 
+| 3. Click **Resolve Now** in the warning banner, and enter the NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto"> | 
+| 4. Click **Open Chat**. | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto"> | 
 | 5. Click the Documents tab and click "Create Context" to pull information from the Workbench docs into the RAG context. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto"> | 
 | 6. Ask your question about Workbench and hit enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto"> |
+
+### Then, clear the context and use your own documents
+
 
 
 
