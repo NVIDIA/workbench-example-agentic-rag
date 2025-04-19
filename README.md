@@ -17,9 +17,9 @@
 - **Self-hosted**: Point to NIM or other models on your own GPUs
 
 ### Prerequisites
-This app runs in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a free platform with a cloud-like UX - no cloud needed.
+This app runs in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a cloud-like UX with no cloud necessary.
 
-- Install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
+To follow this readme, you must first install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
 
 ## Get Started 
 
