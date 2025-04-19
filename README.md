@@ -20,11 +20,11 @@
 ## Get Started 
 
 #### Prerequisites
-This app runs in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a cloud-like UX with no cloud necessary.
+This app runs in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a free, cloud-like UX that runs on your own systems.
 
 To follow this readme, you must first install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
 
-### Easy Mode (5 minutes or less if Workbench already installed)
+#### Easy Mode (5 minutes or less if Workbench already installed)
 1. Get NVIDIA and Tavily API keys:  
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  See instructions [here](https://docs.nvidia.com/ai-enterprise/deployment/spark-rapids-accelerator/latest/appendix-ngc.html).
    - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
@@ -32,7 +32,7 @@ To follow this readme, you must first install [AI Workbench](https://docs.nvidia
 3. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
 4. Type in your question > Hit enter  - the answers come from free cloud endpoints.
 
-### Advanced Mode (need to self-host GPUs)
+#### Advanced Mode (need to self-host GPUs)
 
 1. Set up a Linux box with an NVIDIA GPU and Docker.  
 2. Deploy an **NVIDIA NIM** container on that host.  
