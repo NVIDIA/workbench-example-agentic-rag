@@ -49,7 +49,7 @@ Follow these steps if you want to get up and running but don't care about modify
 
 | Step | Screenshot | What can go wrong |
 |------|------------|-------------------|
-| 1. Open the Desktop App > Select [local](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/desktop-icon.png" width="120" alt="Desktop App Icon"> | Probably a  Docker Desktop issue (if selected on install). **Fix**:  See [troubleshooting here](https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/troubleshooting.html) | 
+| 1. Open the Desktop App > Select [local](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <p align="center"><img src="./readme-images/desktop-icon.png" width="120" alt="Desktop App Icon"></p> | Probably a  Docker Desktop issue (if selected on install). **Fix**:  See [troubleshooting here](https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/troubleshooting.html) | 
 | 2. Click **Clone Project** > Paste repository [URL](https://github.com/NVIDIA/workbench-example-agentic-rag) > **Clone** | <img src="./readme-images/clone-button.png" width="250" height="auto" alt="Clone Button"> | Incorrect URL. **Fix**: use the correct URL. | 
 | 3. Click **Resolve Now** > Enter NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto" alt="Resolve Now Warning"> | You don't see the banner. **Fix**: go to **Project Container > Variables > Configure** for API keys. See [docs here](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html) | 
 | 4. Click **Open Chat**. | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto" alt="Open Chat Button"> | Very little can go wrong here |
@@ -64,7 +64,6 @@ Follow these steps if you want to get up and running but don't care about modify
 | 2. Delete the URLs > Add your own > Click **Add to Context**. | New context. |  URLs that can't be resolved. **Fix**: Enter appropriate URLs | 
 | 3. Type question > Hit enter. | Triggers the agent. | Incorrect API key. **Fix**: Fix per Step 3 in table above. | 
 
-<details>
 
 ## Advanced Mode Details
 
