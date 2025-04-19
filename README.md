@@ -59,8 +59,11 @@
 
 
 ### Clone this project in Workbench and start the Chat App
+
+| Step | Screenshot |
    
-1. Open NVIDIA AI Workbench on your laptop, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html).
+| 1. Open NVIDIA AI Workbench on your laptop, and select a [location to work in](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <img src="./readme-images/static/clone-button png" width="20%" height="auto"> |
+
    
 2. Click **Clone Project**, enter the URL (https://github.com/NVIDIA/workbench-example-agentic-rag), and click **Clone**
 
