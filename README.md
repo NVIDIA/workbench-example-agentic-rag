@@ -1,4 +1,4 @@
-### This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free platform with a cloud-like UX - no cloud needed.
+
 
 
 <img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto">
@@ -20,16 +20,7 @@
 - **Self-hosted**: Point to NIM or other models on your own GPUs
 
 ### Prequisites
-- Get an NVIDIA Developer Account and an API key.
-   * Go to [build.nvidia.com](https://build.nvidia.com/) and click `Login`.
-   * Create account, verify email.
-   * Create a Cloud Account.
-   * Click your initial in the top right corner of the page > `API Keys`.
-   * Create the key and **save** it somewhere on your laptop. 
-
-- Get a Tavily account and an API key.
-   * Go to [Tavily](https://tavily.com/) and create an account.
-   * Create an API key on the overview page and **save** it somewhere on your laptop.
+This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free platform with a cloud-like UX - no cloud needed.
 
 - Install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
 
