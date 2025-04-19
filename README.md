@@ -1,6 +1,3 @@
-
-
-
 <img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto">
 
 *Navigating the README:* [Application Overview](#the-agentic-rag-application) | [Get Started](#get-started) | [Deep Dive](#deep-dive-on-self-hosted-endpoints) | [License](#license)
@@ -10,17 +7,17 @@
 
 # Agentic RAG - Idea to answers in minutes
 
-#### Boost RAG with an agentic layer that:
+### Boost RAG with an agentic layer that:
 - routes queries and adds live web search context is thin
 - grades responses for relevance and accuracy, flags hallucinations
 - lets you edit prompts for every stage from the UI
 
-#### Run inference your way:
+### Run inference your way:
 - **Free out-of-the-box**: use free endpoints on build.nvidia.com
 - **Self-hosted**: Point to NIM or other models on your own GPUs
 
-### Prequisites
-This app runs in [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html), a free platform with a cloud-like UX - no cloud needed.
+### Prerequisites
+This app runs in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a free platform with a cloud-like UX - no cloud needed.
 
 - Install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
 
