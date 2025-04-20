@@ -26,11 +26,22 @@ import time
 import sys
 import json
 
-INTERNAL_API = os.getenv('INTERNAL_API', '')
+from langchain_core.runnables import RunnableConfig
+from langgraph.errors import GraphRecursionError 
+
+
+
+# Set recursion limit 
+DEFAULT_RECURSION_LIMIT = 15
+RECURSION_LIMIT = int(os.getenv("RECURSION_LIMIT", DEFAULT_RECURSION_LIMIT))
+
 
 # Model identifiers with prefix
 LLAMA = "meta/llama3-70b-instruct"
 MISTRAL = "mistralai/mixtral-8x22b-instruct-v0.1"
+
+# check if the internal API is set
+INTERNAL_API = os.getenv('INTERNAL_API', '')
 
 if INTERNAL_API != '':
     LLAMA = f'{INTERNAL_API}/meta/llama-3.1-70b-instruct'  
@@ -797,7 +808,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
             progress(0.25, desc="Initializing Task")
             time.sleep(0.75)
             progress(0.5, desc="Uploading Docs")
-            database.upload_(files)
+            database.upload(files)
             progress(0.75, desc="Cleaning Up")
             time.sleep(0.75)
             return {
@@ -1084,21 +1095,22 @@ def _stream_predict(
     else: 
         try:
             actions = {}
-            for output in app.stream(inputs):
+            config = RunnableConfig(recursion_limit=RECURSION_LIMIT)
+            for output in app.stream(inputs, config=config):
                 actions.update(output)
                 yield "", chat_history + [[question, "Working on getting you the best answer..."]], gr.update(value=actions)
                 for key, value in output.items():
                     final_value = value
             yield "", chat_history + [[question, final_value["generation"]]], gr.update(show_label=False)
-        except Exception as e: 
-            error_msg = str(e)
 
-            if "recursion limit" in error_msg.lower():
+        except Exception as e:
+            if isinstance(e, GraphRecursionError):
                 message = (
-                    "⚠️ The system attempted to answer your question several times but couldn’t make progress.\n\n"
-                    "This usually happens when the documents don’t contain a clear answer, or the question is too ambiguous.\n\n"
+                    "⚠️ The system attempted to answer your question and went through {RECURSION_LIMIT} attempts but didn't make progress.\n\n"
+                    "This can happen for various reasons, e.g. your query is too ambiguous or the documents don’t have a clear answer the model can extract.\n\n"
                     "**Tips:**\n"
-                    "- Try rephrasing your question\n"
+                    "- Try rephrasing your question to make it more specific\n"
+                    "- Change to a better model or higher precision\n"
                     "- Remove any unnecessary or overly technical documents\n"
                     "- Make sure your question is answerable based on the content"
                 )
@@ -1107,7 +1119,6 @@ def _stream_predict(
 
             yield "", chat_history + [[question, message]], gr.update(show_label=False)
 
-#            yield "", chat_history + [[question, "*** ERR: Unable to process query. Check the Monitor tab for details. ***\n\nException: " + str(e)]], gr.update(show_label=False)
 
 _support_matrix_cache = None
 
