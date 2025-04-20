@@ -184,7 +184,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
 
                             ##### Use the Documents tab to create a RAG context
                             - Webpages: Enter URLs of webpages for the context
-                            - PDFs: Upload PDFs for the context
+                            - Files: Use files (pdf, csv, .txt) for the context
                             - Add to Context: Add documents to the context (can repeat)
                             - Clear Context: Resets the context to empty
 
@@ -551,7 +551,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                         gr.Markdown(
                             """
                             ## Document embedding requires an API key
-                            ##### Embed websites and PDFs into a vector database to create a context. 
+                            ##### Embed websites and files into a vector database to create a context. 
                             - You can do this in multiple rounds. 
                             - Context is stored until you clear it.
 
@@ -572,7 +572,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                     url_docs_upload = gr.Button(value="Add to Context")
                                     url_docs_clear = gr.Button(value="Clear Context")
 
-                            with gr.TabItem("PDFs", id=1) as pdf_tab:
+                            with gr.TabItem("Files", id=1) as pdf_tab:
                                 pdf_docs_upload = gr.File(interactive=True, 
                                                           show_label=False, 
                                                           file_types=[".pdf"], 
@@ -793,11 +793,11 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
         
         """ These helper functions upload and clear the documents and webpages to/from the ChromaDB. """
 
-        def _upload_documents_pdf(files, progress=gr.Progress()):
+        def _upload_documents_files(files, progress=gr.Progress()):
             progress(0.25, desc="Initializing Task")
             time.sleep(0.75)
             progress(0.5, desc="Uploading Docs")
-            database.upload_pdf(files)
+            database.upload_(files)
             progress(0.75, desc="Cleaning Up")
             time.sleep(0.75)
             return {
@@ -846,7 +846,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
 
         url_docs_upload.click(_upload_documents, [url_docs], [url_docs_upload, url_docs_clear, pdf_docs_clear, agentic_flow])
         url_docs_clear.click(_clear_documents, [], [url_docs_upload, url_docs_clear, pdf_docs_upload, pdf_docs_clear, agentic_flow])
-        pdf_docs_upload.upload(_upload_documents_pdf, [pdf_docs_upload], [url_docs_clear, pdf_docs_clear, agentic_flow])
+        pdf_docs_upload.upload(_upload_documents_files, [pdf_docs_upload], [url_docs_clear, pdf_docs_clear, agentic_flow])
         pdf_docs_clear.click(_clear_documents, [], [url_docs_upload, url_docs_clear, pdf_docs_upload, pdf_docs_clear, agentic_flow])
 
         """ These helper functions set state and prompts when either the NIM or API Endpoint tabs are selected. """
@@ -1091,7 +1091,23 @@ def _stream_predict(
                     final_value = value
             yield "", chat_history + [[question, final_value["generation"]]], gr.update(show_label=False)
         except Exception as e: 
-            yield "", chat_history + [[question, "*** ERR: Unable to process query. Check the Monitor tab for details. ***\n\nException: " + str(e)]], gr.update(show_label=False)
+            error_msg = str(e)
+
+            if "recursion limit" in error_msg.lower():
+                message = (
+                    "⚠️ The system attempted to answer your question several times but couldn’t make progress.\n\n"
+                    "This usually happens when the documents don’t contain a clear answer, or the question is too ambiguous.\n\n"
+                    "**Tips:**\n"
+                    "- Try rephrasing your question\n"
+                    "- Remove any unnecessary or overly technical documents\n"
+                    "- Make sure your question is answerable based on the content"
+                )
+            else:
+                message = f"*** ERR: Unable to process query. ***\n\nException: {e}"
+
+            yield "", chat_history + [[question, message]], gr.update(show_label=False)
+
+#            yield "", chat_history + [[question, "*** ERR: Unable to process query. Check the Monitor tab for details. ***\n\nException: " + str(e)]], gr.update(show_label=False)
 
 _support_matrix_cache = None
 
