@@ -29,10 +29,15 @@ import json
 from langchain_core.runnables import RunnableConfig
 from langgraph.errors import GraphRecursionError 
 
+from requests.exceptions import HTTPError
+import traceback
+
+
+from chatui.utils.error_messages import QUERY_ERROR_MESSAGES
 
 
 # Set recursion limit 
-DEFAULT_RECURSION_LIMIT = 15
+DEFAULT_RECURSION_LIMIT = 10
 RECURSION_LIMIT = int(os.getenv("RECURSION_LIMIT", DEFAULT_RECURSION_LIMIT))
 
 
@@ -584,11 +589,11 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                     url_docs_clear = gr.Button(value="Clear Context")
 
                             with gr.TabItem("Files", id=1) as pdf_tab:
-                                pdf_docs_upload = gr.File(interactive=True, 
+                                docs_upload = gr.File(interactive=True, 
                                                           show_label=False, 
-                                                          file_types=[".pdf"], 
+                                                          file_types=[".pdf", ".txt", ".csv", ".md"], 
                                                           file_count="multiple")
-                                pdf_docs_clear = gr.Button(value="Clear Context")
+                                docs_clear = gr.Button(value="Clear Context")
     
                     # Fourth tab item is for the actions output console. 
                     with gr.TabItem("Monitor", id=3) as console_settings:
@@ -813,7 +818,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
             time.sleep(0.75)
             return {
                 url_docs_clear: gr.update(value="Clear Docs", variant="secondary", interactive=True),
-                pdf_docs_clear: gr.update(value="Clear Docs", variant="secondary", interactive=True),
+                docs_clear: gr.update(value="Clear Docs", variant="secondary", interactive=True),
                 agentic_flow: gr.update(visible=True),
             }
 
@@ -830,13 +835,13 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                 return {
                     url_docs_upload: gr.update(value="No valid URLS - Try again", variant="secondary", interactive=True),
                     url_docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=False),
-                    pdf_docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=False),
+                    docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=False),
                     agentic_flow: gr.update(visible=False),  # or leave as-is if flow is independent
                 }
             return {
                 url_docs_upload: gr.update(value="Context Created", variant="primary", interactive=False),
                 url_docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=True),
-                pdf_docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=True),
+                docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=True),
                 agentic_flow: gr.update(visible=True),
             }
 
@@ -850,15 +855,15 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
             return {
                 url_docs_upload: gr.update(value="Add to Context", variant="secondary", interactive=True),
                 url_docs_clear: gr.update(value="Context Cleared", variant="primary", interactive=False),
-                pdf_docs_upload: gr.update(value=None),
-                pdf_docs_clear: gr.update(value="Context Cleared", variant="primary", interactive=False),
+                docs_upload: gr.update(value=None),
+                docs_clear: gr.update(value="Context Cleared", variant="primary", interactive=False),
                 agentic_flow: gr.update(visible=True),
             }
 
-        url_docs_upload.click(_upload_documents, [url_docs], [url_docs_upload, url_docs_clear, pdf_docs_clear, agentic_flow])
-        url_docs_clear.click(_clear_documents, [], [url_docs_upload, url_docs_clear, pdf_docs_upload, pdf_docs_clear, agentic_flow])
-        pdf_docs_upload.upload(_upload_documents_files, [pdf_docs_upload], [url_docs_clear, pdf_docs_clear, agentic_flow])
-        pdf_docs_clear.click(_clear_documents, [], [url_docs_upload, url_docs_clear, pdf_docs_upload, pdf_docs_clear, agentic_flow])
+        url_docs_upload.click(_upload_documents, [url_docs], [url_docs_upload, url_docs_clear, docs_clear, agentic_flow])
+        url_docs_clear.click(_clear_documents, [], [url_docs_upload, url_docs_clear, docs_upload, docs_clear, agentic_flow])
+        docs_upload.upload(_upload_documents_files, [docs_upload], [url_docs_clear, docs_clear, agentic_flow])
+        docs_clear.click(_clear_documents, [], [url_docs_upload, url_docs_clear, docs_upload, docs_clear, agentic_flow])
 
         """ These helper functions set state and prompts when either the NIM or API Endpoint tabs are selected. """
         
@@ -1019,8 +1024,25 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
 def valid_input(query: str):
     return False if query.isspace() or query is None or query == "" or query == '' else True
 
-""" This helper function executes and generates a response to the user query. """
 
+""" This helper function provides error outputs for the query. """
+def _get_query_error_message(e: Exception) -> str:
+    if isinstance(e, GraphRecursionError):
+        err = QUERY_ERROR_MESSAGES["GraphRecursionError"]
+    elif isinstance(e, HTTPError):
+        if e.response is not None and e.response.status_code == 401:
+            err = QUERY_ERROR_MESSAGES["AuthenticationError"]
+        else:
+            err = QUERY_ERROR_MESSAGES["HTTPError"]
+    else:
+        err = QUERY_ERROR_MESSAGES["Unknown"]
+
+    return f"{err['title']}\n\n{err['body']}"
+
+
+
+
+""" This helper function executes and generates a response to the user query. """
 def _stream_predict(
     client: chat_client.ChatClient,
     app, 
@@ -1104,18 +1126,9 @@ def _stream_predict(
             yield "", chat_history + [[question, final_value["generation"]]], gr.update(show_label=False)
 
         except Exception as e:
-            if isinstance(e, GraphRecursionError):
-                message = (
-                    "⚠️ The system attempted to answer your question and went through {RECURSION_LIMIT} attempts but didn't make progress.\n\n"
-                    "This can happen for various reasons, e.g. your query is too ambiguous or the documents don’t have a clear answer the model can extract.\n\n"
-                    "**Tips:**\n"
-                    "- Try rephrasing your question to make it more specific\n"
-                    "- Change to a better model or higher precision\n"
-                    "- Remove any unnecessary or overly technical documents\n"
-                    "- Make sure your question is answerable based on the content"
-                )
-            else:
-                message = f"*** ERR: Unable to process query. ***\n\nException: {e}"
+            traceback.print_exc()
+
+            message = _get_query_error_message(e)
 
             yield "", chat_history + [[question, message]], gr.update(show_label=False)
 

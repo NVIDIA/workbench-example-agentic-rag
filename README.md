@@ -56,7 +56,9 @@ Follow these steps if you want to get up and running but don't care about modify
 | 5. Click **Documents > Create Context**. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto" alt="Add to Context Button"> | Incorrect API key. Fix per Step 3 above. | 
 | 6. Type question > Hit  enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto" alt="Chat Text"> | Incorrect API key. Fix per Step 3 above. | 
 
-### Clear the context > Change the URLs > Create the context > Ask your questions
+### Clear context > Change URLs > Create context > Ask your questions
+
+Use these steps when you want to work with your own documents and your own prompts.
 
 | Steps | What happens | What can go wrong | 
 |------|--------------|-------------------|
@@ -73,13 +75,6 @@ Use these details if you want to modify the application, e.g. by configuring pro
 
 ### Fork this repo > Clone it in Workbench 
 This repository is read-only, so if you want to customize this app and share the changes, then you should [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository before you clone it. 
-
-
-
-
-
- 
-
 
 
 
