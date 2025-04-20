@@ -4,8 +4,3 @@ Running on local URL:  http://0.0.0.0:8080
 To create a public link, set `share=True` in `launch()`.
 IMPORTANT: You are using gradio version 4.15.0, however version 4.44.1 is available, please upgrade.
 --------
----ROUTE QUESTION---
-tell me about quantum physics.
-{'datasource': 'web_search'}
----ROUTE QUESTION TO WEB SEARCH---
----WEB SEARCH---

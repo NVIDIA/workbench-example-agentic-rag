@@ -12,16 +12,25 @@ QUERY_ERROR_MESSAGES = {
             "- Use different documents or URLs for the context"
         )
     },
+    "TavilyAPIError": {
+        "title": "⚠️ Tavily Error",
+        "body": (
+            "The Tavily web search failed.\n\n"
+            "**Try:**\n"
+            "- Verify your Tavily API key is correct\n"
+            "- In the **Workbench Desktop App**, go to **Project Container > Variables**\n"
+            "- Re-enter your Tavily API key\n"
+            "- Restart project container > Restart chat app > Repeat your query"
+        )
+    },
     "AuthenticationError": {
         "title": "🚫 API Authentication Error",
         "body": (
-            "It looks like one of your API keys is missing or incorrect.\n\n"
-            "**Fix it:**\n"
-            "- Go to the **Workbench Desktop App** tab\n"
-            "- Go to **Project Container > Variables**\n"
-            "- Re-enter your NVIDIA and Tavily API keys"
-            "- Check if you're using a hosted model\n"
-            "- Make sure your API key is valid and entered correctly"
+            "It looks like your NGC API key is missing or incorrect.\n\n"
+            "**Try:**\n"
+            "- In the **Workbench Desktop App**, go to **Project Container > Variables**\n"
+            "- Re-enter your NVIDIA API key\n"
+            "- Restart project container > Restart chat app > Repeat your query"
         )
     },
     "HTTPError": {

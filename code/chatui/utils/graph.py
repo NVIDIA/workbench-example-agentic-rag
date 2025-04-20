@@ -25,8 +25,18 @@ from langchain_community.tools.tavily_search import TavilySearchResults
 
 from chatui.utils import database, nim
 
-### State
 
+# Tavily related parameters and exceptions
+DEFAULT_TAVILY_K = 3
+TAVILY_K = int(os.getenv("TAVILY_K", DEFAULT_TAVILY_K)) 
+
+class TavilyAPIError(Exception):
+    """Raised when Tavily returns invalid or unauthorized results."""
+    pass
+
+
+
+### State
 
 class GraphState(TypedDict):
     """
@@ -201,18 +211,31 @@ def web_search(state):
 
     print("---WEB SEARCH---")
     question = state["question"]
-    documents = state["documents"] if "documents" in state else None
+    documents = state.get("documents", [])
+
+    web_search_tool = TavilySearchResults(max_results=TAVILY_K)
 
     # Web search
-    web_search_tool = TavilySearchResults(k=3)
-    docs = web_search_tool.invoke({"query": question})
-    web_results = "\n".join([d["content"] for d in docs])
-    web_results = Document(page_content=web_results)
-    if documents is not None:
+    try:
+        docs = web_search_tool.invoke({"query": question})
+
+        # Manually validate Tavily returned what we expect
+        if not isinstance(docs, list) or not all(isinstance(d, dict) and "content" in d for d in docs):
+            raise TavilyAPIError(f"Invalid response from Tavily: {docs}")
+
+        web_results = "\n".join([d["content"] for d in docs])
+        web_results = Document(page_content=web_results)
         documents.append(web_results)
-    else:
-        documents = [web_results]
-    return {"documents": documents, "question": question}
+
+        return {"documents": documents, "question": question}
+
+    except Exception as e:
+        raise TavilyAPIError(f"Tavily web search failed: {e}")
+    # if documents is not None:
+    #     documents.append(web_results)
+    # else:
+    #     documents = [web_results]
+
 
 
 ### Conditional edge
