@@ -6,19 +6,15 @@
 - **Route**: Checks the RAG context for relevance to the query and adds live web search if the context is thin
 - **Evaluate**: Checks responses for relevance and accuracy, flags hallucinations
 - **Iterate**: Goes through multiple evaluation and generation cycles
-- **Customize**: Lets you edit prompts for each piece of the pipeline
 
 ### Modify Agentic RAG
-- **Change Parameters**: Adjust agent behavior by changing parameters and runtime variables
+- **Edit Prompts**: Customize results through your own prompts
+- **Change Parameters**: Adjust agent behavior through parameters and runtime variables
 - **New Look and Feel**: Change the agent and UI by editing the code yourself
 
 ### Run Inference Your Way
 - **Free Endpoints**: use free endpoints on build.nvidia.com
 - **Self-Hosted**: Point to NIM or other models on your own GPUs
-
-### Manage Everything with [AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/)
-- **Simple**: Just clone, click start and go
-- **Portable**: Work locally or remotely - Windows, Mac or Ubuntu -  CPU or GPU system
 
 ## Get Started 
 
@@ -29,8 +25,13 @@
 
 ### Prerequisites - AI Workbench and an Internet Connection
 
-> You can run Agentic RAG without Workbench, but this README requires [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) installed locally.
+> You can run Agentic RAG without Workbench, but this README requires [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) installed.
+> See [here for how to install it](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html).
 
+
+### Manage Everything with 
+- **Simple**: Just clone, click start and go
+- **Portable**: Work locally or remotely - Windows, Mac or Ubuntu -  CPU or GPU system
 > You need internet because Agentic RAG uses an NVIDIA endpoint for document embedding.
 
 ### Easy Mode (< 5 minutes if Workbench installed)
