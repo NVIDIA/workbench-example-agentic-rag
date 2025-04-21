@@ -8,6 +8,10 @@
 - **Iterate**: Goes through multiple evaluation and generation cycles
 - **Customize**: Lets you edit prompts for each piece of the pipeline
 
+### Modify Agentic RAG
+- **Change Parameters**: Adjust agent behavior by chaning runtime variables
+- **New Look and Feel**: Change the agent and UI by editing the code yourself
+
 ### Run Inference Your Way
 - **Free out-of-the-box**: use free endpoints on build.nvidia.com
 - **Self-hosted**: Point to NIM or other models on your own GPUs
