@@ -70,11 +70,11 @@ Follow these steps if you want to get up and running but don't care about modify
 
 Use these steps when you want to work with your own documents and your own prompts.
 
-| Steps | What happens | What can go wrong | 
-|------|--------------|-------------------|
-| 1. Click **Documents > Clear Context**. | Vector DB reset. | Very little.
-| 2. Delete the URLs > Add your own > Click **Add to Context**. | New context. |  URLs that can't be resolved. **Fix**: Enter appropriate URLs | 
-| 3. Type question > Hit enter. | Triggers the agent. | Incorrect API key. **Fix**: Fix per Step 3 in table above. | 
+| Steps | What can go wrong | Screen shot | 
+|------|--------------------|-------------|
+| 1. Click **Documents > Clear Context**. | Very little. | Vector DB reset. |
+| 2. Delete the URLs > Add your own > Click **Add to Context**. |   URLs that can't be resolved. **Fix**: Enter appropriate URLs | New context. |
+| 3. Type question > Hit enter. |  Incorrect API key. **Fix**: Fix per Step 3 in table above. | Triggers the agent. |
 
 
 ### (optional) Change prompts
