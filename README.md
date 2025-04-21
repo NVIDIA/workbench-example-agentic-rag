@@ -16,10 +16,10 @@
 - **Simple**: Just clone, click start and go
 - **Portable**: Work locally or remotely - Windows, Mac or Ubuntu -  CPU or GPU system
 
-This README walks you through three modes:
-- **Easy Mode**: Use the application
-- **Intermediate Mode**: Modify the application
-- **Advanced Mode**: Self-host gpus for inference
+> This README walks you through three modes:
+> - **Easy Mode**: Use the application
+> - **Intermediate Mode**: Modify the application
+> - **Advanced Mode**: Self-host gpus for inference
 
 > Use expandable sections below for details for each mode.
 
