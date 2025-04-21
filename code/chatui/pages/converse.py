@@ -852,7 +852,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
             progress(0.25, desc="Initializing Task")
             time.sleep(0.75)
             progress(0.5, desc="Clearing Context")
-            database.clear()
+            database._clear()
             progress(0.75, desc="Cleaning Up")
             time.sleep(0.75)
             return {

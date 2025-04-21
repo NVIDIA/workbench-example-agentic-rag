@@ -26,16 +26,10 @@ from langchain_nvidia_ai_endpoints import NVIDIAEmbeddings
 from typing import Any, Dict, List, Tuple, Union
 from urllib.parse import urlparse
 import os
+import shutil
 import mimetypes
 
-# from langchain.text_splitter import RecursiveCharacterTextSplitter
-# from langchain_community.document_loaders import WebBaseLoader, UnstructuredPDFLoader
-# from langchain_community.vectorstores import Chroma
-# from langchain_nvidia_ai_endpoints import NVIDIAEmbeddings
-# from typing import Any, Dict, List, Tuple, Union
-# from urllib.parse import urlparse
 
-# import os
 
 # Handling which API to use based on public vs NVIDIA internal
 # Check if the INTERNAL_API environment variable is set. Don't set if not NVIDIA employee, as you can't access them.
@@ -60,6 +54,7 @@ DEFAULT_CHUNK_OVERLAP = 0
 
 CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", DEFAULT_CHUNK_SIZE))
 CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", DEFAULT_CHUNK_OVERLAP))
+
 
 
 # Download nltk data
@@ -206,41 +201,57 @@ def upload_files(file_paths: List[str]):
         print(f"[upload_files] Pipeline failed: {e}")
         return None
 
-        
-# def upload_pdf(documents: List[str]):
-#     """ This is a helper function for parsing the user inputted URLs and uploading them into the vector store. """
 
-#     if not docs:
-#         print("[upload] No URLs provided.")
-#         return None
 
-#     docs = [UnstructuredPDFLoader(document).load() for document in documents]
-#     docs_list = [item for sublist in docs for item in sublist]
-    
-#     text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-#         chunk_size=CHUNK_SIZE, chunk_overlap=0
-#     )
-#     doc_splits = text_splitter.split_documents(docs_list)
-    
-#     # Add to vectorDB
-#     vectorstore = Chroma.from_documents(
-#         documents=doc_splits,
+
+def _clear(
+    persist_directory: str = "/project/data",
+    collection_name: str = "rag-chroma",
+    delete_all: bool = True
+):
+    """Clear the Chroma collection and optionally delete all shard folders (excluding hidden files)."""
+    try:
+        # Clear the collection via Chroma client
+        vectorstore = Chroma(
+            collection_name=collection_name,
+            embedding_function=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
+            persist_directory=persist_directory,
+        )
+        vectorstore._client.delete_collection(name=collection_name)
+        vectorstore._client.create_collection(name=collection_name)
+        print(f"[clear] Collection '{collection_name}' cleared.")
+
+        if delete_all:
+            for item in os.listdir(persist_directory):
+                if item.startswith("."):
+                    continue  # Skip hidden files like .gitkeep
+
+                path = os.path.join(persist_directory, item)
+                try:
+                    if os.path.isfile(path):
+                        os.remove(path)
+                        print(f"[clear] Removed file: {item}")
+                    elif os.path.isdir(path):
+                        shutil.rmtree(path)
+                        print(f"[clear] Removed directory: {item}")
+                except Exception as file_err:
+                    print(f"[clear] Could not delete {item}: {file_err}")
+
+    except Exception as e:
+        print(f"[clear] Failed to clear vector store: {e}")
+
+
+      
+# def clear():
+#     """ This is a helper function for emptying the collection the vector store. """
+#     vectorstore = Chroma(
 #         collection_name="rag-chroma",
-#         embedding=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
+#         embedding_function=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
 #         persist_directory="/project/data",
 #     )
-#     return vectorstore
-
-def clear():
-    """ This is a helper function for emptying the collection the vector store. """
-    vectorstore = Chroma(
-        collection_name="rag-chroma",
-        embedding_function=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
-        persist_directory="/project/data",
-    )
     
-    vectorstore._client.delete_collection(name="rag-chroma")
-    vectorstore._client.create_collection(name="rag-chroma")
+#     vectorstore._client.delete_collection(name="rag-chroma")
+#     vectorstore._client.create_collection(name="rag-chroma")
 
 def get_retriever(): 
     """ This is a helper function for returning the retriever object of the vector store. """
