@@ -10,7 +10,7 @@
 ### Modify Agentic RAG
 - **Edit Prompts**: Customize results through your own prompts
 - **Change Parameters**: Adjust agent behavior through parameters and runtime variables
-- **New Look and Feel**: Change the agent and UI by editing the code yourself
+- **Look and Feel**: Change the agent and UI by editing the code yourself
 
 ### Inference Your Way
 - **Free Endpoints**: use free endpoints on build.nvidia.com
@@ -74,21 +74,21 @@ Use these steps when you want to work with your own documents and your own promp
 
 ## Intermediate Mode
 <img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
-This application is just a starting point, so you can do whatever you want. Furthermore, 
-it's a quick prototype and not a fully robust piece of software. So there are **many** opportunities for you to improve it.
+
+This application is just a starting point, so you can do whatever you want. Furthermore, it's a quick prototype and not a robust piece of software. So there are **many** opportunities to improve it.
 
 1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this project to your own GitHub account. Then clone it in Workbench
 2. [Add VS Code to the project](https://docs.nvidia.com/ai-workbench/user-guide/latest/applications/vs-code.html)
 3. Create an ``experiment`` branch to protect main
 4. Open VS Code from the Desktop App and edit the application code
+  - Change recursion limit, number of web sites returned by Tavily, whether previous searches are saved
+  - Add new endpoints from build.nvidia.com
+  - Change the look and feel of the Gradio app or add new features
+  - Modify the agent
+  - Fix any bugs you find
 
-#### See [Full Intermediate Mode Instructions](agentic-rag-docs/edit-code.md).
+#### See [Full Intermediate Mode Instructions](agentic-rag-docs/edit-code.md)
 
-- Change recursion limit, number of web sites returned by Tavily, whether previous searches are saved
-- Add new endpoints from build.nvidia.com
-- Change the look and feel of the Gradio app or add new features
-- Modify the agent
-- Fix any bugs you find
 
 </details>
 
