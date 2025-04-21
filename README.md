@@ -38,7 +38,7 @@
 3. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
 4. Type in your question > Hit enter - answers come from free cloud endpoints.
 
-## Details for the Different README Modes
+## Details for the README Modes
 <details>
 <summary><strong>Click to Expand Easy Mode</strong></summary>
 
