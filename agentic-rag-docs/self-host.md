@@ -1,6 +1,6 @@
-# Self‑Hosting Agentic RAG on Your Own GPU
+# Using Your Own GPU for Inference
 
-> **Who is this for?**  Anyone who wants faster inference, air‑gapped privacy, or the ability to run larger models than the free cloud endpoints provide.
+> **Who is this for?**  Anyone who wants to explore running their own inference.
 
 ---
 
