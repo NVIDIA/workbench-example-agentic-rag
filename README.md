@@ -19,7 +19,7 @@
 
 ### Let [AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) handle application deployment and management
 - **Simple**: Just clone, click start and go
-- **Portable**: 
+- **Portable**: Work locally or remotely - Windows, Mac or Ubuntu -  CPU or GPU system
 
 ## Get Started 
 
