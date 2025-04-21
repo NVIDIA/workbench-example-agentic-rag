@@ -1,14 +1,14 @@
 
 
-# Agentic RAG - Supplement Context with Web Search with Accuracy and Hallucination Controls
+# Agentic RAG - Add Web Search with Accuracy and Hallucination Controls
 
 ### Boost RAG with an Agentic Layer
 - **Route**: Checks the RAG context for relevance to the query and adds live web search if the context is thin
 - **Evaluate**: Checks responses for relevance and accuracy, flags hallucinations
 - **Iterate**: Goes through multiple evaluation and generation cycles
-- **Customize**: Lets you you edit prompts for each piece of the pipeline
+- **Customize**: Lets you edit prompts for each piece of the pipeline
 
-### Run Inference your Way
+### Run Inference Your Way
 - **Free out-of-the-box**: use free endpoints on build.nvidia.com
 - **Self-hosted**: Point to NIM or other models on your own GPUs
 
@@ -23,6 +23,8 @@ This README walks you through three modes:
 - Intermediate Mode: Modify the application
 - Advanced Mode: Self-host gpus for inference
 
+> Use expandable sections below to see details for each mode.
+
 ### Easy Mode (< 5 minutes if Workbench installed)
 
 ### Prerequisites - AI Workbench and an Internet Connection
@@ -31,16 +33,17 @@ You can run the app without Workbench, but to follow this readme, you need [AI W
 
 > You **must** be connected to the internet to **run** the application because it uses an NVIDIA endpoint for the context creation.
 
+### Easy Mode Steps
 1. Get NVIDIA and Tavily API keys:  
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  See instructions [here](https://docs.nvidia.com/ai-enterprise/deployment/spark-rapids-accelerator/latest/appendix-ngc.html).
    - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
 2. **Clone** this repo with AI Workbench > [configure the keys](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables) when prompted.  
 3. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
-4. Type in your question > Hit enter-answers come from free cloud endpoints.
+4. Type in your question > Hit enter - answers come from free cloud endpoints.
 
 
 <details>
-<summary><strong>Click to expand Easy Mode steps</strong></summary>
+<summary><strong>Click to Expand Easy Mode steps</strong></summary>
 
 <img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto" alt="Agentic RAG Web App Screenshot">
 
@@ -108,10 +111,6 @@ Use these details if you want to modify the application, e.g. by configuring pro
 
 </details>
 
-## Other Resources
-<!-- Links -->
-[:arrow_down: Download AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) | [:book: User Guide](https://docs.nvidia.com/ai-workbench/) |[:open_file_folder: Other Projects](https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/example-projects.html) | [:rotating_light: User Forum](https://forums.developer.nvidia.com/t/support-workbench-example-project-agentic-rag/303414)
-
 # License
 This NVIDIA AI Workbench example project is under the [Apache 2.0 License](https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/LICENSE.txt)
 
@@ -120,3 +119,10 @@ This project may utilize additional third-party open source software projects. R
 | :question: Have Questions?  |
 | :---------------------------|
 | Please direct any issues, fixes, suggestions, and discussion on this project to the DevZone Members Only Forum thread [here](https://forums.developer.nvidia.com/t/support-workbench-example-project-agentic-rag/303414) |
+
+
+
+## Other Resources
+<!-- Links -->
+[:arrow_down: Download AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) | [:book: User Guide](https://docs.nvidia.com/ai-workbench/) |[:open_file_folder: Other Projects](https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/example-projects.html) | [:rotating_light: User Forum](https://forums.developer.nvidia.com/t/support-workbench-example-project-agentic-rag/303414)
+
