@@ -50,10 +50,12 @@ You can run the app without Workbench, but to follow this readme, you need [AI W
 
 > You **must** be connected to the internet to **run** the application because it uses an NVIDIA endpoint for the context creation.
 
-### Clone this project > Start the chat >  Create the context >  Ask your questions
-
 <details>
 <summary><strong>Click to expand Easy Mode steps</strong></summary>
+
+### Clone this project > Start the chat >  Create the context >  Ask your questions
+
+
 
 | Steps | What can go wrong | Screen shot |
 |------|--------------------|-------------|
@@ -78,6 +80,7 @@ Use these steps when you want to work with your own documents and your own promp
 ### (optional) Change prompts
 You can significantly modify the behavior of the agent by changing the prompts.
 
+</details>
 
 ## Intermediate Mode
 <img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
