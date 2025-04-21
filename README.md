@@ -28,8 +28,8 @@ This README walks you through three modes:
 ### Easy Mode (< 5 minutes if Workbench installed)
 
 ### Prerequisites - AI Workbench and an Internet Connection
-> This README focuses on running the  app in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a free, cloud-like UX for your own systems.
-> You can run the app without Workbench, but to follow this readme, you need [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) installed on your laptop.
+
+> You can run the Agentic RAG app without Workbench, but to follow this readme, you need [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) installed on your laptop.
 
 > You **must** be connected to the internet to **run** the application because it uses an NVIDIA endpoint for the context creation.
 
