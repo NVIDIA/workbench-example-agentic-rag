@@ -12,16 +12,16 @@
 - **Change Parameters**: Adjust agent behavior through parameters and runtime variables
 - **New Look and Feel**: Change the agent and UI by editing the code yourself
 
-### Run Inference Your Way
+### Inference Your Way
 - **Free Endpoints**: use free endpoints on build.nvidia.com
 - **Self-Hosted**: Point to NIM or other models on your own GPUs
 
 ## Get Started 
 
-> This README has three modes:
-> - **Easy Mode**: Use the application
-> - **Intermediate Mode**: Modify the application
-> - **Advanced Mode**: Self-host gpus for inference
+This README has three modes:
+- **Easy Mode**: Use the application
+- **Intermediate Mode**: Modify the application
+- **Advanced Mode**: Self-host gpus for inference
 
 ### Prerequisites - AI Workbench and an Internet Connection
 
