@@ -82,6 +82,9 @@ You can significantly modify the behavior of the agent by changing the prompts.
 
 </details>
 
+<details>
+<summary><strong>Click to expand Intermediate Mode steps</strong></summary>
+
 ## Intermediate Mode
 <img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
 This application is just a starting point, so you can do whatever you want. Furthermore, 
@@ -100,6 +103,11 @@ it's a quick prototype and not a fully robust piece of software. So there are **
 - Modify the agent
 - Fix any bugs you find
 
+</details>
+
+<details>
+<summary><strong>Click to expand Advanced Mode steps</strong></summary>
+
 ## Advanced Mode
 
 Use these details if you want to modify the application, e.g. by configuring prompts, adding your own endpoints, changing the Gradio app or whatever else occurs to you.
@@ -111,6 +119,7 @@ Use these details if you want to modify the application, e.g. by configuring pro
 ### See [Full Advanced Mode Instructions Here](agentic-rag-docs/self-host.md).
 This repository is read-only, so if you want to customize this app and share the changes, then you should this repository before you clone it. 
 
+</details>
 
 # License
 This NVIDIA AI Workbench example project is under the [Apache 2.0 License](https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/LICENSE.txt)
