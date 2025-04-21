@@ -51,7 +51,7 @@ MISTRAL = "mistralai/mixtral-8x22b-instruct-v0.1"
 # check if the internal API is set
 INTERNAL_API = os.getenv('INTERNAL_API', '')
 
-# If internal API is set, modify the model identifiers to use the internal endpoints.
+# Modify model identifiers (to use the internal endpoints if that variable is set).
 if INTERNAL_API != '':
     LLAMA = f'{INTERNAL_API}/meta/llama-3.1-70b-instruct'  
     MISTRAL = f'{INTERNAL_API}/mistralai/mixtral-8x22b-instruct-v0.1'
