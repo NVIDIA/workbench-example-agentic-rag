@@ -81,11 +81,11 @@ This application is just a starting point, so you can do whatever you want. Furt
 2. [Add VS Code to the project](https://docs.nvidia.com/ai-workbench/user-guide/latest/applications/vs-code.html)
 3. Create an ``experiment`` branch to protect main
 4. Open VS Code from the Desktop App and edit the application code
-  - Change recursion limit, number of web sites returned by Tavily, whether previous searches are saved
-  - Add new endpoints from build.nvidia.com
-  - Change the look and feel of the Gradio app or add new features
-  - Modify the agent
-  - Fix any bugs you find
+   - Change recursion limit, number of web sites returned by Tavily, whether previous searches are saved
+   - Add new endpoints from build.nvidia.com
+   - Change the look and feel of the Gradio app or add new features
+   - Modify the agent
+   - Fix any bugs you find
 
 #### See [Full Intermediate Mode Instructions](agentic-rag-docs/edit-code.md)
 
