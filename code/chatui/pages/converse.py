@@ -34,6 +34,9 @@ import traceback
 
 
 from chatui.utils.error_messages import QUERY_ERROR_MESSAGES
+from chatui.utils.graph import TavilyAPIError
+
+
 
 
 # Set recursion limit 
@@ -191,7 +194,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                     with gr.TabItem("Instructions", id=0) as instructions_tab:
                         gr.Markdown(
                             """
-                            ## Configure your API keys before using this application
+                            ### Configure your API keys before using this application
 
                             ##### Use the Models tab to configure individual components
                             - Click a component name (e.g. Router) to configure it
@@ -216,11 +219,11 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                     with gr.TabItem("Models", id=1) as agent_settings:
                             gr.Markdown(
                                         """
-                                        ## Using API endpoints requires an API key
+                                        ### Using NVIDIA API endpoints requires an NVIDIA API key
                                         ##### Select and configure each component of the agentic RAG pipeline
                                         - Click a component below (e.g. Router) and select API or NIM 
                                         - For APIs, select the model from the dropdown
-                                        - For NIM, see instructions here
+                                        - For NIM, see instructions [here](https://github.com/nv-twhitehouse/workbench-example-agentic-rag/blob/twhitehouse/april-16/agentic-rag-docs/self-host.md)
                                         - (optional) Customize component behavior by configuring the prompt
                                         """
                             )
@@ -566,7 +569,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                         gr.Markdown("")
                         gr.Markdown(
                             """
-                            ## Document embedding requires an API key
+                            ### Content creation requires an NVIDIA API key for the embedding model
                             ##### Embed websites and files into a vector database to create a context. 
                             - You can do this in multiple rounds. 
                             - Context is stored until you clear it.
@@ -1034,6 +1037,8 @@ def _get_query_error_message(e: Exception) -> str:
             err = QUERY_ERROR_MESSAGES["AuthenticationError"]
         else:
             err = QUERY_ERROR_MESSAGES["HTTPError"]
+    elif isinstance(e, TavilyAPIError):
+        err = QUERY_ERROR_MESSAGES["TavilyAPIError"]
     else:
         err = QUERY_ERROR_MESSAGES["Unknown"]
 
