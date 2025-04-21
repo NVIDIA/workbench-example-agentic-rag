@@ -1,6 +1,6 @@
 <img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto" alt="Agentic RAG Web App Screenshot">
 
-*Navigating the README:* [Get Started](#get-started) | [Easy Mode Details](#easy-mode-details) | [Advanced Mode Details](#advanced-mode-details) | [Repository License](#license)
+*Navigating the README:* [Get Started](#get-started) | [Easy Mode](#easy-mode) | [Intermediate Mode] (#intermediate-mode) | [Advanced Mode](#advanced-mode) | [Repository License](#license)
 
 <!-- Links -->
 *Other Resources:* [:arrow_down: Download AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) | [:book: User Guide](https://docs.nvidia.com/ai-workbench/) |[:open_file_folder: Other Projects](https://docs.nvidia.com/ai-workbench/user-guide/latest/quickstart/example-projects.html) | [:rotating_light: User Forum](https://forums.developer.nvidia.com/t/support-workbench-example-project-agentic-rag/303414)
@@ -52,7 +52,7 @@ See [full instructions here](agentic-rag-docs/edit-code.md).
 3. Configure the chat app to use the NIM.
 
 
-## Easy Mode Details 
+## Easy Mode
 Follow these steps if you want to get up and running but don't care about modifying the application or adding your own endpoints.
 
 ### Clone this project > Start the chat >  Create the context >  Ask your questions
@@ -81,7 +81,7 @@ Use these steps when you want to work with your own documents and your own promp
 You can significantly modify the behavior of the agent by changing the prompts.
 
 
-## Intermediate Mode Details
+## Intermediate Mode
 <img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
 This application is just a starting point, so you can do whatever you want. Furthermore, 
 it's a quick prototype and not a fully robust piece of software. So there are **many** opportunities for you to improve it.
@@ -94,7 +94,7 @@ it's a quick prototype and not a fully robust piece of software. So there are **
 - Modify the agent
 - Fix any bugs you find
 
-## Advanced Mode Details
+## Advanced Mode
 
 Use these details if you want to modify the application, e.g. by configuring prompts, adding your own endpoints, changing the Gradio app or whatever else occurs to you.
 
