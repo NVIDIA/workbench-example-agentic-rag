@@ -30,11 +30,6 @@
 
 > You need internet because Agentic RAG uses an NVIDIA endpoint for document embedding.
 
-### Manage Everything with 
-- **Simple**: Just clone, click start and go
-- **Portable**: Work locally or remotely - Windows, Mac or Ubuntu -  CPU or GPU system
-
-
 ### Easy Mode (< 5 minutes if Workbench installed)
 1. Get NVIDIA and Tavily API keys:  
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  See instructions [here](https://docs.nvidia.com/ai-enterprise/deployment/spark-rapids-accelerator/latest/appendix-ngc.html).
