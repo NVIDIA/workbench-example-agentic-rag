@@ -25,22 +25,20 @@
 
 ## Get Started 
 
-This project has three modes:
+This README walks you through three modes:
 - Easy Mode: Use the application
-- Intermediate Mode: Modify the application code
+- Intermediate Mode: Modify the application
 - Advanced Mode: Self-host gpus for inference
 
-This Get Started section focus on Easy Mode. You can expand Intermediate and Advanced Mode below. 
-
 ### Easy Mode (< 5 minutes if Workbench installed)
-See [full instructions here](#easy-mode).
 
 1. Get NVIDIA and Tavily API keys:  
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  See instructions [here](https://docs.nvidia.com/ai-enterprise/deployment/spark-rapids-accelerator/latest/appendix-ngc.html).
    - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
-2. **Clone** this repo with AI Workbench > [configure the keys](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables) when prompted.  
-3. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
-4. Type in your question > Hit enter-answers come from free cloud endpoints.
+2. [Install AI Workbench locally]((https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html)) 
+3. **Clone** this repo with AI Workbench > [configure the keys](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables) when prompted.  
+4. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
+5. Type in your question > Hit enter-answers come from free cloud endpoints.
 
 
 ### Prerequisites - AI Workbench and an Internet Connection
@@ -53,7 +51,6 @@ You can run the app without Workbench, but to follow this readme, you need [AI W
 <summary><strong>Click to expand Easy Mode steps</strong></summary>
 
 ### Clone this project > Start the chat >  Create the context >  Ask your questions
-
 
 
 | Steps | What can go wrong | Screen shot |
