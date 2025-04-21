@@ -33,7 +33,7 @@ You can run the app without Workbench, but to follow this readme, you need [AI W
    - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
 2. **Clone** this repo with AI Workbench > [configure the keys](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html#basic-usage-for-environment-variables) when prompted.  
 3. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
-4. Type in your question > Hit enter--answers come from free cloud endpoints.
+4. Type in your question > Hit enter-answers come from free cloud endpoints.
 
 ### Intermediate Mode (modify agent and UI code)
 
@@ -57,14 +57,14 @@ Follow these steps if you want to get up and running but don't care about modify
 
 ### Clone this project > Start the chat >  Create the context >  Ask your questions
 
-| Steps | Screenshot | What can go wrong |
-|------|------------|-------------------|
-| 1. Open the Desktop App > Select [local](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | <p align="center"><img src="./readme-images/desktop-icon.png" width="120" alt="Desktop App Icon"></p> | Probably a  Docker Desktop issue (if selected on install). **Fix**:  See [troubleshooting here](https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/troubleshooting.html) | 
-| 2. Click **Clone Project** > Paste repository [URL](https://github.com/NVIDIA/workbench-example-agentic-rag) > **Clone** | <img src="./readme-images/clone-button.png" width="250" height="auto" alt="Clone Button"> | Incorrect URL. **Fix**: use the correct URL. | 
-| 3. Click **Resolve Now** > Enter NVIDIA and Tavily API keys. | <img src="./readme-images/resolve-now.png" width="200" height="auto" alt="Resolve Now Warning"> | You don't see the banner. **Fix**: go to **Project Container > Variables > Configure** for API keys. See [docs here](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html) | 
-| 4. Click **Open Chat**. | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto" alt="Open Chat Button"> | Very little can go wrong here |
-| 5. Click **Documents > Create Context**. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto" alt="Add to Context Button"> | Incorrect API key. Fix per Step 3 above. | 
-| 6. Type question > Hit  enter. | <img src="./readme-images/hit-enter.png" width="200" height="auto" alt="Chat Text"> | Incorrect API key. Fix per Step 3 above. | 
+| Steps | What can go wrong | Screen shot |
+|------|--------------------|-------------|
+| 1. Open the Desktop App > Select [local](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | Probably a  Docker Desktop issue (if selected on install). **Fix**:  See [troubleshooting here](https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/troubleshooting.html) | <p align="center"><img src="./readme-images/desktop-icon.png" width="120" alt="Desktop App Icon"></p> |
+| 2. Click **Clone Project** > Paste repository [URL](https://github.com/NVIDIA/workbench-example-agentic-rag) > **Clone** | Incorrect URL. **Fix**: use the correct URL. | <img src="./readme-images/clone-button.png" width="250" height="auto" alt="Clone Button"> |
+| 3. Click **Resolve Now** > Enter NVIDIA and Tavily API keys. | You don't see the banner. **Fix**: go to **Project Container > Variables > Configure** for API keys. See [docs here](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html) | <img src="./readme-images/resolve-now.png" width="200" height="auto" alt="Resolve Now Warning"> |
+| 4. Click **Open Chat**. | Very little can go wrong here | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto" alt="Open Chat Button"> |
+| 5. Click **Documents > Create Context**. | Incorrect API key. Fix per Step 3 above. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto" alt="Add to Context Button"> |
+| 6. Type question > Hit  enter. |  Incorrect API key. Fix per Step 3 above. | <img src="./readme-images/hit-enter.png" width="200" height="auto" alt="Chat Text"> |
 
 ### Clear context > Change URLs > Create context > Ask your questions
 
