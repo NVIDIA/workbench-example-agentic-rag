@@ -46,7 +46,7 @@ See [full instructions here](agentic-rag-docs/edit-code.md).
 
 
 ### Advanced Mode (self-host GPUs)
-See [full instructions here](agentic-rag-docs/self-host.md).
+
 1. Set up a Linux box with an NVIDIA GPU and Docker.  
 2. Deploy an **NVIDIA NIM** container on that host.  
 3. Configure the chat app to use the NIM.
@@ -82,50 +82,24 @@ You can significantly modify the behavior of the agent by changing the prompts.
 
 
 ## Intermediate Mode Details
-This application is just a starting point, so you can do whatever you want. As such, there are too many things to go through in detail. Furthermore, 
+<img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
+This application is just a starting point, so you can do whatever you want. Furthermore, 
 it's a quick prototype and not a fully robust piece of software. So there are **many** opportunities for you to improve it.
 
-<img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
+### See [Full Intermediate Mode Instructions](agentic-rag-docs/edit-code.md).
 
-
-### See [full instructions here](agentic-rag-docs/edit-code.md).
-
-You can:
-- Change various parameters such as recursion limit, number of web sites returned by a Tavily search, and whether previous searches are saved
-- Add different models by adding in new endpoints from build.nvidia.com
+- Change recursion limit, number of web sites returned by Tavily, whether previous searches are saved
+- Add new endpoints from build.nvidia.com
 - Change the look and feel of the Gradio app or add new features
-- Modify the agent itself
+- Modify the agent
 - Fix any bugs you find
 
 ## Advanced Mode Details
 
-
-
 Use these details if you want to modify the application, e.g. by configuring prompts, adding your own endpoints, changing the Gradio app or whatever else occurs to you.
 
-### Fork this repo > Clone it in Workbench 
+### See [Full Advanced Mode Instructions Here](agentic-rag-docs/self-host.md).
 This repository is read-only, so if you want to customize this app and share the changes, then you should this repository before you clone it. 
-
-
-
-#### Using Self-Hosted Endpoints
-
-You can configure pipeline components (Router, Generator, Retrieval, Hallucination Check, Answer Check) separately to use either an endpoint or a self-hosted NIM, as well as selecting different models. In otherwords, you can mix and match between hosted and self-hosted components based on your needs. The application includes built-in GPU compatibility checking **for the remote host GPUs** to help you select appropriate models for that hardware configuration.
-
-Prerequisites for the remote GPU:
-* NVIDIA GPU(s) with appropriate VRAM
-* Ubuntu 22.04 or later with latest NVIDIA drivers
-* Docker and NVIDIA Container Toolkit
-
-To set up NIM endpoints for your components:
-1. Check the [NIM documentation](https://docs.nvidia.com/nim/large-language-models/latest/getting-started.html) for detailed setup instructions
-2. For each component you want to self-host:
-   * Select "NIM Endpoints" in the component's configuration
-   * Choose your GPU type and count - the UI will automatically show only compatible models
-   * Enter your endpoint details (host, port)
-3. Components not set to self-hosted will continue using their configured cloud endpoints
-
-The application will validate your GPU configuration for each component and prevent incompatible model selections. You can use different GPU configurations for different components based on their computational needs.
 
 
 # License
