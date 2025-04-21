@@ -28,11 +28,12 @@ This README has three modes:
 > You can run Agentic RAG without Workbench, but this README requires [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) installed.
 > See [here for how to install it](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html).
 
+> You need internet because Agentic RAG uses an NVIDIA endpoint for document embedding.
 
 ### Manage Everything with 
 - **Simple**: Just clone, click start and go
 - **Portable**: Work locally or remotely - Windows, Mac or Ubuntu -  CPU or GPU system
-> You need internet because Agentic RAG uses an NVIDIA endpoint for document embedding.
+
 
 ### Easy Mode (< 5 minutes if Workbench installed)
 1. Get NVIDIA and Tavily API keys:  
