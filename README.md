@@ -19,11 +19,11 @@
 ## Get Started 
 
 This README walks you through three modes:
-- Easy Mode: Use the application
-- Intermediate Mode: Modify the application
-- Advanced Mode: Self-host gpus for inference
+- **Easy Mode**: Use the application
+- **Intermediate Mode**: Modify the application
+- **Advanced Mode**: Self-host gpus for inference
 
-> Use expandable sections below to see details for each mode.
+> Use expandable sections below for details for each mode.
 
 ### Prerequisites - AI Workbench and an Internet Connection
 
@@ -39,7 +39,7 @@ This README walks you through three modes:
 3. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
 4. Type in your question > Hit enter - answers come from free cloud endpoints.
 
-
+## Details for Modes
 <details>
 <summary><strong>Click to Expand Easy Mode steps</strong></summary>
 
