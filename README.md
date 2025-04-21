@@ -43,7 +43,7 @@
 
 ## Details for Modes
 <details>
-<summary><strong>Click to Expand Easy Mode Steps</strong></summary>
+<summary><strong>Click to Expand Easy Mode</strong></summary>
 
 <img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto" alt="Agentic RAG Web App Screenshot">
 
@@ -73,7 +73,7 @@ Use these steps when you want to work with your own documents and your own promp
 </details>
 
 <details>
-<summary><strong>Click to expand Intermediate Mode Steps</strong></summary>
+<summary><strong>Click to Expand Intermediate Mode</strong></summary>
 
 ## Intermediate Mode
 <img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
@@ -96,7 +96,7 @@ it's a quick prototype and not a fully robust piece of software. So there are **
 </details>
 
 <details>
-<summary><strong>Click to Expand Advanced Mode Steps</strong></summary>
+<summary><strong>Click to Expand Advanced Mode</strong></summary>
 
 ## Advanced Mode
 
