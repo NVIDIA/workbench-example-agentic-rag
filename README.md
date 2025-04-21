@@ -16,14 +16,14 @@
 - **Simple**: Just clone, click start and go
 - **Portable**: Work locally or remotely - Windows, Mac or Ubuntu -  CPU or GPU system
 
-## Get Started 
-
 This README walks you through three modes:
 - **Easy Mode**: Use the application
 - **Intermediate Mode**: Modify the application
 - **Advanced Mode**: Self-host gpus for inference
 
 > Use expandable sections below for details for each mode.
+
+## Get Started 
 
 ### Prerequisites - AI Workbench and an Internet Connection
 
@@ -41,7 +41,7 @@ This README walks you through three modes:
 
 ## Details for Modes
 <details>
-<summary><strong>Click to Expand Easy Mode steps</strong></summary>
+<summary><strong>Click to Expand Easy Mode Steps</strong></summary>
 
 <img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto" alt="Agentic RAG Web App Screenshot">
 
