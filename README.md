@@ -1,6 +1,6 @@
 
 
-# Agentic RAG - Control for Thin Contect, Accuracy and Hallucination
+# Agentic RAG - Supplement Context with Web Search with Accuracy and Hallucination Controls
 
 ### Boost RAG with an Agentic Layer
 - **Route**: Checks the RAG context for relevance to the query and adds live web search if the context is thin
@@ -12,7 +12,7 @@
 - **Free out-of-the-box**: use free endpoints on build.nvidia.com
 - **Self-hosted**: Point to NIM or other models on your own GPUs
 
-### Let [AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) Manage the Application
+### Manage Everything with [AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/)
 - **Simple**: Just clone, click start and go
 - **Portable**: Work locally or remotely - Windows, Mac or Ubuntu -  CPU or GPU system
 
