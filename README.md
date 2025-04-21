@@ -25,6 +25,13 @@
 
 ## Get Started 
 
+This project has three modes:
+- Easy Mode: Use the application
+- Intermediate Mode: Modify the application code
+- Advanced Mode: Self-host gpus for inference
+
+This Get Started section focus on Easy Mode. You can expand Intermediate and Advanced Mode below. 
+
 ### Easy Mode (< 5 minutes if Workbench installed)
 See [full instructions here](#easy-mode).
 
@@ -35,14 +42,6 @@ See [full instructions here](#easy-mode).
 3. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
 4. Type in your question > Hit enter-answers come from free cloud endpoints.
 
-### Intermediate Mode ([modify agent and UI code](#intermediate-mode))
-
-
-### Advanced Mode ([self-host GPUs](#advanced-mode))
-
-
-## Easy Mode
-Follow these steps if you want to get up and running but don't care about modifying the application or adding your own endpoints.
 
 ### Prerequisites - AI Workbench and an Internet Connection
 This app is built to run in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a free, cloud-like UX for your own systems.
