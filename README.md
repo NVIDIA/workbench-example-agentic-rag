@@ -9,26 +9,23 @@
 - **Customize**: Lets you edit prompts for each piece of the pipeline
 
 ### Modify Agentic RAG
-- **Change Parameters**: Adjust agent behavior by chaning runtime variables
+- **Change Parameters**: Adjust agent behavior by changing parameters and runtime variables
 - **New Look and Feel**: Change the agent and UI by editing the code yourself
 
 ### Run Inference Your Way
-- **Free out-of-the-box**: use free endpoints on build.nvidia.com
-- **Self-hosted**: Point to NIM or other models on your own GPUs
+- **Free Endpoints**: use free endpoints on build.nvidia.com
+- **Self-Hosted**: Point to NIM or other models on your own GPUs
 
 ### Manage Everything with [AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/)
 - **Simple**: Just clone, click start and go
 - **Portable**: Work locally or remotely - Windows, Mac or Ubuntu -  CPU or GPU system
 
+## Get Started 
+
 > This README has three modes:
 > - **Easy Mode**: Use the application
 > - **Intermediate Mode**: Modify the application
 > - **Advanced Mode**: Self-host gpus for inference
-
-
-
-## Get Started 
-
 
 ### Prerequisites - AI Workbench and an Internet Connection
 
