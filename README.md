@@ -8,9 +8,10 @@
 # Agentic RAG - Control for accuracy and hallucination
 
 ### Boost RAG with an agentic layer that:
-- routes queries and adds live web search when context is thin
-- grades responses for relevance and accuracy, flags hallucinations
-- lets you edit prompts for every stage from the UI
+- **Routes** Checks the RAG context for relevance to the query and adds live web search if the context is thin
+- **Evaluates**: Checks responses for relevance and accuracy, flags hallucinations
+- **Iterates**: Goes through multiple evaluation and generation cycles
+- **Customizes** Lets you you edit prompts for each piece of the pipeline
 
 ### Run inference your way:
 - **Free out-of-the-box**: use free endpoints on build.nvidia.com
@@ -19,13 +20,13 @@
 
 ## Get Started 
 
-### Prerequisites
-This app runs in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a free, cloud-like UX that runs on your own systems.
-To follow this readme, you must first install [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) on your laptop.
+### Prerequisites - AI Workbench and an Internet Connection
+This app is built to run in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a free, cloud-like UX for your own systems.
+You can run the app without Workbench, but to follow this readme, you need [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) installed on your laptop.
 
 > You **must** be connected to the internet to **run** the application because it uses an NVIDIA endpoint for the context creation.
 
-### Easy Mode (< 5 minutes if Workbench already installed)
+### Easy Mode (< 5 minutes if Workbench installed)
 
 1. Get NVIDIA and Tavily API keys:  
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  See instructions [here](https://docs.nvidia.com/ai-enterprise/deployment/spark-rapids-accelerator/latest/appendix-ngc.html).
@@ -34,7 +35,16 @@ To follow this readme, you must first install [AI Workbench](https://docs.nvidia
 3. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
 4. Type in your question > Hit enter--answers come from free cloud endpoints.
 
-### Advanced Mode (need to self-host GPUs)
+### Intermediate Mode (modify agent and UI code)
+
+1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this project to your own GitHub account. Then clone it in Workbench
+2. [Add VS Code to the project](https://docs.nvidia.com/ai-workbench/user-guide/latest/applications/vs-code.html)
+3. Create an ``experiment`` branch to protect main
+4. Open VS Code from the Desktop App and edit the application code
+
+See [full instructions here](agentic-rag-docs/edit-code.md).
+
+### Advanced Mode (self-host GPUs)
 
 1. Set up a Linux box with an NVIDIA GPU and Docker.  
 2. Deploy an **NVIDIA NIM** container on that host.  
@@ -67,6 +77,16 @@ Use these steps when you want to work with your own documents and your own promp
 | 3. Type question > Hit enter. | Triggers the agent. | Incorrect API key. **Fix**: Fix per Step 3 in table above. | 
 
 
+## Intermediate Mode Details
+This application is just a starting point, so you can do whatever you want. As such, there are too many things to go through in detail. Furthermore, 
+it's a quick prototype and not a fully robust piece of software. So there are **many** opportunities for you to improve it.
+
+So we will just give an idea of what you can modify and where to look for it in the code base.
+
+### Fork and clone this project > Add and open VS Code (or just use JupyterLab) > Change some parameters in the code
+
+### Add more NVIDIA Endpoints
+
 ## Advanced Mode Details
 
 <img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
@@ -74,7 +94,7 @@ Use these steps when you want to work with your own documents and your own promp
 Use these details if you want to modify the application, e.g. by configuring prompts, adding your own endpoints, changing the Gradio app or whatever else occurs to you.
 
 ### Fork this repo > Clone it in Workbench 
-This repository is read-only, so if you want to customize this app and share the changes, then you should [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this repository before you clone it. 
+This repository is read-only, so if you want to customize this app and share the changes, then you should this repository before you clone it. 
 
 
 
