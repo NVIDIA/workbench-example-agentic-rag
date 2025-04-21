@@ -21,6 +21,7 @@
 ## Get Started 
 
 ### Easy Mode (< 5 minutes if Workbench installed)
+See [full instructions here](#easy-mode).
 
 1. Get NVIDIA and Tavily API keys:  
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  See instructions [here](https://docs.nvidia.com/ai-enterprise/deployment/spark-rapids-accelerator/latest/appendix-ngc.html).
