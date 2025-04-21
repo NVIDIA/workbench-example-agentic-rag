@@ -1,4 +1,4 @@
-<img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto" alt="Agentic RAG Web App Screenshot">
+
 
 *Navigating the README:* [Get Started](#get-started) | [Easy Mode](#easy-mode) | [Intermediate Mode] (#intermediate-mode) | [Advanced Mode](#advanced-mode) | [Repository License](#license)
 
@@ -21,6 +21,8 @@
 - **Simple**: Just clone, click start and go
 - **Portable**: Work locally or remotely - Windows, Mac or Ubuntu -  CPU or GPU system
 
+<img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto" alt="Agentic RAG Web App Screenshot">
+
 ## Get Started 
 
 ### Easy Mode (< 5 minutes if Workbench installed)
@@ -33,21 +35,10 @@ See [full instructions here](#easy-mode).
 3. Click **Open Chat** > Go to the **Document** tab in the web app > Click **Add to Context**.  
 4. Type in your question > Hit enter-answers come from free cloud endpoints.
 
-### Intermediate Mode (modify agent and UI code)
-
-See [full instructions here](agentic-rag-docs/edit-code.md).
-
-1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this project to your own GitHub account. Then clone it in Workbench
-2. [Add VS Code to the project](https://docs.nvidia.com/ai-workbench/user-guide/latest/applications/vs-code.html)
-3. Create an ``experiment`` branch to protect main
-4. Open VS Code from the Desktop App and edit the application code
+### Intermediate Mode ([modify agent and UI code](#intermediate-mode))
 
 
-### Advanced Mode (self-host GPUs)
-
-1. Set up a Linux box with an NVIDIA GPU and Docker.  
-2. Deploy an **NVIDIA NIM** container on that host.  
-3. Configure the chat app to use the NIM.
+### Advanced Mode ([self-host GPUs](#advanced-mode))
 
 
 ## Easy Mode
@@ -60,6 +51,9 @@ You can run the app without Workbench, but to follow this readme, you need [AI W
 > You **must** be connected to the internet to **run** the application because it uses an NVIDIA endpoint for the context creation.
 
 ### Clone this project > Start the chat >  Create the context >  Ask your questions
+
+<details>
+<summary><strong>Click to expand Easy Mode steps</strong></summary>
 
 | Steps | What can go wrong | Screen shot |
 |------|--------------------|-------------|
@@ -90,6 +84,11 @@ You can significantly modify the behavior of the agent by changing the prompts.
 This application is just a starting point, so you can do whatever you want. Furthermore, 
 it's a quick prototype and not a fully robust piece of software. So there are **many** opportunities for you to improve it.
 
+1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this project to your own GitHub account. Then clone it in Workbench
+2. [Add VS Code to the project](https://docs.nvidia.com/ai-workbench/user-guide/latest/applications/vs-code.html)
+3. Create an ``experiment`` branch to protect main
+4. Open VS Code from the Desktop App and edit the application code
+
 ### See [Full Intermediate Mode Instructions](agentic-rag-docs/edit-code.md).
 
 - Change recursion limit, number of web sites returned by Tavily, whether previous searches are saved
@@ -101,6 +100,10 @@ it's a quick prototype and not a fully robust piece of software. So there are **
 ## Advanced Mode
 
 Use these details if you want to modify the application, e.g. by configuring prompts, adding your own endpoints, changing the Gradio app or whatever else occurs to you.
+
+1. Set up a Linux box with an NVIDIA GPU and Docker.  
+2. Deploy an **NVIDIA NIM** container on that host.  
+3. Configure the chat app to use the NIM.
 
 ### See [Full Advanced Mode Instructions Here](agentic-rag-docs/self-host.md).
 This repository is read-only, so if you want to customize this app and share the changes, then you should this repository before you clone it. 
