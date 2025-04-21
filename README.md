@@ -8,7 +8,7 @@
 # Agentic RAG - Control for accuracy and hallucination
 
 ### Boost RAG with an agentic layer that:
-- **Routes** Checks the RAG context for relevance to the query and adds live web search if the context is thin
+- **Routes**: Checks the RAG context for relevance to the query and adds live web search if the context is thin
 - **Evaluates**: Checks responses for relevance and accuracy, flags hallucinations
 - **Iterates**: Goes through multiple evaluation and generation cycles
 - **Customizes** Lets you you edit prompts for each piece of the pipeline
@@ -37,20 +37,20 @@ You can run the app without Workbench, but to follow this readme, you need [AI W
 
 ### Intermediate Mode (modify agent and UI code)
 
+See [full instructions here](agentic-rag-docs/edit-code.md).
+
 1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this project to your own GitHub account. Then clone it in Workbench
 2. [Add VS Code to the project](https://docs.nvidia.com/ai-workbench/user-guide/latest/applications/vs-code.html)
 3. Create an ``experiment`` branch to protect main
 4. Open VS Code from the Desktop App and edit the application code
 
-See [full instructions here](agentic-rag-docs/edit-code.md).
 
 ### Advanced Mode (self-host GPUs)
-
+See [full instructions here](agentic-rag-docs/self-host.md).
 1. Set up a Linux box with an NVIDIA GPU and Docker.  
 2. Deploy an **NVIDIA NIM** container on that host.  
 3. Configure the chat app to use the NIM.
 
-See [full instructions here](agentic-rag-docs/self-host.md).
 
 ## Easy Mode Details 
 Follow these steps if you want to get up and running but don't care about modifying the application or adding your own endpoints.
@@ -77,19 +77,29 @@ Use these steps when you want to work with your own documents and your own promp
 | 3. Type question > Hit enter. | Triggers the agent. | Incorrect API key. **Fix**: Fix per Step 3 in table above. | 
 
 
+### (optional) Change prompts
+You can significantly modify the behavior of the agent by changing the prompts.
+
+
 ## Intermediate Mode Details
 This application is just a starting point, so you can do whatever you want. As such, there are too many things to go through in detail. Furthermore, 
 it's a quick prototype and not a fully robust piece of software. So there are **many** opportunities for you to improve it.
 
-So we will just give an idea of what you can modify and where to look for it in the code base.
+<img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
 
-### Fork and clone this project > Add and open VS Code (or just use JupyterLab) > Change some parameters in the code
 
-### Add more NVIDIA Endpoints
+### See [full instructions here](agentic-rag-docs/edit-code.md).
+
+You can:
+- Change various parameters such as recursion limit, number of web sites returned by a Tavily search, and whether previous searches are saved
+- Add different models by adding in new endpoints from build.nvidia.com
+- Change the look and feel of the Gradio app or add new features
+- Modify the agent itself
+- Fix any bugs you find
 
 ## Advanced Mode Details
 
-<img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
+
 
 Use these details if you want to modify the application, e.g. by configuring prompts, adding your own endpoints, changing the Gradio app or whatever else occurs to you.
 
