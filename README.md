@@ -29,7 +29,7 @@ This README walks you through three modes:
 
 ### Prerequisites - AI Workbench and an Internet Connection
 
-> You can run the Agentic RAG app without Workbench, but to follow this readme, you need [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) installed on your laptop.
+> You can run the Agentic RAG app without Workbench, but for this README you need [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) installed on your laptop.
 
 > You **must** be connected to the internet to **run** the application because it uses an NVIDIA endpoint for the context creation.
 
