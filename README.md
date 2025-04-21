@@ -18,7 +18,7 @@
 
 ## Get Started 
 
-This README has three modes:
+#### This README has three modes:
 - **Easy Mode**: Use the application
 - **Intermediate Mode**: Modify the application
 - **Advanced Mode**: Self-host gpus for inference
