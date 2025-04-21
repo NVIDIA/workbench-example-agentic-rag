@@ -20,12 +20,6 @@
 
 ## Get Started 
 
-### Prerequisites - AI Workbench and an Internet Connection
-This app is built to run in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a free, cloud-like UX for your own systems.
-You can run the app without Workbench, but to follow this readme, you need [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) installed on your laptop.
-
-> You **must** be connected to the internet to **run** the application because it uses an NVIDIA endpoint for the context creation.
-
 ### Easy Mode (< 5 minutes if Workbench installed)
 
 1. Get NVIDIA and Tavily API keys:  
@@ -54,6 +48,12 @@ See [full instructions here](agentic-rag-docs/edit-code.md).
 
 ## Easy Mode
 Follow these steps if you want to get up and running but don't care about modifying the application or adding your own endpoints.
+
+### Prerequisites - AI Workbench and an Internet Connection
+This app is built to run in [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/), a free, cloud-like UX for your own systems.
+You can run the app without Workbench, but to follow this readme, you need [AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) installed on your laptop.
+
+> You **must** be connected to the internet to **run** the application because it uses an NVIDIA endpoint for the context creation.
 
 ### Clone this project > Start the chat >  Create the context >  Ask your questions
 
