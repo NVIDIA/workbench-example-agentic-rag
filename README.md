@@ -25,15 +25,13 @@ This README walks you through three modes:
 
 > Use expandable sections below to see details for each mode.
 
-### Easy Mode (< 5 minutes if Workbench installed)
-
 ### Prerequisites - AI Workbench and an Internet Connection
 
 > You can run the Agentic RAG app without Workbench, but for this README you need [NVIDIA AI Workbench](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html) installed on your laptop.
 
-> You **must** be connected to the internet to **run** the application because it uses an NVIDIA endpoint for the context creation.
+> You must be connected to the internet to run the application because it uses an NVIDIA endpoint for the context creation.
 
-### Easy Mode Steps
+### Easy Mode (< 5 minutes if Workbench installed)
 1. Get NVIDIA and Tavily API keys:  
    - ``NVIDIA_API_KEY`` → [Generate](https://org.ngc.nvidia.com/setup/api-keys)  See instructions [here](https://docs.nvidia.com/ai-enterprise/deployment/spark-rapids-accelerator/latest/appendix-ngc.html).
    - ``TAVILY_API_KEY`` → [Generate](https://tavily.com)  
