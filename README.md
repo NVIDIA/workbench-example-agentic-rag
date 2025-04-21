@@ -17,6 +17,8 @@
 - **Free out-of-the-box**: use free endpoints on build.nvidia.com
 - **Self-hosted**: Point to NIM or other models on your own GPUs
 
+### Use AI Workbench to handle the details for deploying and managing the application
+- **Simple**: etc eter
 
 ## Get Started 
 
