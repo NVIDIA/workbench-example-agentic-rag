@@ -75,9 +75,9 @@ Use these steps when you want to work with your own documents and your own promp
 ## Intermediate Mode
 <img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
 
-#### See [Full Intermediate Mode Instructions](agentic-rag-docs/edit-code.md)
+#### See [Full Intermediate Mode Instructions Here](agentic-rag-docs/edit-code.md)
 
-This application is just a starting point, so you can do whatever you want. Furthermore, it's a quick prototype and not a robust piece of software. So there are **many** opportunities to improve it.
+This application is a quick prototype and not a robust piece of software. So there are **many** opportunities to improve it.
 
 1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this project to your own GitHub account. Then clone it in Workbench
 2. [Add VS Code to the project](https://docs.nvidia.com/ai-workbench/user-guide/latest/applications/vs-code.html)
@@ -96,14 +96,14 @@ This application is just a starting point, so you can do whatever you want. Furt
 <summary><strong>Click to Expand Advanced Mode</strong></summary>
 
 ## Advanced Mode
-
+### See [Full Advanced Mode Instructions Here](agentic-rag-docs/self-host.md).
 Use these details if you want to modify the application, e.g. by configuring prompts, adding your own endpoints, changing the Gradio app or whatever else occurs to you.
 
 1. Set up a Linux box with an NVIDIA GPU and Docker.  
 2. Deploy an **NVIDIA NIM** container on that host.  
 3. Configure the chat app to use the NIM.
 
-### See [Full Advanced Mode Instructions Here](agentic-rag-docs/self-host.md).
+
 
 
 </details>
