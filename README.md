@@ -1,6 +1,6 @@
 
 
-# Agentic RAG - Add Web Search with Accuracy and Hallucination Controls
+# Agentic RAG - RAG w/Web Search and Accuracy/Hallucination Controls
 
 ### Boost RAG with an Agentic Layer
 - **Route**: Checks the RAG context for relevance to the query and adds live web search if the context is thin
