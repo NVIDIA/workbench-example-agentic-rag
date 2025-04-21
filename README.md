@@ -1,22 +1,20 @@
 
 
-# Agentic RAG - Control for accuracy and hallucination
+# Agentic RAG - Control for Thin Contect, Accuracy and Hallucination
 
-### Boost RAG with an agentic layer that:
-- **Routes**: Checks the RAG context for relevance to the query and adds live web search if the context is thin
-- **Evaluates**: Checks responses for relevance and accuracy, flags hallucinations
-- **Iterates**: Goes through multiple evaluation and generation cycles
-- **Customizes**: Lets you you edit prompts for each piece of the pipeline
+### Boost RAG with an Agentic Layer
+- **Route**: Checks the RAG context for relevance to the query and adds live web search if the context is thin
+- **Evaluate**: Checks responses for relevance and accuracy, flags hallucinations
+- **Iterate**: Goes through multiple evaluation and generation cycles
+- **Customize**: Lets you you edit prompts for each piece of the pipeline
 
-### Run inference your way:
+### Run Inference your Way
 - **Free out-of-the-box**: use free endpoints on build.nvidia.com
 - **Self-hosted**: Point to NIM or other models on your own GPUs
 
-### Let [AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) handle application deployment and management
+### Let [AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) Manage the Application
 - **Simple**: Just clone, click start and go
 - **Portable**: Work locally or remotely - Windows, Mac or Ubuntu -  CPU or GPU system
-
-<img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto" alt="Agentic RAG Web App Screenshot">
 
 ## Get Started 
 
@@ -44,7 +42,9 @@ You can run the app without Workbench, but to follow this readme, you need [AI W
 <details>
 <summary><strong>Click to expand Easy Mode steps</strong></summary>
 
-### Clone this project > Start the chat >  Create the context >  Ask your questions
+<img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto" alt="Agentic RAG Web App Screenshot">
+
+### Clone Project > Start Chat >  Create Context >  Ask Questions
 
 
 | Steps | What can go wrong | Screen shot |
@@ -56,7 +56,7 @@ You can run the app without Workbench, but to follow this readme, you need [AI W
 | 5. Click **Documents > Create Context**. | Incorrect API key. Fix per Step 3 above. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto" alt="Add to Context Button"> |
 | 6. Type question > Hit  enter. |  Incorrect API key. Fix per Step 3 above. | <img src="./readme-images/hit-enter.png" width="200" height="auto" alt="Chat Text"> |
 
-### Clear context > Change URLs > Create context > Ask your questions
+### Clear Context > Change URLs > Create Context  > Ask Questions
 
 Use these steps when you want to work with your own documents and your own prompts.
 
@@ -67,13 +67,10 @@ Use these steps when you want to work with your own documents and your own promp
 | 3. Type question > Hit enter. |  Incorrect API key. **Fix**: Fix per Step 3 in table above. | Triggers the agent. |
 
 
-### (optional) Change prompts
-You can significantly modify the behavior of the agent by changing the prompts.
-
 </details>
 
 <details>
-<summary><strong>Click to expand Intermediate Mode steps</strong></summary>
+<summary><strong>Click to expand Intermediate Mode Steps</strong></summary>
 
 ## Intermediate Mode
 <img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
@@ -96,7 +93,7 @@ it's a quick prototype and not a fully robust piece of software. So there are **
 </details>
 
 <details>
-<summary><strong>Click to expand Advanced Mode steps</strong></summary>
+<summary><strong>Click to Expand Advanced Mode Steps</strong></summary>
 
 ## Advanced Mode
 
