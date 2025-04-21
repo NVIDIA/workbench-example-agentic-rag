@@ -75,6 +75,8 @@ Use these steps when you want to work with your own documents and your own promp
 ## Intermediate Mode
 <img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
 
+#### See [Full Intermediate Mode Instructions](agentic-rag-docs/edit-code.md)
+
 This application is just a starting point, so you can do whatever you want. Furthermore, it's a quick prototype and not a robust piece of software. So there are **many** opportunities to improve it.
 
 1. [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo#forking-a-repository) this project to your own GitHub account. Then clone it in Workbench
@@ -86,8 +88,6 @@ This application is just a starting point, so you can do whatever you want. Furt
    - Change the look and feel of the Gradio app or add new features
    - Modify the agent
    - Fix any bugs you find
-
-#### See [Full Intermediate Mode Instructions](agentic-rag-docs/edit-code.md)
 
 
 </details>
