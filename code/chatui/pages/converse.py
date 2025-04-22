@@ -273,14 +273,19 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
-                                        
-                                        nim_router_id = gr.Dropdown(
-                                            choices=[],
-                                            label="Model running in microservice",
-                                            info="Select a compatible model for your GPU configuration",
+                                        nim_router_id = gr.Textbox(
+                                            label="Containerized model",
+                                            info="Enter the exact model name as served by the container",
                                             elem_id="rag-inputs",
-                                            interactive=False
+                                            interactive=True
                                         )
+                                        # nim_router_id = gr.Dropdown(
+                                        #     choices=[],
+                                        #     label="Model running in microservice",
+                                        #     info="Select a compatible model for your GPU configuration",
+                                        #     elem_id="rag-inputs",
+                                        #     interactive=False
+                                        # )
 
                                         # Add warning box for compatibility issues
                                         nim_router_warning = gr.Markdown(visible=False, value="")
@@ -340,14 +345,19 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
-                                        
-                                        nim_retrieval_id = gr.Dropdown(
-                                            choices=[],
-                                            label="Model running in microservice",
-                                            info="Select a compatible model for your GPU configuration",
-                                            elem_id="rag-inputs",
-                                            interactive=False
-                                        )
+                                            nim_retrieval_id = gr.Textbox(
+                                                label="Containerized model",
+                                                info="Enter the exact model name as served by the container",
+                                                elem_id="rag-inputs",
+                                                interactive=True
+                                            )                                        
+                                        # nim_retrieval_id = gr.Dropdown(
+                                        #     choices=[],
+                                        #     label="Model running in microservice",
+                                        #     info="Select a compatible model for your GPU configuration",
+                                        #     elem_id="rag-inputs",
+                                        #     interactive=False
+                                        # )
 
                                         # Add warning box for compatibility issues
                                         nim_retrieval_warning = gr.Markdown(visible=False, value="")
@@ -407,14 +417,19 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
-                                        
-                                        nim_generator_id = gr.Dropdown(
-                                            choices=[],
-                                            label="Model running in microservice",
-                                            info="Select a compatible model for your GPU configuration",
-                                            elem_id="rag-inputs",
-                                            interactive=False
-                                        )
+                                            nim_generator_id = gr.Textbox(
+                                                label="Containerized model",
+                                                info="Enter the exact model name as served by the container",
+                                                elem_id="rag-inputs",
+                                                interactive=True
+                                            )
+                                        # nim_generator_id = gr.Dropdown(
+                                        #     choices=[],
+                                        #     label="Model running in microservice",
+                                        #     info="Select a compatible model for your GPU configuration",
+                                        #     elem_id="rag-inputs",
+                                        #     interactive=False
+                                        # )
 
                                         # Add warning box for compatibility issues
                                         nim_generator_warning = gr.Markdown(visible=False, value="")
@@ -474,14 +489,19 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
-                                        
-                                        nim_hallucination_id = gr.Dropdown(
-                                            choices=[],
-                                            label="Model running in microservice",
-                                            info="Select a compatible model for your GPU configuration",
-                                            elem_id="rag-inputs",
-                                            interactive=False
-                                        )
+                                            nim_hallucination_id = gr.Textbox(
+                                                label="Containerized model",
+                                                info="Enter the exact model name as served by the container",
+                                                elem_id="rag-inputs",
+                                                interactive=True
+                                            )
+                                        # nim_hallucination_id = gr.Dropdown(
+                                        #     choices=[],
+                                        #     label="Model running in microservice",
+                                        #     info="Select a compatible model for your GPU configuration",
+                                        #     elem_id="rag-inputs",
+                                        #     interactive=False
+                                        # )
 
                                         # Add warning box for compatibility issues
                                         nim_hallucination_warning = gr.Markdown(visible=False, value="")
@@ -541,14 +561,20 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
-                                        
-                                        nim_answer_id = gr.Dropdown(
-                                            choices=[],
-                                            label="Model running in microservice",
-                                            info="Select a compatible model for your GPU configuration",
-                                            elem_id="rag-inputs",
-                                            interactive=False
-                                        )
+                                            nim_answer_id = gr.Textbox(
+                                                label="Containerized model",
+                                                info="Enter the exact model name as served by the container",
+                                                elem_id="rag-inputs",
+                                                interactive=True
+                                            )   
+
+                                        # nim_answer_id = gr.Dropdown(
+                                        #     choices=[],
+                                        #     label="Model running in microservice",
+                                        #     info="Select a compatible model for your GPU configuration",
+                                        #     elem_id="rag-inputs",
+                                        #     interactive=False
+                                        # )
 
                                         # Add warning box for compatibility issues
                                         nim_answer_warning = gr.Markdown(visible=False, value="")
