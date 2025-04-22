@@ -26,7 +26,7 @@
 ### Prerequisites - AI Workbench and an Internet Connection
 
 > You can run Agentic RAG without Workbench, but this README requires [NVIDIA AI Workbench](https://www.nvidia.com/en-us/deep-learning-ai/solutions/data-science/workbench/) installed.
-> See [here for how to install it](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html).
+> See [how to install it here](https://docs.nvidia.com/ai-workbench/user-guide/latest/installation/overview.html).
 
 > You need internet because Agentic RAG uses an NVIDIA endpoint for document embedding.
 
