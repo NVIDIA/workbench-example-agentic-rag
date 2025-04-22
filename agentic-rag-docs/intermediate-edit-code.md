@@ -1,5 +1,8 @@
 # Intermediate Guide to Modifying the Agentic RAG Code
 
+> ⚠️ **Warning:** Do **not** make changes in the **main** branch. Instead, create a separate branch for each change you want to make,
+> make the changes, test it, and then merge it back into **main**.
+
 ## Table of Contents
 - [How to Add a New NVIDIA Endpoint to the Model Dropdown in the UI](#-how-to-add-a-new-nvidia-endpoint-to-the-model-dropdown-in-the-ui)
 - [How to Modify the Embedding Model](#-how-to-modify-the-embedding-model)
@@ -17,6 +20,7 @@
 **What are the guide limitations?** 
 - It isn't comprehensive and doesn't go into full detail
 - It assumes you can basically figure things out if you are pointed to the correct section
+- There may be some errors in the details for the guidance, but you should be able to figure your way out past them.
 
 **What else do I need to know?**
 - You will need to be able to check errors and do some debugging if you alter the code. Best to use an LLM to help you 
@@ -24,7 +28,7 @@
 - The first place to find errors is in the **Output** widget in the Desktop App (bottom left corner)
     - Click **Output** and select **Chat** from the dropdown. 
 
-> ⚠️ **Warning:** You should **never** make changes in the **main** branch. Instead, create a separate branch for each change you want to make,
+> ⚠️ **Warning:** Do **not** make changes in the **main** branch. Instead, create a separate branch for each change you want to make,
 > make the changes, test it, and then merge it back into **main**.
 
 ---
