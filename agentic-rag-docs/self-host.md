@@ -29,14 +29,14 @@ There are many ways you can setup inference on a remote GPU.
 
 We will go over two: Ollama and NVIDIA NIM.
 
-### Option A: Ollama (Simpler)
+### Option A: Ollama (Intermediate)
 - Easier to set up and manage
 - Runs many models out of the box
 - Good for experimentation and development
 - See [Ollama Setup Guide](#ollama-setup) below
 - GPU requirements: Depends on the model selected, but lighter weight than NIMs and can go down to 8 GB of vRAM
 
-### Option B: NVIDIA NIM (More Advanced)
+### Option B: NVIDIA NIM (Advanced)
 - More steps to setup but has better performance and optimization
 - Many options for configuring deployment and model optimization
 - Better for production use
@@ -63,36 +63,42 @@ We will go over two: Ollama and NVIDIA NIM.
 
 ## Deploy Ollama Container
 
-Do the following in the **remote** terminal.
+Do the following in the **remote** terminal. If you encounter any errors, use an LLM to help you debug. 
 
 ```bash
 # Pull the Ollama container. Change the tag if you want a different one. 
+
 docker pull ollama/ollama:latest
 
 # Run it and make sure to connect the port on the remote, <remote-port>, to the Ollama port in the container, 11434
+
 docker run -d --name ollama \
   --gpus all --restart unless-stopped \
   -p <remote-port>:11434 \
   -v ollama_data:/root/.ollama \
   ollama/ollama:latest
 
-# Make it is running properly
+# Make sure it is running properly
+
 curl http://localhost:10000/api/tags
 
 ```
 
 ## Pull Model into Ollama Container
 
-Do the following in the **remote** terminal.
+Do the following in the **remote** terminal. If you encounter any errors, use an LLM to help you debug. 
 
 ```bash
 # Exec into the container and pull a model
+
 docker exec ollama ollama pull llama2:7b
 
 # Verify the model has been pulled and is available
+
 curl http://localhost:<remote-port>/api/tags
 
 # Submit a simple query to the model to test
+
 curl -X POST http://localhost:<remote-port>/api/generate \
   -H "Content-Type: application/json" \
   -d '{
@@ -106,11 +112,14 @@ curl -X POST http://localhost:<remote-port>/api/generate \
 
 ## Add Ollama Container as an Endpoint
 
-Do the following in a **local** terminal. You will need the remote ip, ``<remote-ip>``, and the remote port, ``<remote-port>``.
+Do the following in a **local** terminal. If you encounter any errors, use an LLM to help you debug. 
+
+You will need the remote ip, ``<remote-ip>``, and the remote port, ``<remote-port>``.
 
 ```bash
 
 # Test local access to the Ollama container on the remote 
+
 curl -X POST http://<remote-ip>:<remote-port>/api/generate \
   -H "Content-Type: application/json" \
   -d '{"model": "llama2:7b", "prompt": "Hello, Ollama!"}'
@@ -127,6 +136,4 @@ curl -X POST http://<remote-ip>:<remote-port>/api/generate \
 
 --
 
-## Option B: Using NVIDIA NIM
-
-### TBD
+# Option B: Using NVIDIA NIM TBD
