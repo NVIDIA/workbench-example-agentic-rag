@@ -45,9 +45,9 @@ We will go over two: Ollama and NVIDIA NIM.
 
 
 
-## Option A: Using Ollama
+# Option A: Using Ollama
 
-#### Prerequisites
+### Prerequisites
 
 - Make sure the remote is properly setup and that you have SSH access to it
   - IP address: ``<remote-ip>``
@@ -56,12 +56,12 @@ We will go over two: Ollama and NVIDIA NIM.
 - Make sure it's open to TCP access on a known port, i.e. ``<remote-port>``
 - Make sure that the container runtime is properly configured
 
-#### Three Basic Steps
+### Three Basic Steps
 - **Deploy Ollama Container**: Pull the Ollama container onto the remote and run it
 - **Pull Model into Ollama Container**: Exec into the container and load the desired model
 - **Add Ollama Container as an Endpoint**: Configure the Agentic RAG app to use the model
 
-### Deploy Ollama Container
+## Deploy Ollama Container
 
 Do the following in the **remote** terminal.
 
@@ -81,7 +81,7 @@ curl http://localhost:10000/api/tags
 
 ```
 
-### Pull Model into Ollama Container
+## Pull Model into Ollama Container
 
 Do the following in the **remote** terminal.
 
@@ -104,7 +104,7 @@ curl -X POST http://localhost:<remote-port>/api/generate \
 
 ```
 
-### Add Ollama Container as an Endpoint
+## Add Ollama Container as an Endpoint
 
 Do the following in a **local** terminal. You will need the remote ip, ``<remote-ip>``, and the remote port, ``<remote-port>``.
 
