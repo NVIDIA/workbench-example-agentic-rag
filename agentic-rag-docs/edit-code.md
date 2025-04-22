@@ -1,5 +1,12 @@
 # Guide to Modifying the Agentic RAG Project
 
+## Table of Contents
+- [How to Add a New NVIDIA Endpoint to the Model Dropdown in the UI](#-how-to-add-a-new-nvidia-endpoint-to-the-model-dropdown-in-the-ui)
+- [How to Modify the Embedding Model](#-how-to-modify-the-embedding-model)
+- [How to Modify Vector Database Clearing Behavior](#-how-to-modify-vector-database-clearing-behavior)
+- [How to Modify the Agent's Recursion Limit](#-how-to-modify-the-agents-recursion-limit)
+- [How to Modify Tavily Search Settings](#-how-to-modify-tavily-search-settings)
+
 **Who is this guide for?** 
 - People that know some Python
 - People that want to adapt or improve the application
