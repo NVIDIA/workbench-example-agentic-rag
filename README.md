@@ -40,7 +40,7 @@
 <details>
 <summary><strong>Click to Expand Easy Mode</strong></summary>
 
-<img src="./data/readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto" alt="Agentic RAG Web App Screenshot">
+<img src="data/readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto" alt="Agentic RAG Web App Screenshot">
 
 ### Clone Project > Start Chat >  Create Context >  Ask Questions
 
@@ -71,7 +71,7 @@ Use these steps when you want to work with your own documents and your own promp
 <summary><strong>Click to Expand Intermediate Mode</strong></summary>
 
 ## Intermediate Mode
-<img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
+<img src="code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
 
 #### See [Full Intermediate Mode Instructions Here](agentic-rag-docs/intermediate-edit-code.md)
 
