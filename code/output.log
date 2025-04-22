@@ -4,14 +4,3 @@ Running on local URL:  http://0.0.0.0:8080
 To create a public link, set `share=True` in `launch()`.
 IMPORTANT: You are using gradio version 4.15.0, however version 4.44.1 is available, please upgrade.
 --------
-[clear] Collection 'rag-chroma' cleared.
-[clear] Removed directory: be146c56-e9cc-4945-8df5-b7a545c600a2
-[clear] Removed directory: 30b434be-b574-4760-817a-6abf43644c38
-[clear] Removed directory: bd8b5a10-15f5-4804-8ec6-5523825f82f7
-[clear] Removed directory: 03827e3d-aeaa-40af-8d3f-16e82dea475c
-[clear] Removed directory: scratch
-[clear] Removed directory: 1017561b-8789-4a9b-bf4f-2447ceff5b44
-[clear] Removed directory: 801225e0-4362-4073-b88d-ea3d3f34882e
-[clear] Removed directory: 7a27f58e-721f-4e3d-83cd-e9550a771c20
-[clear] Removed directory: ac0ee52f-6558-48e5-ac8e-9c5661428c15
-[clear] Removed file: chroma.sqlite3

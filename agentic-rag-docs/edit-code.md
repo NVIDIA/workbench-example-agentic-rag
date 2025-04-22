@@ -3,7 +3,7 @@
 > **Who is this for?**  Anyone who wants to adapt or improve the application, e.g. by adding more endpoints, changing the endpoint provider, are modifying the Gradio app.
 
 
-## 🧩 How to Add a New LLM by Adding an NVIDIA Endpoint to the UI
+## 🧩 How to Add a New NVIDIA Endpoint to the Model Dropdown in the UI
 
 This section is on adding an NVIDIA-hosted model to the dropdown API menus in the **Models** tab of the Gradio interface (`converse.py`).
 
@@ -26,7 +26,7 @@ This section is on adding an NVIDIA-hosted model to the dropdown API menus in th
 ### 2. Add a Model Identifier
 
 > Do this in ``code/pages/converse.py``. Search for ``Model identifers with prefix``.
-> You should already see some models there:
+> You should already see some models there, i.e. ``LLAMA`` and ``MISTRAL``
 
 
 ```python
@@ -37,14 +37,14 @@ MISTRAL = "mistralai/mixtral-8x22b-instruct-v0.1"
 Add your model here:
 
 ```python
-NEMO = "nvidia/nemo-llama3-8b-instruct"
+NEMO = "nvidia/llama-3_1-nemotron-ultra-253b-v1"
 ```
 
 If you're using `INTERNAL_API` to route through a proxy or gateway:
 
 ```python
 if INTERNAL_API != '':
-    NEMO = f'{INTERNAL_API}/nvidia/nemo-llama3-8b-instruct'
+    NEMO = f'{INTERNAL_API}/nvidia/llama-3_1-nemotron-ultra-253b-v1'
 ```
 
 ---

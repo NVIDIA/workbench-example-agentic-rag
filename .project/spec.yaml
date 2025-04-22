@@ -14,15 +14,9 @@ layout:
     - path: models/
       type: models
       storage: gitlfs
-    - path: readme-images/
-      type: data
-      storage: gitlfs
-    - path: agentic-rag-docs/
-      type: code
-      storage: git
     - path: data/
       type: data
-      storage: gitignore
+      storage: gitlfs
 environment:
     base:
         registry: nvcr.io

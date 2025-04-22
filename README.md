@@ -42,19 +42,19 @@
 <details>
 <summary><strong>Click to Expand Easy Mode</strong></summary>
 
-<img src="./readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto" alt="Agentic RAG Web App Screenshot">
+<img src="./data/readme-images/static/agentic-rag-screen-shot.png" width="80%" height="auto" alt="Agentic RAG Web App Screenshot">
 
 ### Clone Project > Start Chat >  Create Context >  Ask Questions
 
 
 | Steps | What can go wrong | Screen shot |
 |------|--------------------|-------------|
-| 1. Open the Desktop App > Select [local](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | Probably a  Docker Desktop issue (if selected on install). **Fix**:  See [troubleshooting here](https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/troubleshooting.html) | <p align="center"><img src="./readme-images/desktop-icon.png" width="120" alt="Desktop App Icon"></p> |
-| 2. Click **Clone Project** > Paste repository [URL](https://github.com/NVIDIA/workbench-example-agentic-rag) > **Clone** | Incorrect URL. **Fix**: use the correct URL. | <img src="./readme-images/clone-button.png" width="250" height="auto" alt="Clone Button"> |
-| 3. Click **Resolve Now** > Enter NVIDIA and Tavily API keys. | You don't see the banner. **Fix**: go to **Project Container > Variables > Configure** for API keys. See [docs here](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html) | <img src="./readme-images/resolve-now.png" width="200" height="auto" alt="Resolve Now Warning"> |
-| 4. Click **Open Chat**. | Very little can go wrong here | <img src="./readme-images/open-chat-screen-shot.png" width="250" height="auto" alt="Open Chat Button"> |
-| 5. Click **Documents > Create Context**. | Incorrect API key. Fix per Step 3 above. | <img src="./readme-images/add-to-context-button.png" width="300" height="auto" alt="Add to Context Button"> |
-| 6. Type question > Hit  enter. |  Incorrect API key. Fix per Step 3 above. | <img src="./readme-images/hit-enter.png" width="200" height="auto" alt="Chat Text"> |
+| 1. Open the Desktop App > Select [local](https://docs.nvidia.com/ai-workbench/user-guide/latest/locations/locations.html). | Probably a  Docker Desktop issue (if selected on install). **Fix**:  See [troubleshooting here](https://docs.nvidia.com/ai-workbench/user-guide/latest/troubleshooting/troubleshooting.html) | <p align="center"><img src="./data/readme-images/desktop-icon.png" width="120" alt="Desktop App Icon"></p> |
+| 2. Click **Clone Project** > Paste repository [URL](https://github.com/NVIDIA/workbench-example-agentic-rag) > **Clone** | Incorrect URL. **Fix**: use the correct URL. | <img src="./data/readme-images/clone-button.png" width="250" height="auto" alt="Clone Button"> |
+| 3. Click **Resolve Now** > Enter NVIDIA and Tavily API keys. | You don't see the banner. **Fix**: go to **Project Container > Variables > Configure** for API keys. See [docs here](https://docs.nvidia.com/ai-workbench/user-guide/latest/environment/variables.html) | <img src="./data/readme-images/resolve-now.png" width="200" height="auto" alt="Resolve Now Warning"> |
+| 4. Click **Open Chat**. | Very little can go wrong here | <img src="./data/readme-images/open-chat-screen-shot.png" width="250" height="auto" alt="Open Chat Button"> |
+| 5. Click **Documents > Create Context**. | Incorrect API key. Fix per Step 3 above. | <img src="./data/readme-images/add-to-context-button.png" width="300" height="auto" alt="Add to Context Button"> |
+| 6. Type question > Hit  enter. |  Incorrect API key. Fix per Step 3 above. | <img src="./data/readme-images/hit-enter.png" width="200" height="auto" alt="Chat Text"> |
 
 ### Clear Context > Change URLs > Create Context  > Ask Questions
 
