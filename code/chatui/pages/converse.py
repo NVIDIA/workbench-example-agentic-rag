@@ -241,22 +241,22 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                                 interactive=True)
                                         
                                     with gr.TabItem("NIM Endpoints", id=1) as router_nim:
-                                        with gr.Row():
-                                            nim_router_gpu_type = gr.Dropdown(
-                                                choices=gpu_compatibility.get_gpu_types(),
-                                                label="GPU Type",
-                                                info="Select your GPU type",
-                                                elem_id="rag-inputs",
-                                                scale=2
-                                            )
-                                            nim_router_gpu_count = gr.Dropdown(
-                                                choices=[],
-                                                label="Number of GPUs",
-                                                info="Select number of GPUs",
-                                                elem_id="rag-inputs",
-                                                scale=1,
-                                                interactive=False
-                                            )
+                                        # with gr.Row():
+                                        #     nim_router_gpu_type = gr.Dropdown(
+                                        #         choices=gpu_compatibility.get_gpu_types(),
+                                        #         label="GPU Type",
+                                        #         info="Select your GPU type",
+                                        #         elem_id="rag-inputs",
+                                        #         scale=2
+                                        #     )
+                                        #     nim_router_gpu_count = gr.Dropdown(
+                                        #         choices=[],
+                                        #         label="Number of GPUs",
+                                        #         info="Select number of GPUs",
+                                        #         elem_id="rag-inputs",
+                                        #         scale=1,
+                                        #         interactive=False
+                                        #     )
                                         
                                         with gr.Row():
                                             nim_router_ip = gr.Textbox(
@@ -313,22 +313,22 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                                             elem_id="rag-inputs", 
                                                                             interactive=True)
                                     with gr.TabItem("NIM Endpoints", id=1) as retrieval_nim:
-                                        with gr.Row():
-                                            nim_retrieval_gpu_type = gr.Dropdown(
-                                                choices=gpu_compatibility.get_gpu_types(),
-                                                label="GPU Type",
-                                                info="Select your GPU type",
-                                                elem_id="rag-inputs",
-                                                scale=2
-                                            )
-                                            nim_retrieval_gpu_count = gr.Dropdown(
-                                                choices=[],
-                                                label="Number of GPUs",
-                                                info="Select number of GPUs",
-                                                elem_id="rag-inputs",
-                                                scale=1,
-                                                interactive=False
-                                            )
+                                        # with gr.Row():
+                                        #     nim_retrieval_gpu_type = gr.Dropdown(
+                                        #         choices=gpu_compatibility.get_gpu_types(),
+                                        #         label="GPU Type",
+                                        #         info="Select your GPU type",
+                                        #         elem_id="rag-inputs",
+                                        #         scale=2
+                                        #     )
+                                        #     nim_retrieval_gpu_count = gr.Dropdown(
+                                        #         choices=[],
+                                        #         label="Number of GPUs",
+                                        #         info="Select number of GPUs",
+                                        #         elem_id="rag-inputs",
+                                        #         scale=1,
+                                        #         interactive=False
+                                        #     )
                                         
                                         with gr.Row():
                                             nim_retrieval_ip = gr.Textbox(
@@ -345,12 +345,12 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
-                                            nim_retrieval_id = gr.Textbox(
-                                                label="Containerized model",
-                                                info="Enter the exact model name as served by the container",
-                                                elem_id="rag-inputs",
-                                                interactive=True
-                                            )                                        
+                                        nim_retrieval_id = gr.Textbox(
+                                            label="Containerized model",
+                                            info="Enter the exact model name as served by the container",
+                                            elem_id="rag-inputs",
+                                            interactive=True
+                                        )                                        
                                         # nim_retrieval_id = gr.Dropdown(
                                         #     choices=[],
                                         #     label="Model running in microservice",
@@ -385,22 +385,22 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                                     elem_id="rag-inputs", 
                                                                     interactive=True)
                                     with gr.TabItem("NIM Endpoints", id=1) as generator_nim:
-                                        with gr.Row():
-                                            nim_generator_gpu_type = gr.Dropdown(
-                                                choices=gpu_compatibility.get_gpu_types(),
-                                                label="GPU Type",
-                                                info="Select your GPU type",
-                                                elem_id="rag-inputs",
-                                                scale=2
-                                            )
-                                            nim_generator_gpu_count = gr.Dropdown(
-                                                choices=[],
-                                                label="Number of GPUs",
-                                                info="Select number of GPUs",
-                                                elem_id="rag-inputs",
-                                                scale=1,
-                                                interactive=False
-                                            )
+                                        # with gr.Row():
+                                        #     nim_generator_gpu_type = gr.Dropdown(
+                                        #         choices=gpu_compatibility.get_gpu_types(),
+                                        #         label="GPU Type",
+                                        #         info="Select your GPU type",
+                                        #         elem_id="rag-inputs",
+                                        #         scale=2
+                                        #     )
+                                        #     nim_generator_gpu_count = gr.Dropdown(
+                                        #         choices=[],
+                                        #         label="Number of GPUs",
+                                        #         info="Select number of GPUs",
+                                        #         elem_id="rag-inputs",
+                                        #         scale=1,
+                                        #         interactive=False
+                                        #     )
                                         
                                         with gr.Row():
                                             nim_generator_ip = gr.Textbox(
@@ -417,12 +417,12 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
-                                            nim_generator_id = gr.Textbox(
-                                                label="Containerized model",
-                                                info="Enter the exact model name as served by the container",
-                                                elem_id="rag-inputs",
-                                                interactive=True
-                                            )
+                                        nim_generator_id = gr.Textbox(
+                                            label="Containerized model",
+                                            info="Enter the exact model name as served by the container",
+                                            elem_id="rag-inputs",
+                                            interactive=True
+                                        )
                                         # nim_generator_id = gr.Dropdown(
                                         #     choices=[],
                                         #     label="Model running in microservice",
@@ -457,22 +457,22 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                                                 elem_id="rag-inputs", 
                                                                                 interactive=True)
                                     with gr.TabItem("NIM Endpoints", id=1) as hallucination_nim:
-                                        with gr.Row():
-                                            nim_hallucination_gpu_type = gr.Dropdown(
-                                                choices=gpu_compatibility.get_gpu_types(),
-                                                label="GPU Type",
-                                                info="Select your GPU type",
-                                                elem_id="rag-inputs",
-                                                scale=2
-                                            )
-                                            nim_hallucination_gpu_count = gr.Dropdown(
-                                                choices=[],
-                                                label="Number of GPUs",
-                                                info="Select number of GPUs",
-                                                elem_id="rag-inputs",
-                                                scale=1,
-                                                interactive=False
-                                            )
+                                        # with gr.Row():
+                                        #     nim_hallucination_gpu_type = gr.Dropdown(
+                                        #         choices=gpu_compatibility.get_gpu_types(),
+                                        #         label="GPU Type",
+                                        #         info="Select your GPU type",
+                                        #         elem_id="rag-inputs",
+                                        #         scale=2
+                                        #     )
+                                        #     nim_hallucination_gpu_count = gr.Dropdown(
+                                        #         choices=[],
+                                        #         label="Number of GPUs",
+                                        #         info="Select number of GPUs",
+                                        #         elem_id="rag-inputs",
+                                        #         scale=1,
+                                        #         interactive=False
+                                        #     )
                                         
                                         with gr.Row():
                                             nim_hallucination_ip = gr.Textbox(
@@ -489,12 +489,12 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
-                                            nim_hallucination_id = gr.Textbox(
-                                                label="Containerized model",
-                                                info="Enter the exact model name as served by the container",
-                                                elem_id="rag-inputs",
-                                                interactive=True
-                                            )
+                                        nim_hallucination_id = gr.Textbox(
+                                            label="Containerized model",
+                                            info="Enter the exact model name as served by the container",
+                                            elem_id="rag-inputs",
+                                            interactive=True
+                                        )
                                         # nim_hallucination_id = gr.Dropdown(
                                         #     choices=[],
                                         #     label="Model running in microservice",
@@ -529,22 +529,22 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                                         label="Select a Model",
                                                                         interactive=True)
                                     with gr.TabItem("NIM Endpoints", id=1) as answer_nim:
-                                        with gr.Row():
-                                            nim_answer_gpu_type = gr.Dropdown(
-                                                choices=gpu_compatibility.get_gpu_types(),
-                                                label="GPU Type",
-                                                info="Select your GPU type",
-                                                elem_id="rag-inputs",
-                                                scale=2
-                                            )
-                                            nim_answer_gpu_count = gr.Dropdown(
-                                                choices=[],
-                                                label="Number of GPUs",
-                                                info="Select number of GPUs",
-                                                elem_id="rag-inputs",
-                                                scale=1,
-                                                interactive=False
-                                            )
+                                        # with gr.Row():
+                                        #     nim_answer_gpu_type = gr.Dropdown(
+                                        #         choices=gpu_compatibility.get_gpu_types(),
+                                        #         label="GPU Type",
+                                        #         info="Select your GPU type",
+                                        #         elem_id="rag-inputs",
+                                        #         scale=2
+                                        #     )
+                                        #     nim_answer_gpu_count = gr.Dropdown(
+                                        #         choices=[],
+                                        #         label="Number of GPUs",
+                                        #         info="Select number of GPUs",
+                                        #         elem_id="rag-inputs",
+                                        #         scale=1,
+                                        #         interactive=False
+                                        #     )
                                         
                                         with gr.Row():
                                             nim_answer_ip = gr.Textbox(
@@ -561,11 +561,11 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
-                                            nim_answer_id = gr.Textbox(
-                                                label="Containerized model",
-                                                info="Enter the exact model name as served by the container",
-                                                elem_id="rag-inputs",
-                                                interactive=True
+                                        nim_answer_id = gr.Textbox(
+                                            label="Containerized model",
+                                            info="Enter the exact model name as served by the container",
+                                            elem_id="rag-inputs",
+                                            interactive=True
                                             )   
 
                                         # nim_answer_id = gr.Dropdown(
@@ -752,35 +752,35 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
             }
 
         # Add the event handlers for all components
-        nim_router_gpu_type.change(lambda x: _update_gpu_counts("router", x), nim_router_gpu_type, 
-                                 [nim_router_gpu_count, nim_router_id, nim_router_warning])
-        nim_router_gpu_count.change(lambda x, y: _update_compatible_models("router", x, y), 
-                                  [nim_router_gpu_type, nim_router_gpu_count], 
-                                  [nim_router_id, nim_router_warning])
+        # nim_router_gpu_type.change(lambda x: _update_gpu_counts("router", x), nim_router_gpu_type, 
+        #                          [nim_router_gpu_count, nim_router_id, nim_router_warning])
+        # nim_router_gpu_count.change(lambda x, y: _update_compatible_models("router", x, y), 
+        #                           [nim_router_gpu_type, nim_router_gpu_count], 
+        #                           [nim_router_id, nim_router_warning])
 
-        nim_retrieval_gpu_type.change(lambda x: _update_gpu_counts("retrieval", x), nim_retrieval_gpu_type, 
-                                    [nim_retrieval_gpu_count, nim_retrieval_id, nim_retrieval_warning])
-        nim_retrieval_gpu_count.change(lambda x, y: _update_compatible_models("retrieval", x, y), 
-                                     [nim_retrieval_gpu_type, nim_retrieval_gpu_count], 
-                                     [nim_retrieval_id, nim_retrieval_warning])
+        # nim_retrieval_gpu_type.change(lambda x: _update_gpu_counts("retrieval", x), nim_retrieval_gpu_type, 
+        #                             [nim_retrieval_gpu_count, nim_retrieval_id, nim_retrieval_warning])
+        # nim_retrieval_gpu_count.change(lambda x, y: _update_compatible_models("retrieval", x, y), 
+        #                              [nim_retrieval_gpu_type, nim_retrieval_gpu_count], 
+        #                              [nim_retrieval_id, nim_retrieval_warning])
 
-        nim_generator_gpu_type.change(lambda x: _update_gpu_counts("generator", x), nim_generator_gpu_type, 
-                                    [nim_generator_gpu_count, nim_generator_id, nim_generator_warning])
-        nim_generator_gpu_count.change(lambda x, y: _update_compatible_models("generator", x, y), 
-                                     [nim_generator_gpu_type, nim_generator_gpu_count], 
-                                     [nim_generator_id, nim_generator_warning])
+        # nim_generator_gpu_type.change(lambda x: _update_gpu_counts("generator", x), nim_generator_gpu_type, 
+        #                             [nim_generator_gpu_count, nim_generator_id, nim_generator_warning])
+        # nim_generator_gpu_count.change(lambda x, y: _update_compatible_models("generator", x, y), 
+        #                              [nim_generator_gpu_type, nim_generator_gpu_count], 
+        #                              [nim_generator_id, nim_generator_warning])
 
-        nim_hallucination_gpu_type.change(lambda x: _update_gpu_counts("hallucination", x), nim_hallucination_gpu_type, 
-                                        [nim_hallucination_gpu_count, nim_hallucination_id, nim_hallucination_warning])
-        nim_hallucination_gpu_count.change(lambda x, y: _update_compatible_models("hallucination", x, y), 
-                                         [nim_hallucination_gpu_type, nim_hallucination_gpu_count], 
-                                         [nim_hallucination_id, nim_hallucination_warning])
+        # nim_hallucination_gpu_type.change(lambda x: _update_gpu_counts("hallucination", x), nim_hallucination_gpu_type, 
+        #                                 [nim_hallucination_gpu_count, nim_hallucination_id, nim_hallucination_warning])
+        # nim_hallucination_gpu_count.change(lambda x, y: _update_compatible_models("hallucination", x, y), 
+        #                                  [nim_hallucination_gpu_type, nim_hallucination_gpu_count], 
+        #                                  [nim_hallucination_id, nim_hallucination_warning])
 
-        nim_answer_gpu_type.change(lambda x: _update_gpu_counts("answer", x), nim_answer_gpu_type, 
-                                 [nim_answer_gpu_count, nim_answer_id, nim_answer_warning])
-        nim_answer_gpu_count.change(lambda x, y: _update_compatible_models("answer", x, y), 
-                                  [nim_answer_gpu_type, nim_answer_gpu_count], 
-                                  [nim_answer_id, nim_answer_warning])
+        # nim_answer_gpu_type.change(lambda x: _update_gpu_counts("answer", x), nim_answer_gpu_type, 
+        #                          [nim_answer_gpu_count, nim_answer_id, nim_answer_warning])
+        # nim_answer_gpu_count.change(lambda x, y: _update_compatible_models("answer", x, y), 
+        #                           [nim_answer_gpu_type, nim_answer_gpu_count], 
+        #                           [nim_answer_id, nim_answer_warning])
 
         """ These helper functions track the API Endpoint selected and regenerates the prompt accordingly. """
         
