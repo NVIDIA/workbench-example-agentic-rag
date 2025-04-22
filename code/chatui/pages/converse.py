@@ -61,7 +61,7 @@ doc_links = (
     "https://github.com/NVIDIA/workbench-example-agentic-rag",
     "https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/code/chatui/pages/converse.py",
     "https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/agentic-rag-docs/self-host.md",
-    "https://github.comj/NVIDIA/workbench-example-agentic-rag/blob/main/agentic-rag-docs/edit-code.md",
+    "https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/agentic-rag-docs/intermediate-edit-code.md",
     "https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_agentic_rag/#graph",
     "https://docs.nvidia.com/ai-workbench/user-guide/latest/overview/introduction.html"
 )

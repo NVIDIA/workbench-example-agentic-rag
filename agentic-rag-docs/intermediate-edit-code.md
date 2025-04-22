@@ -1,4 +1,4 @@
-# Guide to Modifying the Agentic RAG Project
+# Intermediate Guide to Modifying the Agentic RAG Code
 
 ## Table of Contents
 - [How to Add a New NVIDIA Endpoint to the Model Dropdown in the UI](#-how-to-add-a-new-nvidia-endpoint-to-the-model-dropdown-in-the-ui)

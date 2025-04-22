@@ -1,5 +1,3 @@
-
-
 # Agentic RAG - Web Search with Accuracy and Hallucination Controls
 
 ### Boost RAG with an Agentic Layer
@@ -75,7 +73,7 @@ Use these steps when you want to work with your own documents and your own promp
 ## Intermediate Mode
 <img src="./code/chatui/static/agentic-flow.png" width="100%" height="auto" alt="Diagram of Agentic Framework">
 
-#### See [Full Intermediate Mode Instructions Here](agentic-rag-docs/edit-code.md)
+#### See [Full Intermediate Mode Instructions Here](agentic-rag-docs/intermediate-edit-code.md)
 
 This application is a quick prototype and not a robust piece of software. So there are **many** opportunities to improve it.
 
