@@ -1,7 +1,9 @@
 # Using Your Own GPU for Inference
 
 **Who is this guide for?** 
-- People that have access to a sufficient GPU and want to run their own inference
+- People that want to run containerized inference on a GPU
+- People that have some experience with using containers
+- People that 
 
 **What are the guide limitations?** 
 - It assumes you have the remote already setup with appropriate dependencies, i.e. NVIDIA GPU drivers, the Container Toolkit, 
@@ -18,31 +20,24 @@
 
 ## High-Level Overview
 
-There are many ways you can setup inference on a remote GPU. We will go over two: Ollama and NVIDIA NIM.
+There are many ways you can setup inference on a remote GPU. 
+
+We will go over two: Ollama and NVIDIA NIM.
 
 ### Option A: Ollama (Simpler)
 - Easier to set up and manage
 - Runs many models out of the box
 - Good for experimentation and development
 - See [Ollama Setup Guide](#ollama-setup) below
+- GPU requirements: Depends on the model selected, but lighter weight than NIMs and can go down to 8 GB of vRAM
 
 ### Option B: NVIDIA NIM (More Advanced)
-- More difficult to setup but has better performance and optimization
+- More steps to setup but has better performance and optimization
 - Many options for configuring deployment and model optimization
 - Better for production use
 - See [NIM Setup Guide](#nim-setup) below
+- GPU requirements: Depends on the model selected, but generally require 24GB of vRAM or higher
 
-Depending on the option you choose (A vs B) as well as the model, your GPU requirements will vary.
-
-
-
-Before proceeding, ensure you have:
-
-| Item | Minimum | Notes |
-|------|---------|-------|
-| NVIDIA GPU | RTX A6000 (48 GB) or >= 24 GB VRAM | Multiple smaller GPUs work; see *GPU sizing* below |
-| OS | Ubuntu 22.04/24.04 LTS | Other distros fine if drivers ≥ 550 |
-| NVIDIA drivers | 550.xx or newer | `nvidia-smi` should show your GPU |
 
 For detailed software installation instructions, see:
 - [NVIDIA Driver Installation](https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html)
