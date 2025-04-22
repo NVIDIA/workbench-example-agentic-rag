@@ -50,8 +50,10 @@ We will go over two: Ollama and NVIDIA NIM.
 #### Prerequisites
 
 - Make sure the remote is properly setup and that you have SSH access to it
+  - IP address: ``<remote-ip>``
+  - Remote user: ``<remote-user>``
 - Be in a terminal session on the remote
-- Make sure it's open to TCP access on a known port, i.e. ``<remote_port>``
+- Make sure it's open to TCP access on a known port, i.e. ``<remote-port>``
 - Make sure that the container runtime is properly configured
 
 #### Three Basic Steps
@@ -61,33 +63,55 @@ We will go over two: Ollama and NVIDIA NIM.
 
 ### Deploy Ollama Container
 
+Do the following in the **remote** terminal.
 
 ```bash
-# Pull the Ollama container
+# Pull the Ollama container. Change the tag if you want a different one. 
 docker pull ollama/ollama:latest
 
-# Run it
+# Run it and make sure to connect the port on the remote, <remote-port>, to the Ollama port in the container, 11434
 docker run -d --name ollama \
   --gpus all --restart unless-stopped \
-  -p 11434:11434 \
+  -p <remote-port>:11434 \
   -v ollama_data:/root/.ollama \
   ollama/ollama:latest
+
+# Make it is running properly
+curl http://localhost:10000/api/tags
+
 ```
 
 ### Pull Model into Ollama Container
 
+Do the following in the **remote** terminal.
+
 ```bash
-# Pull a model through the container
+# Exec into the container and pull a model
 docker exec ollama ollama pull llama2:7b
 
-# Or pull Mistral 7B
-docker exec ollama ollama pull mistral:7b
+# Verify the model has been pulled and is available
+curl http://localhost:<remote-port>/api/tags
+
+# Submit a simple query to the model to test
+curl -X POST http://localhost:<remote-port>/api/generate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "llama3",
+    "prompt": "What is the meaning of life?",
+    "stream": false
+  }'
+
+
 ```
 
 ### Add Ollama Container as an Endpoint
 
+Do the following in a **local** terminal. You will need the remote ip, ``<remote-ip>``, and the remote port, ``<remote-port>``.
+
 ```bash
-curl -X POST http://localhost:11434/api/generate \
+
+# Test local access to the Ollama container on the remote 
+curl -X POST http://<remote-ip>:<remote-port>/api/generate \
   -H "Content-Type: application/json" \
   -d '{"model": "llama2:7b", "prompt": "Hello, Ollama!"}'
 ```
