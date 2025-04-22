@@ -38,6 +38,14 @@ INTERNAL_API = os.getenv('INTERNAL_API', '')
 # Default model for public embedding
 EMBEDDINGS_MODEL = 'NV-Embed-QA'
 
+# Set the chunk size and overlap for the text splitter. Uses defaults but allows them to be set as environment variables.
+DEFAULT_CHUNK_SIZE = 250
+DEFAULT_CHUNK_OVERLAP = 0
+
+CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", DEFAULT_CHUNK_SIZE))
+CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", DEFAULT_CHUNK_OVERLAP))
+
+
 if INTERNAL_API != '':
     # NVIDIA employees must use internal endpoints
     EMBEDDINGS_MODEL = 'nvdev/nvidia/nv-embedqa-e5-v5'
@@ -48,19 +56,26 @@ else:
     print("[config] No INTERNAL_API set.")
     print(f"[config] Using public embedding model: {EMBEDDINGS_MODEL}")
 
-# Set the chunk size and overlap for the text splitter. Uses defaults but allows them to be set as environment variables.
-DEFAULT_CHUNK_SIZE = 250
-DEFAULT_CHUNK_OVERLAP = 0
 
-CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", DEFAULT_CHUNK_SIZE))
-CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", DEFAULT_CHUNK_OVERLAP))
-
-
-
-# Download nltk data
+# Adding nltk data
 import nltk
-nltk.download("punkt")
-nltk.download("averaged_perceptron_tagger")
+
+def download_nltk_if_missing():
+    try:
+        nltk.data.find('tokenizers/punkt')
+    except LookupError:
+        nltk.download('punkt')
+
+    try:
+        nltk.data.find('taggers/averaged_perceptron_tagger')
+    except LookupError:
+        nltk.download('averaged_perceptron_tagger')
+
+download_nltk_if_missing()
+
+    
+# nltk.download("punkt")
+# nltk.download("averaged_perceptron_tagger")
 
 # Functions for dealing with URLs
 def is_valid_url(url: str) -> bool:

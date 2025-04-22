@@ -36,7 +36,11 @@ import traceback
 from chatui.utils.error_messages import QUERY_ERROR_MESSAGES
 from chatui.utils.graph import TavilyAPIError
 
-
+# UI names and labels
+SELF_HOSTED_TAB_NAME = "Self-Hosted Endpoint"
+HOST_NAME = "Host IP Address/Name"
+HOST_PORT = "Host Port"
+HOST_MODEL = "Model Name"
 
 
 # Set recursion limit 
@@ -240,7 +244,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                                 elem_id="rag-inputs", 
                                                                 interactive=True)
                                         
-                                    with gr.TabItem("NIM Endpoints", id=1) as router_nim:
+                                    with gr.TabItem(SELF_HOSTED_TAB_NAME, id=1) as router_nim:
                                         # with gr.Row():
                                         #     nim_router_gpu_type = gr.Dropdown(
                                         #         choices=gpu_compatibility.get_gpu_types(),
@@ -261,20 +265,20 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                         with gr.Row():
                                             nim_router_ip = gr.Textbox(
                                                 placeholder="10.123.45.678",
-                                                label="Microservice Host",
+                                                label=HOST_NAME,
                                                 info="IP Address running the microservice",
                                                 elem_id="rag-inputs",
                                                 scale=2
                                             )
                                             nim_router_port = gr.Textbox(
                                                 placeholder="8000",
-                                                label="Port",
+                                                label=HOST_PORT,
                                                 info="Optional, (default: 8000)",
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
                                         nim_router_id = gr.Textbox(
-                                            label="Containerized model",
+                                            label=HOST_MODEL,
                                             info="Enter the exact model name as served by the container",
                                             elem_id="rag-inputs",
                                             interactive=True
@@ -312,7 +316,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                                             label="Select a Model",
                                                                             elem_id="rag-inputs", 
                                                                             interactive=True)
-                                    with gr.TabItem("NIM Endpoints", id=1) as retrieval_nim:
+                                    with gr.TabItem(SELF_HOSTED_TAB_NAME, id=1) as retrieval_nim:
                                         # with gr.Row():
                                         #     nim_retrieval_gpu_type = gr.Dropdown(
                                         #         choices=gpu_compatibility.get_gpu_types(),
@@ -333,20 +337,20 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                         with gr.Row():
                                             nim_retrieval_ip = gr.Textbox(
                                                 placeholder="10.123.45.678",
-                                                label="Microservice Host",
+                                                label=HOST_NAME,
                                                 info="IP Address running the microservice",
                                                 elem_id="rag-inputs",
                                                 scale=2
                                             )
                                             nim_retrieval_port = gr.Textbox(
                                                 placeholder="8000",
-                                                label="Port",
+                                                label=HOST_PORT,
                                                 info="Optional, (default: 8000)",
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
                                         nim_retrieval_id = gr.Textbox(
-                                            label="Containerized model",
+                                            label=HOST_MODEL,
                                             info="Enter the exact model name as served by the container",
                                             elem_id="rag-inputs",
                                             interactive=True
@@ -384,7 +388,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                                     label="Select a Model",
                                                                     elem_id="rag-inputs", 
                                                                     interactive=True)
-                                    with gr.TabItem("NIM Endpoints", id=1) as generator_nim:
+                                    with gr.TabItem(SELF_HOSTED_TAB_NAME, id=1) as generator_nim:
                                         # with gr.Row():
                                         #     nim_generator_gpu_type = gr.Dropdown(
                                         #         choices=gpu_compatibility.get_gpu_types(),
@@ -405,20 +409,20 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                         with gr.Row():
                                             nim_generator_ip = gr.Textbox(
                                                 placeholder="10.123.45.678",
-                                                label="Microservice Host",
+                                                label=HOST_NAME,
                                                 info="IP Address running the microservice",
                                                 elem_id="rag-inputs",
                                                 scale=2
                                             )
                                             nim_generator_port = gr.Textbox(
                                                 placeholder="8000",
-                                                label="Port",
+                                                label=HOST_PORT,
                                                 info="Optional, (default: 8000)",
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
                                         nim_generator_id = gr.Textbox(
-                                            label="Containerized model",
+                                            label=HOST_MODEL,
                                             info="Enter the exact model name as served by the container",
                                             elem_id="rag-inputs",
                                             interactive=True
@@ -456,7 +460,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                                                 label="Select a Model",
                                                                                 elem_id="rag-inputs", 
                                                                                 interactive=True)
-                                    with gr.TabItem("NIM Endpoints", id=1) as hallucination_nim:
+                                    with gr.TabItem(SELF_HOSTED_TAB_NAME, id=1) as hallucination_nim:
                                         # with gr.Row():
                                         #     nim_hallucination_gpu_type = gr.Dropdown(
                                         #         choices=gpu_compatibility.get_gpu_types(),
@@ -477,20 +481,20 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                         with gr.Row():
                                             nim_hallucination_ip = gr.Textbox(
                                                 placeholder="10.123.45.678",
-                                                label="Microservice Host",
+                                                label=HOST_NAME,
                                                 info="IP Address running the microservice",
                                                 elem_id="rag-inputs",
                                                 scale=2
                                             )
                                             nim_hallucination_port = gr.Textbox(
                                                 placeholder="8000",
-                                                label="Port",
+                                                label=HOST_PORT,
                                                 info="Optional, (default: 8000)",
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
                                         nim_hallucination_id = gr.Textbox(
-                                            label="Containerized model",
+                                            label=HOST_MODEL,
                                             info="Enter the exact model name as served by the container",
                                             elem_id="rag-inputs",
                                             interactive=True
@@ -528,7 +532,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                                         elem_id="rag-inputs",
                                                                         label="Select a Model",
                                                                         interactive=True)
-                                    with gr.TabItem("NIM Endpoints", id=1) as answer_nim:
+                                    with gr.TabItem(SELF_HOSTED_TAB_NAME, id=1) as answer_nim:
                                         # with gr.Row():
                                         #     nim_answer_gpu_type = gr.Dropdown(
                                         #         choices=gpu_compatibility.get_gpu_types(),
@@ -549,20 +553,20 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                         with gr.Row():
                                             nim_answer_ip = gr.Textbox(
                                                 placeholder="10.123.45.678",
-                                                label="Microservice Host",
+                                                label=HOST_NAME,
                                                 info="IP Address running the microservice",
                                                 elem_id="rag-inputs",
                                                 scale=2
                                             )
                                             nim_answer_port = gr.Textbox(
                                                 placeholder="8000",
-                                                label="Port",
+                                                label=HOST_PORT,
                                                 info="Optional, (default: 8000)",
                                                 elem_id="rag-inputs",
                                                 scale=1
                                             )
                                         nim_answer_id = gr.Textbox(
-                                            label="Containerized model",
+                                            label=HOST_MODEL,
                                             info="Enter the exact model name as served by the container",
                                             elem_id="rag-inputs",
                                             interactive=True
