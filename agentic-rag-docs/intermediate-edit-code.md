@@ -20,7 +20,7 @@
 **What are the guide limitations?** 
 - It isn't comprehensive and doesn't go into full detail
 - It assumes you can basically figure things out if you are pointed to the correct section
-- There may be some errors in the details for the guidance, but you should be able to figure your way out past them.
+- There may be some errors in the details for the guidance, but you should be able to figure your way out past them
 
 **What else do I need to know?**
 - You will need to be able to check errors and do some debugging if you alter the code. Best to use an LLM to help you 
