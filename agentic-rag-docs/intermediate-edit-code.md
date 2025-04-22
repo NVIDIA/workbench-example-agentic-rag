@@ -6,6 +6,7 @@
 - [How to Modify Vector Database Clearing Behavior](#-how-to-modify-vector-database-clearing-behavior)
 - [How to Modify the Agent's Recursion Limit](#-how-to-modify-the-agents-recursion-limit)
 - [How to Modify Tavily Search Settings](#-how-to-modify-tavily-search-settings)
+- [How to See Higher Resolution Error Messaging in the Monitor Tab](#-how-to-see-higher-resolution-error-messaging-in-the-monitor-tab)
 
 **Who is this guide for?** 
 - People that know some Python
@@ -23,7 +24,8 @@
 - The first place to find errors is in the **Output** widget in the Desktop App (bottom left corner)
     - Click **Output** and select **Chat** from the dropdown. 
 
-
+> ⚠️ **Warning:** You should **never** make changes in the **main** branch. Instead, create a separate branch for each change you want to make,
+> make the changes, test it, and then merge it back into **main**.
 
 ---
 
@@ -271,3 +273,77 @@ Regardless of how you set it, the app will need to be restarted.
 - Environment variable changes require app restart to take effect
 - Code modifications require app restart and code recompilation to take effect
 - Environment variables must be set in a terminal attached to the running container
+
+## 🧩 How to See Higher Resolution Error Messaging in the Monitor Tab
+
+By default, the Monitor tab only shows stdout messages. You can modify the logging system to capture error messages (stderr) and even see all output by editing `code/chatui/utils/logger.py` and `code/chatui/pages/converse.py`.
+
+### 1. Optional Error Capture
+
+If you want to optionally capture error messages, modify the `Logger` class in `logger.py`:
+
+```python
+class Logger:
+    def __init__(self, filename, stream_type='stdout', capture_errors=False):
+        self.stream_type = stream_type
+        self.capture_errors = capture_errors
+        if stream_type == 'stdout':
+            self.terminal = sys.stdout
+        else:  # stderr
+            self.terminal = sys.stderr
+        self.log = open(filename, "a")  # Changed to append mode
+        
+    def write(self, message):
+        self.terminal.write(message)
+        # Only log stderr if capture_errors is True
+        if self.stream_type == 'stdout' or (self.stream_type == 'stderr' and self.capture_errors):
+            if self.stream_type == 'stderr':
+                message = f"[ERROR] {message}"
+            self.log.write(message)
+```
+
+Then in `converse.py`, you can enable error capture when needed:
+
+```python
+sys.stdout = logger.Logger("/project/code/output.log", 'stdout')
+sys.stderr = logger.Logger("/project/code/output.log", 'stderr', capture_errors=True)  # Set to True to capture errors
+```
+
+### 2. See All Output
+
+If you want to see literally everything (including debug messages and internal processing), you can modify the `Logger` class to capture all output without filtering:
+
+```python
+class Logger:
+    def __init__(self, filename, stream_type='stdout', capture_all=False):
+        self.stream_type = stream_type
+        self.capture_all = capture_all
+        if stream_type == 'stdout':
+            self.terminal = sys.stdout
+        else:  # stderr
+            self.terminal = sys.stderr
+        self.log = open(filename, "a")
+        
+    def write(self, message):
+        self.terminal.write(message)
+        # Log everything if capture_all is True
+        if self.capture_all or self.stream_type == 'stdout':
+            if self.stream_type == 'stderr':
+                message = f"[ERROR] {message}"
+            self.log.write(message)
+```
+
+Then in `converse.py`:
+
+```python
+sys.stdout = logger.Logger("/project/code/output.log", 'stdout', capture_all=True)
+sys.stderr = logger.Logger("/project/code/output.log", 'stderr', capture_all=True)
+```
+
+### Caveats
+- Capturing errors or all output may result in a lot of noise in the Monitor tab
+- Some error messages might be expected and not indicate actual problems
+- Consider using these options temporarily for debugging rather than permanently
+- The log file will grow larger when capturing more output
+- You may want to add additional filtering based on message content
+
