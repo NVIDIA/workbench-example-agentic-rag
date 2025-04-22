@@ -278,6 +278,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 scale=1
                                             )
                                         nim_router_id = gr.Textbox(
+                                            placeholder = "Model name goes here",
                                             label=HOST_MODEL,
                                             info="Enter the exact model name as served by the container",
                                             elem_id="rag-inputs",
@@ -350,6 +351,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 scale=1
                                             )
                                         nim_retrieval_id = gr.Textbox(
+                                            placeholder = "Model name goes here",
                                             label=HOST_MODEL,
                                             info="Enter the exact model name as served by the container",
                                             elem_id="rag-inputs",
@@ -422,6 +424,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 scale=1
                                             )
                                         nim_generator_id = gr.Textbox(
+                                            placeholder = "Model name goes here",
                                             label=HOST_MODEL,
                                             info="Enter the exact model name as served by the container",
                                             elem_id="rag-inputs",
@@ -494,6 +497,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 scale=1
                                             )
                                         nim_hallucination_id = gr.Textbox(
+                                            placeholder = "Model name goes here",
                                             label=HOST_MODEL,
                                             info="Enter the exact model name as served by the container",
                                             elem_id="rag-inputs",
@@ -566,6 +570,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                 scale=1
                                             )
                                         nim_answer_id = gr.Textbox(
+                                            placeholder = "Model name goes here",
                                             label=HOST_MODEL,
                                             info="Enter the exact model name as served by the container",
                                             elem_id="rag-inputs",
