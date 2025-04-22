@@ -8,7 +8,14 @@
 
 **What are the guide limitations?** 
 - It isn't comprehensive and doesn't go into full detail
-- Some parts may be slightly wrong
+- It assumes you can basically figure things out if you are pointed to the correct section
+
+**What else do I need to know?**
+- You will need to be able to check errors and do some debugging if you alter the code. Best to use an LLM to help you 
+  interpret errors and figure out what to do.
+- The first place to find errors is in the **Output** widget in the Desktop App (bottom left corner)
+    - Click **Output** and select **Chat** from the dropdown. 
+
 
 
 ---
@@ -146,3 +153,114 @@ The vector database clearing has two behaviors:
 - Setting `delete_all` to `False` will preserve files in the persist directory
 - Hidden files (starting with '.') are always preserved regardless of this setting
 - The current collection will still be cleared even with `delete_all = False`
+
+## 🧩 How to Modify the Agent's Recursion Limit
+
+You can modify how many times the agent can recursively process a query by adjusting the recursion limit in `code/chatui/pages/converse.py`.
+
+### Files and sections you will need to edit
+- ``code/chatui/pages/converse.py``
+    - Search: ``Set recursion limit``
+    - Search: ``DEFAULT_RECURSION_LIMIT``
+
+### 1. Understand the Recursion Limit
+
+The recursion limit controls how many times the agent can:
+- Re-route questions between different components
+- Re-try generating answers when previous attempts fail
+- Iterate through the document retrieval and grading process
+
+### 2. Modify the Recursion Limit
+
+You can change the recursion limit in two ways. 
+
+Regardless of how you set it, the app must be restarted for the change to take effect. 
+
+1. **Environment Variable** (Recommended):
+   - If the app is **not running**:
+     ```bash
+     # In a terminal attached to your container
+     export RECURSION_LIMIT=20  # Set to your desired value
+     # Then start the app
+     ```
+   - If the app is **already running**:
+     ```bash
+     # In a terminal attached to your container
+     # First stop the app
+     # Then set the environment variable
+     export RECURSION_LIMIT=20
+     # Then restart the app
+     ```
+
+2. **Direct Code Modification**:
+   - Find the recursion limit configuration in `converse.py`:
+   ```python
+   DEFAULT_RECURSION_LIMIT = 10
+   RECURSION_LIMIT = int(os.getenv("RECURSION_LIMIT", DEFAULT_RECURSION_LIMIT))
+   ```
+   - Change the `DEFAULT_RECURSION_LIMIT` value to your desired number
+   - This change will take effect after restarting the app
+
+### Caveats
+- Setting the limit too high may cause the agent to get stuck in loops
+- Setting the limit too low may prevent the agent from fully processing complex queries
+- The default value of 10 is a good balance for most use cases
+- You can monitor recursion depth in the Output widget of the Desktop App
+- Environment variable changes require app restart to take effect
+- Code modifications require app restart and code recompilation to take effect
+- Environment variables must be set in a terminal attached to the running container
+
+## 🧩 How to Modify Tavily Search Settings
+
+You can modify how many search results Tavily returns by adjusting the `TAVILY_K` parameter in `code/chatui/utils/graph.py`.
+
+### Files and sections you will need to edit
+- ``code/chatui/utils/graph.py``
+    - Search: ``Tavily related parameters``
+    - Search: ``DEFAULT_TAVILY_K``
+
+### 1. Understand Tavily Search Results
+
+The `TAVILY_K` parameter controls:
+- How many search results are returned from Tavily
+- The amount of web content available for the agent to process
+- The breadth of information considered when answering questions
+
+### 2. Modify the Search Results Limit
+
+You can change the number of search results in two ways.
+
+Regardless of how you set it, the app will need to be restarted.
+
+1. **Environment Variable** (Recommended):
+   - If the app is **not running**:
+     ```bash
+     # In a terminal attached to your container
+     export TAVILY_K=5  # Set to your desired value
+     # Then start the app
+     ```
+   - If the app is **already running**:
+     ```bash
+     # In a terminal attached to your container
+     # First stop the app
+     # Then set the environment variable
+     export TAVILY_K=5
+     # Then restart the app
+     ```
+
+2. **Direct Code Modification**:
+   - Find the Tavily configuration in `graph.py`:
+   ```python
+   DEFAULT_TAVILY_K = 3
+   TAVILY_K = int(os.getenv("TAVILY_K", DEFAULT_TAVILY_K))
+   ```
+   - Change the `DEFAULT_TAVILY_K` value to your desired number
+   - This change will take effect after restarting the app
+
+### Caveats
+- Setting the value too high may increase response time and API costs
+- Setting the value too low may limit the information available to the agent
+- The default value of 3 is a good balance for most use cases
+- Environment variable changes require app restart to take effect
+- Code modifications require app restart and code recompilation to take effect
+- Environment variables must be set in a terminal attached to the running container
