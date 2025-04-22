@@ -3,7 +3,7 @@
 **Who is this guide for?** 
 - People that want to run containerized inference on a GPU
 - People that have some experience with using containers
-- People that 
+- People that have experience with configuring and using remote resources
 
 **What are the guide limitations?** 
 - It assumes you have the remote already setup with appropriate dependencies, i.e. NVIDIA GPU drivers, the Container Toolkit, 
@@ -15,6 +15,11 @@
 - You will need root/sudo access for most setup steps
 - The first place to check for issues is `nvidia-smi` output
 - Make sure your GPU meets the minimum requirements before starting
+
+For detailed software installation instructions, see:
+- [NVIDIA Driver Installation](https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html)
+- [NVIDIA Container Toolkit Setup](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+- [Docker Installation](https://docs.docker.com/engine/install/ubuntu/) or [Podman Installation](https://podman.io/docs/installation)
 
 ---
 
@@ -39,23 +44,23 @@ We will go over two: Ollama and NVIDIA NIM.
 - GPU requirements: Depends on the model selected, but generally require 24GB of vRAM or higher
 
 
-For detailed software installation instructions, see:
-- [NVIDIA Driver Installation](https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html)
-- [NVIDIA Container Toolkit Setup](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
-- [Docker Installation](https://docs.docker.com/engine/install/ubuntu/) or [Podman Installation](https://podman.io/docs/installation)
 
+## Option A: Using Ollama
 
+#### Prerequisites
 
+- Make sure the remote is properly setup and that you have SSH access to it
+- Be in a terminal session on the remote
+- Make sure it's open to TCP access on a known port, i.e. ``<remote_port>``
+- Make sure that the container runtime is properly configured
 
+#### Three Basic Steps
+- **Deploy Ollama Container**: Pull the Ollama container onto the remote and run it
+- **Pull Model into Ollama Container**: Exec into the container and load the desired model
+- **Add Ollama Container as an Endpoint**: Configure the Agentic RAG app to use the model
 
-## Option A: Ollama
+### Deploy Ollama Container
 
-### Deploy Ollama Container on the Remote
-
-- Make sure you are in a terminal session on the remote
-- Make sure you've got the relevant dependencies installed
-- Make sure the container runtime is properly configured
-- Make sure you've a sufficient GPU to run 
 
 ```bash
 # Pull the Ollama container
@@ -69,7 +74,7 @@ docker run -d --name ollama \
   ollama/ollama:latest
 ```
 
-### 3.2 Pull a Model
+### Pull Model into Ollama Container
 
 ```bash
 # Pull a model through the container
@@ -79,7 +84,7 @@ docker exec ollama ollama pull llama2:7b
 docker exec ollama ollama pull mistral:7b
 ```
 
-### 3.3 Verify the Endpoint
+### Add Ollama Container as an Endpoint
 
 ```bash
 curl -X POST http://localhost:11434/api/generate \
@@ -87,7 +92,7 @@ curl -X POST http://localhost:11434/api/generate \
   -d '{"model": "llama2:7b", "prompt": "Hello, Ollama!"}'
 ```
 
-### 3.4 Connect to Workbench
+
 
 1. Open the **Agentic RAG** project in AI Workbench
 2. Go to **Config → Endpoints**
@@ -97,3 +102,7 @@ curl -X POST http://localhost:11434/api/generate \
    3. Select the model you pulled
 
 --
+
+## Option B: Using NVIDIA NIM
+
+### TBD
