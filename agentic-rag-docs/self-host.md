@@ -129,13 +129,12 @@ curl -X POST http://<remote-ip>:<remote-port>/api/generate \
 
 
 1. Open the **Agentic RAG** project in AI Workbench
-2. Go to **Config → Endpoints**
-3. For each pipeline component:
-   1. Click **Add Endpoint → Custom**
-   2. Enter `http://localhost:11434`
-   3. Select the model you pulled
+2. Select **Models**
+3. For each component you want to use the Ollama container:
+   1. Select **Self-Hosted Endpoint**
+   2. Enter the ip address, port and model name
 
---
+
 
 # Option B: Using NVIDIA NIM
 
@@ -178,9 +177,11 @@ The NIM container will automatically download and configure the model when it st
 
 ```bash
 # Check the container logs
+
 docker logs nim
 
 # Test the API endpoint
+
 curl -X POST http://localhost:<remote-port>/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
@@ -198,6 +199,7 @@ You will need the remote ip, ``<remote-ip>``, and the remote port, ``<remote-por
 
 ```bash
 # Test local access to the NIM container on the remote
+
 curl -X POST http://<remote-ip>:<remote-port>/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
@@ -208,11 +210,10 @@ curl -X POST http://<remote-ip>:<remote-port>/v1/chat/completions \
 ```
 
 1. Open the **Agentic RAG** project in AI Workbench
-2. Go to **Config → Endpoints**
-3. For each pipeline component:
-   1. Click **Add Endpoint → Custom**
-   2. Enter `http://<remote-ip>:<remote-port>`
-   3. Select the appropriate model configuration
+2. Select **Models**
+3. For each component you want to use the NIM container:
+   1. Select **Self-Hosted Endpoint**
+   2. Enter the ip address, port and model name
 
 ### Additional Notes
 
