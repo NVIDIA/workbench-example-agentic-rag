@@ -43,11 +43,7 @@ We will go over two: Ollama and NVIDIA NIM.
 - See [NIM Setup Guide](#nim-setup) below
 - GPU requirements: Depends on the model selected, but generally require 24GB of vRAM or higher
 
-
-
-# Option A: Using Ollama
-
-### Prerequisites
+## General Prerequisites
 
 - Make sure the remote is properly setup and that you have SSH access to it
   - IP address: ``<remote-ip>``
@@ -55,6 +51,11 @@ We will go over two: Ollama and NVIDIA NIM.
 - Be in a terminal session on the remote
 - Make sure it's open to TCP access on a known port, i.e. ``<remote-port>``
 - Make sure that the container runtime is properly configured
+
+# Option A: Using Ollama
+
+### Prerequisites for Ollama
+- Satisfy the [General Prerequisites](#general-prerequisites)
 
 ### Three Basic Steps
 - **Deploy Ollama Container**: Pull the Ollama container onto the remote and run it
@@ -136,4 +137,87 @@ curl -X POST http://<remote-ip>:<remote-port>/api/generate \
 
 --
 
-# Option B: Using NVIDIA NIM TBD
+# Option B: Using NVIDIA NIM
+
+### Prerequisites for NVIDIA NIM
+
+- Satisfy the [General Prerequisites](#general-prerequisites)
+- Ensure you have an NVIDIA NGC API key (available at https://ngc.nvidia.com/setup/api-key)
+
+### Three Basic Steps
+- **Deploy NIM Container**: Pull and run the NIM container on the remote
+- **Configure NIM Container**: Set up the model and API key
+- **Add NIM Container as an Endpoint**: Configure the Agentic RAG app to use the model
+
+## Deploy NIM Container
+
+Do the following in the **remote** terminal. If you encounter any errors, use an LLM to help you debug. 
+
+```bash
+# Login to NVIDIA NGC
+# Set user as $oauthtoken and password as the NGC key
+docker login nvcr.io
+
+# Pull the NIM container
+docker pull nvcr.io/nim/deepseek-r1-distill-llama-8b:latest
+
+# Run the container
+docker run -d --name nim \
+  --gpus all --restart unless-stopped \
+  -p <remote-port>:8000 \
+  -e NGC_API_KEY=<your-ngc-api-key> \
+  nvcr.io/nim/deepseek-r1-distill-llama-8b:latest
+
+# Verify the container is running
+docker ps | grep nim
+```
+
+## Configure NIM Container
+
+The NIM container will automatically download and configure the model when it starts. You can verify it's working by:
+
+```bash
+# Check the container logs
+docker logs nim
+
+# Test the API endpoint
+curl -X POST http://localhost:<remote-port>/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "messages": [
+      {"role": "user", "content": "Hello, NIM!"}
+    ]
+  }'
+```
+
+## Add NIM Container as an Endpoint
+
+Do the following in a **local** terminal. If you encounter any errors, use an LLM to help you debug. 
+
+You will need the remote ip, ``<remote-ip>``, and the remote port, ``<remote-port>``.
+
+```bash
+# Test local access to the NIM container on the remote
+curl -X POST http://<remote-ip>:<remote-port>/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "messages": [
+      {"role": "user", "content": "Hello, NIM!"}
+    ]
+  }'
+```
+
+1. Open the **Agentic RAG** project in AI Workbench
+2. Go to **Config → Endpoints**
+3. For each pipeline component:
+   1. Click **Add Endpoint → Custom**
+   2. Enter `http://<remote-ip>:<remote-port>`
+   3. Select the appropriate model configuration
+
+### Additional Notes
+
+- NIM containers are optimized for production use and provide better performance than Ollama
+- They require more GPU memory (typically 24GB or more)
+- The API follows the OpenAI-compatible format, making it easy to integrate with existing applications
+- You can monitor the container's performance using NVIDIA's monitoring tools
+- For production deployments, consider setting up proper security measures and load balancing

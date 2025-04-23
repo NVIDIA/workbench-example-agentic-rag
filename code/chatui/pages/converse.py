@@ -210,7 +210,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
 
                             ##### Use the Models tab to configure individual components
                             - Click a component name (e.g. Router) to configure it
-                            - Select an API endpoint or a self-hosted NIM (requires remote GPU)
+                            - Select an API endpoint or a self-hosted endpoint (requires remote GPU)
                             - Customize component behavior by changing the prompts
 
                             ##### Use the Documents tab to create a RAG context
@@ -235,7 +235,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                         ##### Select and configure each component of the agentic RAG pipeline
                                         - Click a component below (e.g. Router) and select API or NIM 
                                         - For APIs, select the model from the dropdown
-                                        - For NIM, see instructions [here](https://github.com/nv-twhitehouse/workbench-example-agentic-rag/blob/twhitehouse/april-16/agentic-rag-docs/self-host.md)
+                                        - For self-hosted endpoints, see instructions [here](https://github.com/nv-twhitehouse/workbench-example-agentic-rag/blob/twhitehouse/april-16/agentic-rag-docs/self-host.md)
                                         - (optional) Customize component behavior by configuring the prompt
                                         """
                             )
