@@ -118,6 +118,15 @@ _LOCAL_CSS = """
 #rag-inputs .svelte-s1r2yt {
     color: #76b900;
 }
+.mode-banner {
+    font-size: 1.05rem;
+    font-weight: 500;
+    background-color: #f0f4f8;
+    padding: 0.5em 0.75em;
+    border-left: 2px solid #76b900;
+    margin-bottom: 0.5em;
+    border-radius: 2px;
+}
 """
 
 sys.stdout = logger.Logger("/project/code/output.log")
@@ -238,6 +247,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             with gr.Group(visible=False) as group_router:
                                 with gr.Tabs(selected=0) as router_tabs:
                                     with gr.TabItem("API Endpoints", id=0) as router_api:
+                                        router_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
                                         model_router = gr.Dropdown(model_list, 
                                                                 value=model_list[0],
                                                                 label="Select a Model",
@@ -311,6 +321,8 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             retrieval_btn = gr.Button("Retrieval Grader", variant="sm")
                             with gr.Group(visible=False) as group_retrieval:
                                 with gr.Tabs(selected=0) as retrieval_tabs:
+                                    retrieval_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
+
                                     with gr.TabItem("API Endpoints", id=0) as retrieval_api:
                                         model_retrieval = gr.Dropdown(model_list, 
                                                                             value=model_list[0],
@@ -384,6 +396,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             generator_btn = gr.Button("Generator", variant="sm")
                             with gr.Group(visible=False) as group_generator:
                                 with gr.Tabs(selected=0) as generator_tabs:
+                                    generator_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
                                     with gr.TabItem("API Endpoints", id=0) as generator_api:
                                         model_generator = gr.Dropdown(model_list, 
                                                                     value=model_list[0],
@@ -457,6 +470,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             hallucination_btn = gr.Button("Hallucination Grader", variant="sm")
                             with gr.Group(visible=False) as group_hallucination:
                                 with gr.Tabs(selected=0) as hallucination_tabs:
+                                    hallucination_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
                                     with gr.TabItem("API Endpoints", id=0) as hallucination_api:
                                         model_hallucination = gr.Dropdown(model_list, 
                                                                                 value=model_list[0],
@@ -530,6 +544,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             answer_btn = gr.Button("Answer Grader", variant="sm")
                             with gr.Group(visible=False) as group_answer:
                                 with gr.Tabs(selected=0) as answer_tabs:
+                                    answer_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
                                     with gr.TabItem("API Endpoints", id=0) as answer_api:
                                         model_answer = gr.Dropdown(model_list, 
                                                                         value=model_list[0],
@@ -837,12 +852,54 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                     return gr.update(value=prompts_mistral.answer_prompt)
                 case _:
                     return gr.update(value=prompts_llama3.answer_prompt)
-            
+
+        # Update default prompts when an API endpoint model is selected from the dropdown
+        # (This applies only to the "API Endpoints" tab — not to self-hosted NIM configurations)
+
         model_router.change(_toggle_model_router, [model_router], [prompt_router])
         model_retrieval.change(_toggle_model_retrieval, [model_retrieval], [prompt_retrieval])
         model_generator.change(_toggle_model_generator, [model_generator], [prompt_generator])
         model_hallucination.change(_toggle_model_hallucination, [model_hallucination], [prompt_hallucination])
         model_answer.change(_toggle_model_answer, [model_answer], [prompt_answer])
+
+        # Toggle between NIM and API mode by setting `*_use_nim` state based on selected tab
+        # - Selecting "API Endpoints" sets use_nim = False (use hosted model)
+        # - Selecting "Self-Hosted Endpoint" sets use_nim = True (use local NIM container)
+        
+        # router eventhandlers
+        router_api.select(lambda: (False,), [], [router_use_nim])
+        router_nim.select(lambda: (True,), [], [router_use_nim])
+
+        router_api.select(lambda: "💻 **Using API Endpoint**", [], [router_mode_banner])
+        router_nim.select(lambda: "🛠️ **Using Self-Hosted Endpoint**", [], [router_mode_banner])
+
+        # retrieval eventhandlers   
+        retrieval_api.select(lambda: (False,), [], [retrieval_use_nim])
+        retrieval_nim.select(lambda: (True,), [], [retrieval_use_nim])
+
+        retrieval_api.select(lambda: "💻 **Using API Endpoint**", [], [retrieval_mode_banner])
+        retrieval_nim.select(lambda: "🛠️ **Using Self-Hosted Endpoint**", [], [retrieval_mode_banner])
+
+        # generator eventhandlers
+        generator_api.select(lambda: (False,), [], [generator_use_nim])
+        generator_nim.select(lambda: (True,), [], [generator_use_nim])
+
+        generator_api.select(lambda: "💻 **Using API Endpoint**", [], [generator_mode_banner])
+        generator_nim.select(lambda: "🛠️ **Using Self-Hosted Endpoint**", [], [generator_mode_banner])
+
+        # hallucination eventhandlers
+        hallucination_api.select(lambda: (False,), [], [hallucination_use_nim])
+        hallucination_nim.select(lambda: (True,), [], [hallucination_use_nim])
+
+        hallucination_api.select(lambda: "💻 **Using API Endpoint**", [], [hallucination_mode_banner])
+        hallucination_nim.select(lambda: "🛠️ **Using Self-Hosted Endpoint**", [], [hallucination_mode_banner])
+
+        # answer eventhandlers
+        answer_api.select(lambda: (False,), [], [answer_use_nim])
+        answer_nim.select(lambda: (True,), [], [answer_use_nim])
+
+        answer_api.select(lambda: "💻 **Using API Endpoint**", [], [answer_mode_banner])
+        answer_nim.select(lambda: "🛠️ **Using Self-Hosted Endpoint**", [], [answer_mode_banner])
         
         """ These helper functions upload and clear the documents and webpages to/from the ChromaDB. """
 
