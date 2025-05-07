@@ -1,0 +1,675 @@
+{
+    "H100": {
+        "1": {
+            "models": [
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "2": {
+            "models": [
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "4": {
+            "models": [
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "8": {
+            "models": [
+                "llama-3.1-405b-instruct",
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "16": {
+            "models": [
+                "deepseek-r1",
+                "llama-3.1-405b-instruct",
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        }
+    }, 
+    "A100 80GB": {
+        "1": {
+            "models": [
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "2": {
+            "models": [
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "4": {
+            "models": [
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "8": {
+            "models": [
+                "llama-3.1-405b-instruct",
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "16": {
+            "models": [
+                "deepseek-r1",
+                "llama-3.1-405b-instruct",
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        }
+    }, 
+    "A100 40GB": {
+        "1": {
+            "models": [
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "2": {
+            "models": [
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "4": {
+            "models": [
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "8": {
+            "models": [
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "16": {
+            "models": [
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        }
+    }, 
+    "L40S": {
+        "1": {
+            "models": [
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "2": {
+            "models": [
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "4": {
+            "models": [
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "8": {
+            "models": [
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "16": {
+            "models": [
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        }
+    },
+    "A10G": {
+        "1": {
+            "models": [
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "2": {
+            "models": [
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "4": {
+            "models": [
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "8": {
+            "models": [
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "16": {
+            "models": [
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        }
+    },
+    "RTX 6000 Ada": {
+        "1": {
+            "models": [
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "2": {
+            "models": [
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "4": {
+            "models": [
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "8": {
+            "models": [
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        },
+        "16": {
+            "models": [
+                "mixtral-8x22b-instruct-v0.1",
+                "llama-3.3-70b-instruct",
+                "llama-3.1-70b-instruct",
+                "llama3-70b-instruct",
+                "codellama-70b",
+                "mixtral-8x7b-instruct-v0.1",
+                "llama-3.1-nemotron-70b-instruct",
+                "llama-3.1-swallow-70b-instruct-v0.1",
+                "llama-3-swallow-70b-instruct-v0.1",
+                "llama-3-taiwan-70b-instruct",
+                "llama-3.1-8b-instruct",
+                "llama3-8b-instruct",
+                "mistral-7b-instruct-v0.3",
+                "mistral-nemo-12b-instruct",
+                "gemma-2-9b-it",
+                "phi-3-mini-4k-instruct",
+                "llama-3.1-swallow-8b-instruct-v0.1",
+                "qwen2.5-7b-instruct"
+            ]
+        }
+    },
+    "RTX 5090": {
+        "1": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "2": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "4": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "8": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "16": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        }
+    },
+    "RTX 5080": {
+        "1": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "2": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "4": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "8": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "16": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        }
+    },
+    "RTX 4090": {
+        "1": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "2": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "4": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "8": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "16": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        }
+    },
+    "RTX 4080": {
+        "1": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "2": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "4": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "8": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        },
+        "16": {
+            "models": [
+                "llama-3.1-8b-instruct"
+            ]
+        }
+    }
+}

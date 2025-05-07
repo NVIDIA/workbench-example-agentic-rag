@@ -16,7 +16,7 @@
 import os
 
 from typing_extensions import TypedDict
-from typing import List
+from typing import List, Optional
 
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
@@ -73,6 +73,16 @@ class GraphState(TypedDict):
     nim_retrieval_id: str
     nim_hallucination_id: str
     nim_answer_id: str
+    nim_generator_gpu_type: Optional[str]
+    nim_generator_gpu_count: Optional[str]
+    nim_router_gpu_type: Optional[str]
+    nim_router_gpu_count: Optional[str]
+    nim_retrieval_gpu_type: Optional[str]
+    nim_retrieval_gpu_count: Optional[str]
+    nim_hallucination_gpu_type: Optional[str]
+    nim_hallucination_gpu_count: Optional[str]
+    nim_answer_gpu_type: Optional[str]
+    nim_answer_gpu_count: Optional[str]
 
 
 from langchain.schema import Document
@@ -121,6 +131,8 @@ def generate(state):
     llm = nim.CustomChatOpenAI(custom_endpoint=state["nim_generator_ip"], 
                                port=state["nim_generator_port"] if len(state["nim_generator_port"]) > 0 else "8000",
                                model_name=state["nim_generator_id"] if len(state["nim_generator_id"]) > 0 else "meta/llama3-8b-instruct",
+                               gpu_type=state["nim_generator_gpu_type"] if "nim_generator_gpu_type" in state else None,
+                               gpu_count=state["nim_generator_gpu_count"] if "nim_generator_gpu_count" in state else None,
                                temperature=0.7) if state["generator_use_nim"] else ChatNVIDIA(model=state["generator_model_id"], temperature=0.7)
     rag_chain = prompt | llm | StrOutputParser()
     generation = rag_chain.invoke({"context": documents, "question": question})
@@ -153,6 +165,8 @@ def grade_documents(state):
     llm = nim.CustomChatOpenAI(custom_endpoint=state["nim_retrieval_ip"], 
                                port=state["nim_retrieval_port"] if len(state["nim_retrieval_port"]) > 0 else "8000",
                                model_name=state["nim_retrieval_id"] if len(state["nim_retrieval_id"]) > 0 else "meta/llama3-8b-instruct",
+                               gpu_type=state["nim_retrieval_gpu_type"] if "nim_retrieval_gpu_type" in state else None,
+                               gpu_count=state["nim_retrieval_gpu_count"] if "nim_retrieval_gpu_count" in state else None,
                                temperature=0.7) if state["retrieval_use_nim"] else ChatNVIDIA(model=state["retrieval_model_id"], temperature=0)
     retrieval_grader = prompt | llm | JsonOutputParser()
     for d in documents:
@@ -225,6 +239,8 @@ def route_question(state):
     llm = nim.CustomChatOpenAI(custom_endpoint=state["nim_router_ip"], 
                                port=state["nim_router_port"] if len(state["nim_router_port"]) > 0 else "8000",
                                model_name=state["nim_router_id"] if len(state["nim_router_id"]) > 0 else "meta/llama3-8b-instruct",
+                               gpu_type=state["nim_router_gpu_type"] if "nim_router_gpu_type" in state else None,
+                               gpu_count=state["nim_router_gpu_count"] if "nim_router_gpu_count" in state else None,
                                temperature=0.7) if state["router_use_nim"] else ChatNVIDIA(model=state["router_model_id"], temperature=0)
     question_router = prompt | llm | JsonOutputParser()
     source = question_router.invoke({"question": question})
@@ -292,6 +308,8 @@ def grade_generation_v_documents_and_question(state):
     llm = nim.CustomChatOpenAI(custom_endpoint=state["nim_hallucination_ip"], 
                                port=state["nim_hallucination_port"] if len(state["nim_hallucination_port"]) > 0 else "8000",
                                model_name=state["nim_hallucination_id"] if len(state["nim_hallucination_id"]) > 0 else "meta/llama3-8b-instruct",
+                               gpu_type=state["nim_hallucination_gpu_type"] if "nim_hallucination_gpu_type" in state else None,
+                               gpu_count=state["nim_hallucination_gpu_count"] if "nim_hallucination_gpu_count" in state else None,
                                temperature=0.7) if state["hallucination_use_nim"] else ChatNVIDIA(model=state["hallucination_model_id"], temperature=0)
     hallucination_grader = prompt | llm | JsonOutputParser()
 
@@ -308,6 +326,8 @@ def grade_generation_v_documents_and_question(state):
     llm = nim.CustomChatOpenAI(custom_endpoint=state["nim_answer_ip"], 
                                port=state["nim_answer_port"] if len(state["nim_answer_port"]) > 0 else "8000",
                                model_name=state["nim_answer_id"] if len(state["nim_answer_id"]) > 0 else "meta/llama3-8b-instruct",
+                               gpu_type=state["nim_answer_gpu_type"] if "nim_answer_gpu_type" in state else None,
+                               gpu_count=state["nim_answer_gpu_count"] if "nim_answer_gpu_count" in state else None,
                                temperature=0.7) if state["answer_use_nim"] else ChatNVIDIA(model=state["answer_model_id"], temperature=0)
     answer_grader = prompt | llm | JsonOutputParser()
     

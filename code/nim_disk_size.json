@@ -1,0 +1,288 @@
+{
+    "codellama-13b-instruct": {
+        "disk_space": {
+            "H100": {
+                "fp16": {
+                    "throughput": 24.63,
+                    "latency": 25.32
+                }
+            },
+            "A100 80GB": {
+                "fp16": {
+                    "throughput": 24.63,
+                    "latency": 25.31
+                }
+            },
+            "A100 40GB": {
+                "fp16": {
+                    "throughput": 24.63,
+                    "latency": 25.31
+                }
+            },
+            "L40S": {
+                "fp16": {
+                    "throughput": 25.32,
+                    "latency": 24.63
+                }
+            },
+            "A10G": {
+                "fp16": {
+                    "throughput": 25.32,
+                    "latency": 26.69
+                }
+            }
+        }
+    },
+    "codellama-34b-instruct": {
+        "disk_space": {
+            "H100": {
+                "fp8": {
+                    "throughput": 32.17,
+                    "latency": 32.42
+                },
+                "fp16": {
+                    "throughput": 63.48,
+                    "latency": 64.59
+                }
+            },
+            "A100 80GB": {
+                "fp16": {
+                    "throughput": 63.48,
+                    "latency": 64.59
+                }
+            },
+            "A100 40GB": {
+                "fp16": {
+                    "throughput": 63.48,
+                    "latency": 64.59
+                }
+            },
+            "L40S": {
+                "fp8": {
+                    "throughput": 32.42
+                },
+                "fp16": {
+                    "throughput": 64.58
+                }
+            },
+            "A10G": {
+                "fp16": {
+                    "throughput": 64.58,
+                    "latency": 66.8
+                }
+            }
+        }
+    },
+    "codellama-70b": {
+        "disk_space": {
+            "H100": {
+                "fp8": {
+                    "throughput": 65.47,
+                    "latency": 66.37
+                },
+                "fp16": {
+                    "throughput": 130.35,
+                    "latency": 66.37
+                }
+            },
+            "A100 80GB": {
+                "fp16": {
+                    "throughput": 130.35,
+                    "latency": 132.71
+                }
+            },
+            "A100 40GB": {
+                "fp16": {
+                    "throughput": 130.35,
+                    "latency": 132.71
+                }
+            },
+            "A10G": {
+                "fp16": {
+                    "throughput": 132.69
+                }
+            }
+        }
+    },
+    "deepseek-r1-distill-llama-8b-rtx": {
+        "disk_space": {
+            "RTX 6000 Ada": {
+                "int4_awq": {
+                    "throughput": 5.42
+                }
+            },
+            "RTX 5090": {
+                "int4_awq": {
+                    "throughput": 5.42
+                }
+            },
+            "RTX 5080": {
+                "int4_awq": {
+                    "throughput": 5.42
+                }
+            },
+            "RTX 4090": {
+                "int4_awq": {
+                    "throughput": 5.42
+                }
+            },
+            "RTX 4080": {
+                "int4_awq": {
+                    "throughput": 5.42
+                }
+            }
+        }
+    },
+    "phind-codellama-34b-v2-instruct": {
+        "disk_space": {
+            "H100": {
+                "fp8": {
+                    "throughput": 32.17,
+                    "latency": 32.41
+                },
+                "fp16": {
+                    "throughput": 63.48,
+                    "latency": 64.59
+                }
+            },
+            "A100 80GB": {
+                "fp16": {
+                    "throughput": 63.48,
+                    "latency": 64.59
+                }
+            },
+            "A100 40GB": {
+                "fp16": {
+                    "throughput": 63.48,
+                    "latency": 64.59
+                }
+            },
+            "L40S": {
+                "fp8": {
+                    "throughput": 32.43
+                },
+                "fp16": {
+                    "throughput": 64.58
+                }
+            },
+            "A10G": {
+                "fp16": {
+                    "latency": 66.8
+                }
+            }
+        }
+    },
+    "mixtral-8x7b-instruct-v0.1": {
+        "disk_space": {
+            "H100": {
+                "fp8": {
+                    "throughput": 65.47,
+                    "latency": 66.37
+                },
+                "fp16": {
+                    "throughput": 130.35,
+                    "latency": 132.71
+                }
+            },
+            "A100 80GB": {
+                "fp16": {
+                    "throughput": 130.35,
+                    "latency": 132.71
+                }
+            },
+            "A100 40GB": {
+                "fp16": {
+                    "throughput": 130.35,
+                    "latency": 132.71
+                }
+            }
+        }
+    },
+    "mixtral-8x22b-instruct-v0.1": {
+        "disk_space": {
+            "H100": {
+                "fp8": {
+                    "throughput": 130.94,
+                    "latency": 132.74
+                },
+                "fp16": {
+                    "throughput": 260.7,
+                    "latency": 265.42
+                }
+            },
+            "A100 80GB": {
+                "fp16": {
+                    "throughput": 260.7,
+                    "latency": 265.42
+                }
+            },
+            "A100 40GB": {
+                "fp16": {
+                    "throughput": 260.7,
+                    "latency": 265.42
+                }
+            }
+        }
+    },
+    "llama-3.1-8b-instruct": {
+        "disk_space": {
+            "H100": {
+                "fp8": {
+                    "throughput": 3.8
+                },
+                "fp16": {
+                    "throughput": 7.14
+                }
+            },
+            "A100 80GB": {
+                "fp16": {
+                    "throughput": 7.14
+                }
+            },
+            "A100 40GB": {
+                "fp16": {
+                    "throughput": 7.14
+                }
+            },
+            "L40S": {
+                "fp8": {
+                    "throughput": 3.8
+                },
+                "fp16": {
+                    "throughput": 7.14
+                }
+            },
+            "A10G": {
+                "fp16": {
+                    "throughput": 7.14
+                }
+            }
+        }
+    },
+    "llama-3.1-70b-instruct": {
+        "disk_space": {
+            "H100": {
+                "fp8": {
+                    "throughput": 65.47,
+                    "latency": 66.37
+                },
+                "fp16": {
+                    "throughput": 130.35,
+                    "latency": 132.71
+                }
+            },
+            "A100 80GB": {
+                "fp16": {
+                    "throughput": 130.35,
+                    "latency": 132.71
+                }
+            },
+            "A100 40GB": {
+                "fp16": {
+                    "throughput": 130.35,
+                    "latency": 132.71
+                }
+            }
+        }
+    }
+}

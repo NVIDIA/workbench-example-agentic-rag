@@ -55,3 +55,7 @@ cover/
 # Workbench Project Layout
 data/scratch/*
 !data/scratch/.gitkeep
+data/chroma.sqlite3
+
+data/*
+!data/.gitkeep

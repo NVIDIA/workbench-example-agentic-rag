@@ -19,9 +19,21 @@ from langchain_community.vectorstores import Chroma
 from langchain_nvidia_ai_endpoints import NVIDIAEmbeddings
 from typing import Any, Dict, List, Tuple, Union
 
+import os
+INTERNAL_API = os.getenv('INTERNAL_API', '')
+
+# Set the embeddings model target
+EMBEDDINGS_MODEL = 'NV-Embed-QA'
+
+#
+if INTERNAL_API != '':
+    EMBEDDINGS_MODEL = 'nvdev/nvidia/nv-embedqa-e5-v5'
+
+# Download nltk data
 import nltk
 nltk.download("punkt")
 nltk.download("averaged_perceptron_tagger")
+
 
 def upload(urls: List[str]):
     """ This is a helper function for parsing the user inputted URLs and uploading them into the vector store. """
@@ -37,7 +49,7 @@ def upload(urls: List[str]):
     vectorstore = Chroma.from_documents(
         documents=doc_splits,
         collection_name="rag-chroma",
-        embedding=NVIDIAEmbeddings(model='NV-Embed-QA'),
+        embedding=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
         persist_directory="/project/data",
     )
     return vectorstore
@@ -56,7 +68,7 @@ def upload_pdf(documents: List[str]):
     vectorstore = Chroma.from_documents(
         documents=doc_splits,
         collection_name="rag-chroma",
-        embedding=NVIDIAEmbeddings(model='NV-Embed-QA'),
+        embedding=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
         persist_directory="/project/data",
     )
     return vectorstore
@@ -65,7 +77,7 @@ def clear():
     """ This is a helper function for emptying the collection the vector store. """
     vectorstore = Chroma(
         collection_name="rag-chroma",
-        embedding_function=NVIDIAEmbeddings(model='NV-Embed-QA'),
+        embedding_function=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
         persist_directory="/project/data",
     )
     
@@ -76,7 +88,7 @@ def get_retriever():
     """ This is a helper function for returning the retriever object of the vector store. """
     vectorstore = Chroma(
         collection_name="rag-chroma",
-        embedding_function=NVIDIAEmbeddings(model='NV-Embed-QA'),
+        embedding_function=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
         persist_directory="/project/data",
     )
     retriever = vectorstore.as_retriever()

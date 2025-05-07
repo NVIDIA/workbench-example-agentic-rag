@@ -3,10 +3,12 @@
 *cuda.CUDA
 *defaults.EnvVars
 *defaults.Readme
+*defaults.CA
 *defaults.Entrypoint
 *apt.PackageManager
 *bash.PreLanguage
 *python.PipPackageManager
 *bash.PostBuild
 *jupyterlab.JupyterLab
+*vs_code.VSCode
 *tensorboard.Tensorboard
