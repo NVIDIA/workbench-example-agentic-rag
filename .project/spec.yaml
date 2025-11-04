@@ -92,6 +92,22 @@ execution:
           logfile_path: ""
           timeout_seconds: 120
           icon_url: ""
+        - name: chat
+          type: custom
+          class: webapp
+          start_command: cd /project/code && PROXY_PREFIX=$PROXY_PREFIX python3 -m chatui
+          health_check_command: curl -f "http://localhost:8080/"
+          stop_command: pkill -f "^python3 -m chatui"
+          user_msg: ""
+          logfile_path: ""
+          timeout_seconds: 60
+          icon_url: ""
+          webapp_options:
+            autolaunch: true
+            port: "8080"
+            proxy:
+                trim_prefix: true
+            url: http://localhost:8080/
     resources:
         gpu:
             requested: 0
