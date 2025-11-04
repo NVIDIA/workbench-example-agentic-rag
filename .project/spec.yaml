@@ -20,8 +20,8 @@ layout:
 environment:
     base:
         registry: nvcr.io
-        image: nvidia/ai-workbench/python-basic:1.0.2
-        build_timestamp: "20241001182612"
+        image: nvidia/ai-workbench/python-basic:1.0.8
+        build_timestamp: "20250729154429"
         name: Python Basic
         supported_architectures: []
         cuda_version: ""
@@ -32,22 +32,6 @@ environment:
             - python3
             - jupyterlab
         apps:
-            - name: chat
-              type: custom
-              class: webapp
-              start_command: cd /project/code/ && PROXY_PREFIX=$PROXY_PREFIX python3 -m chatui
-              health_check_command: curl -f "http://localhost:8080/"
-              stop_command: pkill -f "^python3 -m chatui"
-              user_msg: ""
-              logfile_path: ""
-              timeout_seconds: 60
-              icon_url: ""
-              webapp_options:
-                autolaunch: true
-                port: "8080"
-                proxy:
-                    trim_prefix: true
-                url: http://localhost:8080/
             - name: jupyterlab
               type: jupyterlab
               class: webapp
@@ -64,26 +48,10 @@ environment:
                 proxy:
                     trim_prefix: false
                 url_command: jupyter lab list | head -n 2 | tail -n 1 | cut -f1 -d' ' | grep -v 'Currently'
-            - name: tensorboard
-              type: tensorboard
-              class: webapp
-              start_command: tensorboard --logdir \$TENSORBOARD_LOGS_DIRECTORY --path_prefix=\$PROXY_PREFIX --bind_all
-              health_check_command: '[ \$(curl -o /dev/null -s -w ''%{http_code}'' http://localhost:\$TENSORBOARD_PORT\$PROXY_PREFIX/) == ''200'' ]'
-              stop_command: pkill tensorboard
-              user_msg: ""
-              logfile_path: ""
-              timeout_seconds: 60
-              icon_url: ""
-              webapp_options:
-                autolaunch: true
-                port: "6006"
-                proxy:
-                    trim_prefix: false
-                url: http://localhost:6006
         programming_languages:
             - python3
-        icon_url: ""
-        image_version: 1.0.2
+        icon_url: https://workbench.download.nvidia.com/static/img/ai-workbench-icon-rectangle.jpg
+        image_version: 1.0.8
         os: linux
         os_distro: ubuntu
         os_distro_release: "22.04"
@@ -99,11 +67,15 @@ environment:
                 - curl
                 - git
                 - git-lfs
+                - python3
+                - gcc
+                - python3-dev
+                - python3-pip
                 - vim
             - name: pip
-              binary_path: /usr/local/bin/pip
+              binary_path: /usr/bin/pip
               installed_packages:
-                - jupyterlab==4.0.7
+                - jupyterlab==4.3.5
         package_manager_environment:
             name: ""
             target: ""
