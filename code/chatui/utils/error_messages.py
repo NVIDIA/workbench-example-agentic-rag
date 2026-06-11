@@ -37,6 +37,17 @@ QUERY_ERROR_MESSAGES = {
         "title": "🔌 Remote API Failure",
         "body": "The remote model service responded with an error. Try again or check your configuration."
     },
+    "OutputParserError": {
+        "title": "⚠️ Unexpected model output",
+        "body": (
+            "One of the grader models returned a response that was not the expected JSON format, "
+            "so the agent could not finish verifying this answer.\n\n"
+            "**Try:**\n"
+            "- Submit the query again\n"
+            "- Select a different model for the component shown in the Monitor tab\n"
+            "- If you customized a prompt, make sure it still asks for a JSON response"
+        )
+    },
     "Unknown": {
         "title": "❌ Unexpected Error",
         "body": (

@@ -22,7 +22,6 @@ import gradio as gr
 import shutil
 import os
 import subprocess
-import time
 import sys
 import json
 
@@ -32,6 +31,7 @@ from langgraph.errors import GraphRecursionError
 from requests.exceptions import HTTPError
 import traceback
 
+from langchain_core.exceptions import OutputParserException
 
 from chatui.utils.error_messages import QUERY_ERROR_MESSAGES
 from chatui.utils.graph import TavilyAPIError
@@ -61,6 +61,17 @@ if INTERNAL_API == 'yes':
     NANO = 'nvdev/nvidia/nemotron-3-nano-30b-a3b'
     SUPER = 'nvdev/nvidia/nemotron-3-super-120b-a12b'
     ULTRA = 'nvdev/nvidia/nemotron-3-ultra-550b-a55b'
+
+# Model presets applied to the five API-endpoint dropdowns at once
+# (order: router, retrieval grader, generator, hallucination grader, answer grader).
+PRESET_FAST = "⚡ Fast — Nano for every component"
+PRESET_BALANCED = "⚖️ Balanced — Super for every component"
+PRESET_QUALITY = "🏆 Max quality — Ultra generator, Super for the rest"
+MODEL_PRESETS = {
+    PRESET_FAST: (NANO, NANO, NANO, NANO, NANO),
+    PRESET_BALANCED: (SUPER, SUPER, SUPER, SUPER, SUPER),
+    PRESET_QUALITY: (SUPER, SUPER, ULTRA, SUPER, SUPER),
+}
 
 # URLs for default example docs for the RAG.
 doc_links = (
@@ -141,6 +152,166 @@ TITLE = "Agentic RAG: Chat UI"
 OUTPUT_TOKENS = 250
 MAX_DOCS = 5
 
+
+""" Environment + context status helpers, shown above the chat and in the Documents tab. """
+
+def _status_strip_md() -> str:
+    """One-line setup status: API keys and current context size."""
+    if os.getenv("NVIDIA_API_KEY"):
+        nvidia = "🔑 NVIDIA API key: set ✓"
+    else:
+        nvidia = "🔑 NVIDIA API key: **missing ✗** (set it in AI Workbench → Project Container → Variables)"
+    if os.getenv("TAVILY_API_KEY"):
+        tavily = "🌐 Tavily key: set ✓"
+    else:
+        tavily = "🌐 Tavily key: **missing ✗** (web search fallback will fail)"
+    chunks, sources = database.get_context_summary()
+    if chunks:
+        context = f"📚 Context: {chunks} chunks from {len(sources)} source(s)"
+    else:
+        context = "📚 Context: empty — add documents in the Documents tab"
+    return f"{nvidia} · {tavily} · {context}"
+
+
+def _shorten(text: str, limit: int = 70) -> str:
+    text = str(text).strip()
+    return text if len(text) <= limit else text[: limit - 1] + "…"
+
+
+def _context_panel_md() -> str:
+    """Markdown summary of every source currently in the vector database."""
+    chunks, sources = database.get_context_summary()
+    if not chunks:
+        return ("**The context is currently empty.** Add webpages or files below — "
+                "until you do, document questions will fall back to web search.")
+    lines = [f"**{chunks} chunks from {len(sources)} source(s) are in the context.**", ""]
+    ranked = sorted(sources.items(), key=lambda item: -item[1])
+    for source, count in ranked[:15]:
+        if str(source).startswith("http"):
+            label = f"[{_shorten(source)}]({source})"
+        else:
+            label = _shorten(os.path.basename(str(source)))
+        lines.append(f"- {label} — {count} chunk(s)")
+    if len(ranked) > 15:
+        lines.append(f"- …and {len(ranked) - 15} more source(s)")
+    return "\n".join(lines)
+
+
+""" Helpers that translate LangGraph stream events into a user-facing agent timeline.
+
+The graph emits one event per node. Grader verdicts are not separate events, but they
+are fully inferable from node transitions: generate → generate means the groundedness
+check failed (regenerate), generate → websearch means the answer check failed (retry
+with web search), and reaching the end after generate means both checks passed.
+"""
+
+def _new_timeline() -> Dict[str, Any]:
+    return {"steps": [], "retries": 0, "last_node": None, "retrieved": 0}
+
+
+def _record_timeline_event(timeline: Dict[str, Any], node: str, delta: Dict[str, Any]) -> None:
+    steps = timeline["steps"]
+    last = timeline["last_node"]
+    if node == "retrieve":
+        steps.append("🗂️ **Router** — the question matches the document context, searching the vector database")
+        timeline["retrieved"] = len(delta.get("documents") or [])
+        steps.append(f"📚 **Retriever** — pulled {timeline['retrieved']} chunk(s) from the vector database")
+    elif node == "grade_documents":
+        kept = len(delta.get("documents") or [])
+        total = timeline["retrieved"] or kept
+        if delta.get("web_search") == "Yes":
+            steps.append(f"🔍 **Relevance check** — none of the {total} chunk(s) were relevant, falling back to web search")
+        else:
+            steps.append(f"🔍 **Relevance check** — kept {kept} of {total} chunk(s)")
+    elif node == "websearch":
+        if last is None:
+            steps.append("🗂️ **Router** — the question falls outside the document context, using web search")
+        elif last == "generate":
+            timeline["retries"] += 1
+            steps.append("🛠️ **Answer check** — the draft did not address the question, self-correcting with a web search")
+        steps.append("🌐 **Web search** — gathering live results")
+    elif node == "generate":
+        if last == "generate":
+            timeline["retries"] += 1
+            steps.append("🛠️ **Groundedness check** — the draft was not supported by the context, regenerating")
+        steps.append("✍️ **Generator** — drafting an answer from the context")
+    timeline["last_node"] = node
+
+
+def _finish_timeline(timeline: Dict[str, Any]) -> None:
+    """The graph only reaches END after both graders pass."""
+    timeline["steps"].append("✅ **Groundedness check** — the answer is supported by the context")
+    timeline["steps"].append("✅ **Answer check** — the answer addresses the question")
+
+
+def _timeline_md(timeline: Dict[str, Any], working: bool = True) -> str:
+    lines = [f"{i}. {step}" for i, step in enumerate(timeline["steps"], start=1)]
+    if working:
+        header = "🤖 **The agent is working through your question:**"
+        lines.append(f"{len(lines) + 1}. ⏳ *working…*")
+    else:
+        header = "🤖 **What the agent tried:**"
+    return header + "\n\n" + "\n".join(lines)
+
+
+def _collect_sources(documents) -> List[Tuple[str, Union[str, None]]]:
+    """Deduped (label, url) pairs for the documents behind an answer. Web-search results
+    are synthesized without metadata, so any document with no source is the Tavily doc."""
+    pairs = []
+    seen = set()
+    web_results = False
+    for doc in documents or []:
+        metadata = getattr(doc, "metadata", None) or {}
+        source = metadata.get("source")
+        if not source:
+            web_results = True
+            continue
+        if source in seen:
+            continue
+        seen.add(source)
+        if str(source).startswith("http"):
+            title = str(metadata.get("title") or source).strip() or str(source)
+            title = _shorten(title.replace("[", "(").replace("]", ")"), 80)
+            pairs.append((title, str(source)))
+        else:
+            pairs.append((os.path.basename(str(source)), None))
+    if web_results:
+        pairs.append(("Live web search results (Tavily)", None))
+    return pairs
+
+
+def _final_answer_md(generation: str, timeline: Dict[str, Any], documents) -> str:
+    """Compose the final chat message: answer, verification badges, and sources."""
+    badges = ["✅ Grounded in the context", "✅ Addresses the question"]
+    if timeline["retries"]:
+        plural = "s" if timeline["retries"] > 1 else ""
+        badges.append(f"🔄 {timeline['retries']} self-correction{plural}")
+    parts = [generation.strip(), "---", " · ".join(badges)]
+    sources = _collect_sources(documents)
+    if sources:
+        shown = sources[:6]
+        lines = [f"- [{label}]({url})" if url else f"- {label}" for label, url in shown]
+        if len(sources) > len(shown):
+            lines.append(f"- …and {len(sources) - len(shown)} more")
+        parts.append("**Sources**\n" + "\n".join(lines))
+    return "\n\n".join(parts)
+
+
+def _build_trace(question: str, timeline: Dict[str, Any], documents=None, status: str = "in progress") -> Dict[str, Any]:
+    """Curated run summary for the Monitor → Response Trace tab (no prompts or endpoint internals)."""
+    return {
+        "question": question,
+        "status": status,
+        "agent_steps": [step.replace("**", "") for step in timeline["steps"]],
+        "self_corrections": timeline["retries"],
+        "sources": [url or label for label, url in _collect_sources(documents)],
+    }
+
+
+def _refresh_context_displays():
+    """Recompute the status strip and the Documents-tab context panel."""
+    return _status_strip_md(), _context_panel_md()
+
 ### Load in CSS here for components that need custom styling. ###
 
 _LOCAL_CSS = """
@@ -170,7 +341,8 @@ _LOCAL_CSS = """
 #accordion {
 }
 #rag-inputs .svelte-1gfkn6j .svelte-s1r2yt .svelte-cmf5ev {
-    color: #76b900 !important;
+    /* Darker shade of NVIDIA green: #76b900 fails WCAG AA contrast for text on white */
+    color: #4e7a00 !important;
 }
 .mode-banner {
     font-size: 1.05rem;
@@ -180,6 +352,25 @@ _LOCAL_CSS = """
     border-left: 2px solid #76b900;
     margin-bottom: 0.5em;
     border-radius: 2px;
+}
+.status-strip {
+    font-size: 0.9rem;
+    background-color: #f0f4f8;
+    padding: 0.4em 0.75em;
+    border-left: 2px solid #76b900;
+    border-radius: 2px;
+}
+.status-strip p {
+    font-size: 0.9rem !important;
+}
+.sample-caption p {
+    font-size: 0.78rem !important;
+    color: #4a4a4a !important;
+    margin-top: -4px;
+}
+.diagram-caption p {
+    font-size: 0.85rem !important;
+    color: #4a4a4a !important;
 }
 """
 
@@ -224,10 +415,14 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
             # Left Column will display the chatbot
             with gr.Column(scale=16, min_width=350):
 
-                # Main chatbot panel. 
+                # Setup + context status, refreshed on page load and after document changes.
+                with gr.Row():
+                    status_strip = gr.Markdown("⏳ Checking your setup…", elem_classes=["status-strip"])
+
+                # Main chatbot panel.
                 with gr.Row(equal_height=True):
                     with gr.Column(min_width=350):
-                        chatbot = gr.Chatbot(show_label=False, height=500)
+                        chatbot = gr.Chatbot(show_label=False, height=500, show_copy_button=True)
 
                 # Message box for user input
                 with gr.Row(equal_height=True):
@@ -242,14 +437,22 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                     with gr.Column(scale=1, min_width=150):
                         _ = gr.ClearButton([msg, chatbot], value="Clear Chat History")
 
-                # Sample questions that users can click on to use
+                # Sample questions, each labeled with the agent path it demonstrates.
+                gr.Markdown("**Try a sample** — each one exercises a different agent path:")
                 with gr.Row(equal_height=True):
-                    sample_query_1 = gr.Button("How do I add the GitHub integration using OAuth?", variant="secondary", size="sm", interactive=True)
-                    sample_query_2 = gr.Button("How do I fix an inaccessible remote Location?", variant="secondary", size="sm", interactive=True)
-                
+                    with gr.Column(min_width=220):
+                        sample_query_1 = gr.Button("How do I add the GitHub integration using OAuth?", variant="secondary", size="sm", interactive=True)
+                        gr.Markdown("📚 Answered from the document context", elem_classes=["sample-caption"])
+                    with gr.Column(min_width=220):
+                        sample_query_2 = gr.Button("What are the NVIDIA-provided default base environments?", variant="secondary", size="sm", interactive=True)
+                        gr.Markdown("📚 Answered from the document context", elem_classes=["sample-caption"])
                 with gr.Row(equal_height=True):
-                    sample_query_3 = gr.Button("What are the NVIDIA-provided default base environments?", variant="secondary", size="sm", interactive=True)
-                    sample_query_4 = gr.Button("How do I create a support bundle for troubleshooting?", variant="secondary", size="sm", interactive=True)
+                    with gr.Column(min_width=220):
+                        sample_query_3 = gr.Button("What are the top technology headlines today?", variant="secondary", size="sm", interactive=True)
+                        gr.Markdown("🌐 Routed straight to web search", elem_classes=["sample-caption"])
+                    with gr.Column(min_width=220):
+                        sample_query_4 = gr.Button("How do I fix an inaccessible remote Location?", variant="secondary", size="sm", interactive=True)
+                        gr.Markdown("📚 Tries the documents first — watch it self-correct if they fall short", elem_classes=["sample-caption"])
             
             # Hidden column to be rendered when the user collapses all settings.
             with gr.Column(scale=1, min_width=100, visible=False) as hidden_settings_column:
@@ -260,72 +463,69 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                 with gr.Tabs(selected=0) as settings_tabs:
 
                     with gr.TabItem("Quickstart", id=0) as instructions_tab:
-                        
+
+                        gr.Markdown(
+                            """
+                            ##### What makes this RAG *agentic*?
+                            Every answer is **routed** (documents vs. web search), **graded** for relevance,
+                            and **verified** for groundedness and usefulness — and the agent **self-corrects**
+                            when a check fails. Watch it happen live in the chat and in the **Monitor** tab.
+                            """
+                        )
+
                         # Diagram of the agentic websearch RAG workflow
                         with gr.Row():
-                            agentic_flow = gr.Image("/project/code/chatui/static/agentic-flow.png", 
+                            agentic_flow = gr.Image("/project/code/chatui/static/agentic-flow.png",
                                                     show_label=False,
                                                     show_download_button=False,
                                                     interactive=False)
+                        gr.Markdown(
+                            "The workflow above: a router sends each question to the vector database or web search. "
+                            "Retrieved chunks are graded for relevance (irrelevant ones trigger a web-search fallback), "
+                            "and every draft answer must pass a groundedness check and an answer check before you see it — "
+                            "otherwise the agent regenerates or retries with fresh context.",
+                            elem_classes=["diagram-caption"]
+                        )
 
-                        with gr.Column():
-                            step_1_btn = gr.Button("Step 1: Submit a sample query", elem_id="rag-inputs")
-                            step_1 = gr.Markdown(
+                        with gr.Accordion("Step 1 — Check your setup", open=True):
+                            gr.Markdown(
                                 """
-                                ### Purpose: Generate and evaluate a generic response&nbsp;<ins>without</ins>&nbsp;RAG
-
-                                * Ensure both ``NVIDIA_API_KEY`` and ``TAVILY_API_KEY`` are configured in AI Workbench.
-                                * Select a sample query from the chatbot on the left-hand side of the window.
-                                * Wait for the response to generate and evaluate the relevance of the response.
-                                """,
-                                visible=True
+                                * The status bar above the chat shows whether your ``NVIDIA_API_KEY`` and ``TAVILY_API_KEY``
+                                  are configured and what is in your context.
+                                * If a key is missing, set it in AI Workbench under **Project Container → Variables**,
+                                  then restart this Chat app.
+                                """
                             )
 
-                            step_2_btn = gr.Button("Step 2: Upload the sample dataset", elem_id="rag-inputs")
-                            step_2 = gr.Markdown(
+                        with gr.Accordion("Step 2 — Ask a sample question and watch the agent work", open=False):
+                            gr.Markdown(
                                 """
-                                ### Purpose: Populate the RAG database with useful context to augment responses
-
-                                * Select the **Documents** tab on the right-hand side of the browser window.
-                                * Select **Add to Context** under the sample webpage dataset.
-                                * Wait for the upload to complete.
-                                """,
-                                visible=False
+                                * Click a sample under the chat box. Each one is labeled with the agent path it exercises.
+                                * While the agent works, the pending chat bubble shows each step live: routing, retrieval,
+                                  grading, generation, and verification.
+                                * With an empty context, document questions get graded as irrelevant and **fall back to web
+                                  search** — that fallback is the agent self-correcting.
+                                """
                             )
 
-                            step_3_btn = gr.Button("Step 3: Resubmit the sample query", elem_id="rag-inputs")
-                            step_3 = gr.Markdown(
+                        with gr.Accordion("Step 3 — Add the sample docs and see answers improve", open=False):
+                            gr.Markdown(
                                 """
-                                ### Purpose: Generate and evaluate a generic response&nbsp;<ins>with</ins>&nbsp;added RAG context
-
-                                * Select the same sample query from Step 1.
-                                * Wait for the response to generate and evaluate the relevance of the response.
-                                """,
-                                visible=False
+                                * Open the **Documents** tab and click **Add to Context** under the sample webpage list
+                                  (the NVIDIA AI Workbench documentation).
+                                * Re-ask the same sample question: the agent now routes to the vector database, keeps the
+                                  relevant chunks, and cites its sources under the answer.
+                                """
                             )
 
-                            step_4_btn = gr.Button("Step 4: Monitor the results", elem_id="rag-inputs")
-                            step_4 = gr.Markdown(
+                        with gr.Accordion("Going further — customize models, prompts, and data", open=False):
+                            gr.Markdown(
                                 """
-                                ### Purpose: Understand the actions the agent takes in generating responses
-
-                                * Select the **Monitor** tab on the right-hand side of the browser window.
-                                * Take a look at the actions taken by the agent under **Actions Console**.
-                                * Take a look at the latest response generation details under **Response Trace**.
-                                """,
-                                visible=False
-                            )
-
-                            step_5_btn = gr.Button("Step 5: Next steps", elem_id="rag-inputs")
-                            step_5 = gr.Markdown(
+                                * **Documents**: clear the context and add your own webpages or files (.pdf, .txt, .csv, .md).
+                                * **Models**: pick a preset, change individual component models, or point components at a
+                                  self-hosted endpoint. Update the **Router prompt** topics to match your own documents.
+                                * **Monitor**: the Actions Console narrates everything; the Response Trace summarizes the last run.
                                 """
-                                ### Purpose: Customize the project to your own documents and datasets
-
-                                * To customize, clear out the database and upload your own data under **Documents**.
-                                * Configure the **Router Prompt** to your RAG topic(s) under the **Models** tab.
-                                * Submit a custom query to the RAG agent and evaluate the response.
-                                """,
-                                visible=False
                             )
 
 
@@ -333,19 +533,25 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                     with gr.TabItem("Models", id=1) as agent_settings:
                             gr.Markdown(
                                         """
-                                        ##### Use the Models tab to configure individual model components
-                                        - Click a component below (e.g. Router) and select API or NIM 
-                                        - For APIs, select the model from the dropdown
-                                        - For self-hosted endpoints, see instructions [here](https://github.com/nv-twhitehouse/workbench-example-agentic-rag/blob/twhitehouse/april-16/agentic-rag-docs/self-host.md)
-                                        - (optional) Customize component behavior by changing the prompts
+                                        ##### Use the Models tab to configure the agent's model components
+                                        - Pick a **preset** to set every component at once, or
+                                        - Click a component below (e.g. Router) for fine-grained control: choose an API model,
+                                          point at a [self-hosted endpoint](https://github.com/NVIDIA/workbench-example-agentic-rag/blob/main/agentic-rag-docs/self-host.md),
+                                          or customize the component's prompt
                                         """
+                            )
+                            model_preset = gr.Radio(
+                                choices=[PRESET_FAST, PRESET_BALANCED, PRESET_QUALITY],
+                                value=PRESET_BALANCED,
+                                label="Model preset",
+                                info="Sets the API endpoint model for all five components below.",
                             )
                             gr.HTML('<hr style="border:1px solid #ccc; margin: 10px 0;">')
                                     
                             ########################
                             ##### ROUTER MODEL #####
                             ########################
-                            router_btn = gr.Button("Router", variant="sm")
+                            router_btn = gr.Button("Router", size="sm")
                             with gr.Group(visible=False) as group_router:
                                 with gr.Tabs(selected=0) as router_tabs:
                                     with gr.TabItem("API Endpoints", id=0) as router_api:
@@ -420,7 +626,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             ##################################
                             ##### RETRIEVAL GRADER MODEL #####
                             ##################################
-                            retrieval_btn = gr.Button("Retrieval Grader", variant="sm")
+                            retrieval_btn = gr.Button("Retrieval Grader", size="sm")
                             with gr.Group(visible=False) as group_retrieval:
                                 with gr.Tabs(selected=0) as retrieval_tabs:
                                     retrieval_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
@@ -495,7 +701,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             ###########################
                             ##### GENERATOR MODEL #####
                             ###########################
-                            generator_btn = gr.Button("Generator", variant="sm")
+                            generator_btn = gr.Button("Generator", size="sm")
                             with gr.Group(visible=False) as group_generator:
                                 with gr.Tabs(selected=0) as generator_tabs:
                                     generator_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
@@ -569,7 +775,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             ######################################
                             ##### HALLUCINATION GRADER MODEL #####
                             ######################################
-                            hallucination_btn = gr.Button("Hallucination Grader", variant="sm")
+                            hallucination_btn = gr.Button("Hallucination Grader", size="sm")
                             with gr.Group(visible=False) as group_hallucination:
                                 with gr.Tabs(selected=0) as hallucination_tabs:
                                     hallucination_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
@@ -643,7 +849,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             ###############################
                             ##### ANSWER GRADER MODEL #####
                             ###############################
-                            answer_btn = gr.Button("Answer Grader", variant="sm")
+                            answer_btn = gr.Button("Answer Grader", size="sm")
                             with gr.Group(visible=False) as group_answer:
                                 with gr.Tabs(selected=0) as answer_tabs:
                                     answer_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
@@ -718,14 +924,17 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                     # Third tab item is for uploading to and clearing the vector database
                     with gr.TabItem("Documents", id=2) as document_settings:
                         gr.Markdown(
-                            """                            
-                            ##### Use the Documents tab to create a RAG context
+                            """
+                            ##### Use the Documents tab to manage the RAG context
                             - Webpages: Enter URLs of webpages for the context
-                            - Files: Use files (pdf, csv, .txt) for the context
+                            - Files: Use files (.pdf, .txt, .csv, .md) for the context
                             - Add to Context: Add documents to the context. Context is stored until you clear it.
                             - Clear Context: Resets the context to empty
                             """
                             )
+                        with gr.Accordion("What's in the context right now", open=True):
+                            context_panel = gr.Markdown("⏳ Loading the context summary…")
+                            context_refresh_btn = gr.Button("Refresh summary", size="sm")
                         gr.HTML('<hr style="border:1px solid #ccc; margin: 10px 0;">')
                         with gr.Tabs(selected=0) as document_tabs:
                             with gr.TabItem("Webpages", id=0) as url_tab:
@@ -746,13 +955,13 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                                           file_count="multiple")
                                 docs_clear = gr.Button(value="Clear Context")
     
-                    # Fourth tab item is for the actions output console. 
+                    # Fourth tab item is for the actions output console.
                     with gr.TabItem("Monitor", id=3) as console_settings:
                         gr.Markdown(
                             """
                             ##### Use the Monitor tab to see the agent in action
-                            - Actions Console: View the actions taken by the agent
-                            - Response Trace: Full analysis behind the latest response
+                            - Actions Console: a live narration of every routing, grading, and generation step
+                            - Response Trace: a structured summary of the latest response (steps, self-corrections, sources)
                             """
                             )
                         gr.HTML('<hr style="border:1px solid #ccc; margin: 10px 0;">')
@@ -760,6 +969,8 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             with gr.TabItem("Actions Console", id=0) as actions_tab:
                                 logs = gr.Textbox(show_label=False, lines=18, max_lines=18, interactive=False)
                             with gr.TabItem("Response Trace", id=1) as trace_tab:
+                                gr.Markdown("Updates live while a query runs. Fields: the question, run status, "
+                                            "each agent step, the self-correction count, and the sources used.")
                                 actions = gr.JSON(
                                     scale=1,
                                     show_label=False,
@@ -772,30 +983,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                         gr.Markdown("")
 
         page.load(logger.read_logs, None, logs, every=1)
-
-        """ These helper functions hide all other quickstart steps when one step is expanded. """
-
-        def _toggle_quickstart_steps(step):
-            steps = ["Step 1: Submit a sample query",
-                     "Step 2: Upload the sample dataset",
-                     "Step 3: Resubmit the sample query",
-                     "Step 4: Monitor the results",
-                     "Step 5: Next steps"]
-            visible = [False, False, False, False, False]
-            visible[steps.index(step)] = True
-            return {
-                step_1: gr.update(visible=visible[0]),
-                step_2: gr.update(visible=visible[1]),
-                step_3: gr.update(visible=visible[2]),
-                step_4: gr.update(visible=visible[3]),
-                step_5: gr.update(visible=visible[4]),
-            }
-
-        step_1_btn.click(_toggle_quickstart_steps, [step_1_btn], [step_1, step_2, step_3, step_4, step_5])
-        step_2_btn.click(_toggle_quickstart_steps, [step_2_btn], [step_1, step_2, step_3, step_4, step_5])
-        step_3_btn.click(_toggle_quickstart_steps, [step_3_btn], [step_1, step_2, step_3, step_4, step_5])
-        step_4_btn.click(_toggle_quickstart_steps, [step_4_btn], [step_1, step_2, step_3, step_4, step_5])
-        step_5_btn.click(_toggle_quickstart_steps, [step_5_btn], [step_1, step_2, step_3, step_4, step_5])
+        page.load(_refresh_context_displays, None, [status_strip, context_panel])
 
         """ These helper functions hide all settings when collapsed, and displays all settings when expanded. """
 
@@ -953,6 +1141,20 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
         #                           [nim_answer_gpu_type, nim_answer_gpu_count], 
         #                           [nim_answer_id, nim_answer_warning])
 
+        """ This helper applies a model preset to all five component dropdowns at once. """
+
+        def _apply_model_preset(preset: str):
+            router_m, retrieval_m, generator_m, hallucination_m, answer_m = MODEL_PRESETS[preset]
+            return (gr.update(value=router_m),
+                    gr.update(value=retrieval_m),
+                    gr.update(value=generator_m),
+                    gr.update(value=hallucination_m),
+                    gr.update(value=answer_m))
+
+        model_preset.change(_apply_model_preset,
+                            [model_preset],
+                            [model_router, model_retrieval, model_generator, model_hallucination, model_answer])
+
         """ These helper functions track the API Endpoint selected and regenerate the prompt accordingly.
         All Nemotron 3 models (Nano, Super, Ultra) share the same prompt structure, so switching models
         resets the prompt to the same shared default. """
@@ -1020,63 +1222,75 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
         answer_api.select(lambda: "💻 **Using API Endpoint**", [], [answer_mode_banner])
         answer_nim.select(lambda: "🛠️ **Using Self-Hosted Endpoint**", [], [answer_mode_banner])
         
-        """ These helper functions upload and clear the documents and webpages to/from the ChromaDB. """
+        """ These helper functions upload and clear the documents and webpages to/from the ChromaDB.
+        Each one also refreshes the status strip and the context panel so the UI always reflects
+        what is actually in the vector database. Detailed per-document progress is narrated in
+        Monitor → Actions Console. """
 
         def _upload_documents_files(files, progress=gr.Progress()):
-            progress(0.25, desc="Initializing Task")
-            time.sleep(0.75)
-            progress(0.5, desc="Uploading Docs")
+            progress(0.1, desc="Reading files")
+            progress(0.3, desc="Loading and embedding files (details in Monitor → Actions Console)")
             database.upload_files(files)
-            progress(0.75, desc="Cleaning Up")
-            time.sleep(0.75)
+            progress(0.9, desc="Updating context summary")
+            status, panel = _refresh_context_displays()
             return {
-                url_docs_clear: gr.update(value="Clear Docs", variant="secondary", interactive=True),
-                docs_clear: gr.update(value="Clear Docs", variant="secondary", interactive=True),
+                url_docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=True),
+                docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=True),
                 agentic_flow: gr.update(visible=True),
+                status_strip: gr.update(value=status),
+                context_panel: gr.update(value=panel),
             }
 
         def _upload_documents(docs: str, progress=gr.Progress()):
-            progress(0.2, desc="Initializing Task")
-            time.sleep(0.75)
-            progress(0.4, desc="Processing URL List")
+            progress(0.1, desc="Reading URL list")
             docs_list = docs.splitlines()
-            progress(0.6, desc="Creating Context")
+            progress(0.3, desc="Loading and embedding webpages (details in Monitor → Actions Console)")
             vectorstore = database.upload(docs_list)
-            progress(0.8, desc="Cleaning Up")
-            time.sleep(0.75)
+            progress(0.9, desc="Updating context summary")
+            status, panel = _refresh_context_displays()
             if vectorstore is None:
+                has_context = database.get_context_summary()[0] > 0
                 return {
-                    url_docs_upload: gr.update(value="No valid URLS - Try again", variant="secondary", interactive=True),
-                    url_docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=False),
-                    docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=False),
-                    agentic_flow: gr.update(visible=False),  # or leave as-is if flow is independent
+                    url_docs_upload: gr.update(value="No valid URLs — try again", variant="secondary", interactive=True),
+                    url_docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=has_context),
+                    docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=has_context),
+                    agentic_flow: gr.update(visible=True),
+                    status_strip: gr.update(value=status),
+                    context_panel: gr.update(value=panel),
                 }
             return {
                 url_docs_upload: gr.update(value="Context Created", variant="primary", interactive=False),
                 url_docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=True),
                 docs_clear: gr.update(value="Clear Context", variant="secondary", interactive=True),
                 agentic_flow: gr.update(visible=True),
+                status_strip: gr.update(value=status),
+                context_panel: gr.update(value=panel),
             }
 
         def _clear_documents(progress=gr.Progress()):
-            progress(0.25, desc="Initializing Task")
-            time.sleep(0.75)
-            progress(0.5, desc="Clearing Context")
+            progress(0.3, desc="Clearing the context")
             database._clear()
-            progress(0.75, desc="Cleaning Up")
-            time.sleep(0.75)
+            progress(0.8, desc="Updating context summary")
+            status, panel = _refresh_context_displays()
             return {
                 url_docs_upload: gr.update(value="Add to Context", variant="secondary", interactive=True),
                 url_docs_clear: gr.update(value="Context Cleared", variant="primary", interactive=False),
                 docs_upload: gr.update(value=None),
                 docs_clear: gr.update(value="Context Cleared", variant="primary", interactive=False),
                 agentic_flow: gr.update(visible=True),
+                status_strip: gr.update(value=status),
+                context_panel: gr.update(value=panel),
             }
 
-        url_docs_upload.click(_upload_documents, [url_docs], [url_docs_upload, url_docs_clear, docs_clear, agentic_flow])
-        url_docs_clear.click(_clear_documents, [], [url_docs_upload, url_docs_clear, docs_upload, docs_clear, agentic_flow])
-        docs_upload.upload(_upload_documents_files, [docs_upload], [url_docs_clear, docs_clear, agentic_flow])
-        docs_clear.click(_clear_documents, [], [url_docs_upload, url_docs_clear, docs_upload, docs_clear, agentic_flow])
+        url_docs_upload.click(_upload_documents, [url_docs],
+                              [url_docs_upload, url_docs_clear, docs_clear, agentic_flow, status_strip, context_panel])
+        url_docs_clear.click(_clear_documents, [],
+                             [url_docs_upload, url_docs_clear, docs_upload, docs_clear, agentic_flow, status_strip, context_panel])
+        docs_upload.upload(_upload_documents_files, [docs_upload],
+                           [url_docs_clear, docs_clear, agentic_flow, status_strip, context_panel])
+        docs_clear.click(_clear_documents, [],
+                         [url_docs_upload, url_docs_clear, docs_upload, docs_clear, agentic_flow, status_strip, context_panel])
+        context_refresh_btn.click(_refresh_context_displays, None, [status_strip, context_panel])
 
         """ These helper functions set state and prompts when either the NIM or API Endpoint tabs are selected. """
         
@@ -1195,181 +1409,45 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
         
         _my_build_stream = functools.partial(_stream_predict, client, app)
 
-        # Submit a sample query
-        sample_query_1.click(
-            _my_build_stream, [sample_query_1, 
-                               model_generator,
-                               model_router,
-                               model_retrieval,
-                               model_hallucination,
-                               model_answer,
-                               prompt_generator,
-                               prompt_router,
-                               prompt_retrieval,
-                               prompt_hallucination,
-                               prompt_answer,
-                               router_use_nim,
-                               retrieval_use_nim,
-                               generator_use_nim,
-                               hallucination_use_nim,
-                               answer_use_nim,
-                               nim_generator_ip,
-                               nim_router_ip,
-                               nim_retrieval_ip,
-                               nim_hallucination_ip,
-                               nim_answer_ip,
-                               nim_generator_port,
-                               nim_router_port,
-                               nim_retrieval_port,
-                               nim_hallucination_port,
-                               nim_answer_port,
-                               nim_generator_id,
-                               nim_router_id,
-                               nim_retrieval_id,
-                               nim_hallucination_id,
-                               nim_answer_id,
-                               chatbot], [msg, chatbot, actions]
-        )
+        # Submit a query. Sample buttons pass their own label as the query text, so the
+        # input list is identical for every trigger and defined exactly once.
+        stream_inputs = [model_generator,
+                         model_router,
+                         model_retrieval,
+                         model_hallucination,
+                         model_answer,
+                         prompt_generator,
+                         prompt_router,
+                         prompt_retrieval,
+                         prompt_hallucination,
+                         prompt_answer,
+                         router_use_nim,
+                         retrieval_use_nim,
+                         generator_use_nim,
+                         hallucination_use_nim,
+                         answer_use_nim,
+                         nim_generator_ip,
+                         nim_router_ip,
+                         nim_retrieval_ip,
+                         nim_hallucination_ip,
+                         nim_answer_ip,
+                         nim_generator_port,
+                         nim_router_port,
+                         nim_retrieval_port,
+                         nim_hallucination_port,
+                         nim_answer_port,
+                         nim_generator_id,
+                         nim_router_id,
+                         nim_retrieval_id,
+                         nim_hallucination_id,
+                         nim_answer_id,
+                         chatbot]
+        stream_outputs = [msg, chatbot, actions]
 
-        sample_query_2.click(
-            _my_build_stream, [sample_query_2, 
-                               model_generator,
-                               model_router,
-                               model_retrieval,
-                               model_hallucination,
-                               model_answer,
-                               prompt_generator,
-                               prompt_router,
-                               prompt_retrieval,
-                               prompt_hallucination,
-                               prompt_answer,
-                               router_use_nim,
-                               retrieval_use_nim,
-                               generator_use_nim,
-                               hallucination_use_nim,
-                               answer_use_nim,
-                               nim_generator_ip,
-                               nim_router_ip,
-                               nim_retrieval_ip,
-                               nim_hallucination_ip,
-                               nim_answer_ip,
-                               nim_generator_port,
-                               nim_router_port,
-                               nim_retrieval_port,
-                               nim_hallucination_port,
-                               nim_answer_port,
-                               nim_generator_id,
-                               nim_router_id,
-                               nim_retrieval_id,
-                               nim_hallucination_id,
-                               nim_answer_id,
-                               chatbot], [msg, chatbot, actions]
-        )
+        for sample_query in (sample_query_1, sample_query_2, sample_query_3, sample_query_4):
+            sample_query.click(_my_build_stream, [sample_query] + stream_inputs, stream_outputs)
 
-        sample_query_3.click(
-            _my_build_stream, [sample_query_3, 
-                               model_generator,
-                               model_router,
-                               model_retrieval,
-                               model_hallucination,
-                               model_answer,
-                               prompt_generator,
-                               prompt_router,
-                               prompt_retrieval,
-                               prompt_hallucination,
-                               prompt_answer,
-                               router_use_nim,
-                               retrieval_use_nim,
-                               generator_use_nim,
-                               hallucination_use_nim,
-                               answer_use_nim,
-                               nim_generator_ip,
-                               nim_router_ip,
-                               nim_retrieval_ip,
-                               nim_hallucination_ip,
-                               nim_answer_ip,
-                               nim_generator_port,
-                               nim_router_port,
-                               nim_retrieval_port,
-                               nim_hallucination_port,
-                               nim_answer_port,
-                               nim_generator_id,
-                               nim_router_id,
-                               nim_retrieval_id,
-                               nim_hallucination_id,
-                               nim_answer_id,
-                               chatbot], [msg, chatbot, actions]
-        )
-
-        sample_query_4.click(
-            _my_build_stream, [sample_query_4, 
-                               model_generator,
-                               model_router,
-                               model_retrieval,
-                               model_hallucination,
-                               model_answer,
-                               prompt_generator,
-                               prompt_router,
-                               prompt_retrieval,
-                               prompt_hallucination,
-                               prompt_answer,
-                               router_use_nim,
-                               retrieval_use_nim,
-                               generator_use_nim,
-                               hallucination_use_nim,
-                               answer_use_nim,
-                               nim_generator_ip,
-                               nim_router_ip,
-                               nim_retrieval_ip,
-                               nim_hallucination_ip,
-                               nim_answer_ip,
-                               nim_generator_port,
-                               nim_router_port,
-                               nim_retrieval_port,
-                               nim_hallucination_port,
-                               nim_answer_port,
-                               nim_generator_id,
-                               nim_router_id,
-                               nim_retrieval_id,
-                               nim_hallucination_id,
-                               nim_answer_id,
-                               chatbot], [msg, chatbot, actions]
-        )
-        
-        msg.submit(
-            _my_build_stream, [msg, 
-                               model_generator,
-                               model_router,
-                               model_retrieval,
-                               model_hallucination,
-                               model_answer,
-                               prompt_generator,
-                               prompt_router,
-                               prompt_retrieval,
-                               prompt_hallucination,
-                               prompt_answer,
-                               router_use_nim,
-                               retrieval_use_nim,
-                               generator_use_nim,
-                               hallucination_use_nim,
-                               answer_use_nim,
-                               nim_generator_ip,
-                               nim_router_ip,
-                               nim_retrieval_ip,
-                               nim_hallucination_ip,
-                               nim_answer_ip,
-                               nim_generator_port,
-                               nim_router_port,
-                               nim_retrieval_port,
-                               nim_hallucination_port,
-                               nim_answer_port,
-                               nim_generator_id,
-                               nim_router_id,
-                               nim_retrieval_id,
-                               nim_hallucination_id,
-                               nim_answer_id,
-                               chatbot], [msg, chatbot, actions]
-        )
+        msg.submit(_my_build_stream, [msg] + stream_inputs, stream_outputs)
 
     page.queue()
     return page
@@ -1391,6 +1469,8 @@ def _get_query_error_message(e: Exception) -> str:
             err = QUERY_ERROR_MESSAGES["HTTPError"]
     elif isinstance(e, TavilyAPIError):
         err = QUERY_ERROR_MESSAGES["TavilyAPIError"]
+    elif isinstance(e, OutputParserException):
+        err = QUERY_ERROR_MESSAGES["OutputParserError"]
     else:
         err = QUERY_ERROR_MESSAGES["Unknown"]
 
@@ -1474,16 +1554,28 @@ def _stream_predict(
     else:
         print("\n[Query] ────────────────────────────────────────────")
         print(f'[Query] Processing: "{question}"')
+        timeline = _new_timeline()
+        final_state = None
         try:
-            actions = {}
             config = RunnableConfig(recursion_limit=RECURSION_LIMIT)
             for output in app.stream(inputs, config=config):
-                actions.update(output)
-                yield "", chat_history + [[question, "Working on getting you the best answer..."]], gr.update(value=actions)
-                for key, value in output.items():
-                    final_value = value
+                # Each streamed event is {node_name: state_delta}; narrate it in the
+                # pending chat bubble and in the Response Trace as it happens.
+                for node, delta in output.items():
+                    _record_timeline_event(timeline, node, delta)
+                    final_state = delta
+                trace = _build_trace(question, timeline)
+                yield "", chat_history + [[question, _timeline_md(timeline, working=True)]], gr.update(value=trace)
+
+            if not final_state or "generation" not in final_state:
+                raise RuntimeError("The agent finished without producing an answer.")
+
+            _finish_timeline(timeline)
+            documents = final_state.get("documents") or []
+            answer = _final_answer_md(final_state["generation"], timeline, documents)
+            trace = _build_trace(question, timeline, documents=documents, status="response delivered")
             print("[Query] ✓ Response delivered to the chat window")
-            yield "", chat_history + [[question, final_value["generation"]]], gr.update(show_label=False)
+            yield "", chat_history + [[question, answer]], gr.update(value=trace)
 
         except Exception as e:
             traceback.print_exc()
@@ -1491,7 +1583,11 @@ def _stream_predict(
             message = _get_query_error_message(e)
             print(f"[Query] ✗ Query failed ({type(e).__name__}) — an explanation was posted to the chat window")
 
-            yield "", chat_history + [[question, message]], gr.update(show_label=False)
+            # Keep whatever progress the agent made visible above the error explanation.
+            if timeline["steps"]:
+                message = _timeline_md(timeline, working=False) + "\n\n---\n\n" + message
+            trace = _build_trace(question, timeline, status=f"failed ({type(e).__name__})")
+            yield "", chat_history + [[question, message]], gr.update(value=trace)
 
 
 _support_matrix_cache = None

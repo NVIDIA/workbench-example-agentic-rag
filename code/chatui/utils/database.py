@@ -284,7 +284,7 @@ def _clear(
 #     vectorstore._client.delete_collection(name="rag-chroma")
 #     vectorstore._client.create_collection(name="rag-chroma")
 
-def get_retriever(): 
+def get_retriever():
     """ This is a helper function for returning the retriever object of the vector store. """
     vectorstore = Chroma(
         collection_name="rag-chroma",
@@ -293,3 +293,29 @@ def get_retriever():
     )
     retriever = vectorstore.as_retriever()
     return retriever
+
+
+def get_context_summary(
+    persist_directory: str = "/project/data",
+    collection_name: str = "rag-chroma",
+):
+    """Return (total_chunks, {source: chunk_count}) describing the current context.
+
+    Reads only collection metadata, so no embedding calls (and no API key) are needed.
+    Returns (0, {}) when the collection is empty or unreadable.
+    """
+    try:
+        vectorstore = Chroma(
+            collection_name=collection_name,
+            persist_directory=persist_directory,
+        )
+        data = vectorstore._collection.get(include=["metadatas"])
+        metadatas = data.get("metadatas") or []
+        counts: Dict[str, int] = {}
+        for metadata in metadatas:
+            source = (metadata or {}).get("source") or "Uploaded document"
+            counts[source] = counts.get(source, 0) + 1
+        return len(metadatas), counts
+    except Exception as e:
+        print(f"[Documents] ⚠ Could not read the context summary: {e}")
+        return 0, {}
