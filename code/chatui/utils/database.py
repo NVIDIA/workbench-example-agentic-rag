@@ -23,8 +23,9 @@ from langchain_community.document_loaders import (
 from langchain_community.vectorstores import Chroma
 from langchain_nvidia_ai_endpoints import NVIDIAEmbeddings
 
-from typing import Any, Dict, List, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 from urllib.parse import urlparse
+import hashlib
 import os
 import shutil
 import mimetypes
@@ -37,7 +38,7 @@ import time
 INTERNAL_API = os.getenv('INTERNAL_API', 'no')
 
 # Default model for public embedding
-EMBEDDINGS_MODEL = 'nvidia/llama-nemotron-embed-1b-v2'
+EMBEDDINGS_MODEL = 'nvidia/nemotron-3-embed-1b'
 
 # Set the chunk size and overlap for the text splitter. Uses defaults but allows them to be set as environment variables.
 DEFAULT_CHUNK_SIZE = 250
@@ -56,6 +57,13 @@ if INTERNAL_API == 'yes':
 else:
     print("[config] No INTERNAL_API set.")
     print(f"[config] Using public embedding model: {EMBEDDINGS_MODEL}")
+
+
+def _collection_name(embedding_model: str) -> str:
+    if embedding_model == EMBEDDINGS_MODEL:
+        return "rag-chroma"
+    digest = hashlib.sha256(embedding_model.encode("utf-8")).hexdigest()[:12]
+    return f"rag-chroma-{digest}"
 
 
 # Adding nltk data
@@ -98,7 +106,7 @@ def safe_load(url):
         return None
 
 
-def upload(urls: List[str]):
+def upload(urls: List[str], embedding_model: str = EMBEDDINGS_MODEL):
     """ This is a helper function for parsing the user inputted URLs and uploading them into the vector store. """
 
     urls = [url.strip() for url in urls if url.strip()]
@@ -130,7 +138,7 @@ def upload(urls: List[str]):
 
     try:
         doc_splits = split_documents(docs_list)
-        return embed_documents(doc_splits)
+        return embed_documents(doc_splits, embedding_model)
 
     except Exception as e:
         print(f"[Documents] ✗ Failed to add webpages to the context: {e}")
@@ -181,16 +189,19 @@ def split_documents(docs: List[Any]):
     print(f"[Documents] Created {len(doc_splits)} chunks")
     return doc_splits
 
-def embed_documents(doc_splits: List[Any]):
+def embed_documents(
+    doc_splits: List[Any],
+    embedding_model: str = EMBEDDINGS_MODEL,
+):
     """Embed and store the split documents into Chroma vectorstore."""
     try:
-        print(f"[Documents] Embedding {len(doc_splits)} chunks with {EMBEDDINGS_MODEL}...")
+        print(f"[Documents] Embedding {len(doc_splits)} chunks with {embedding_model}...")
         start = time.time()
 
         vectorstore = Chroma.from_documents(
             documents=doc_splits,
-            collection_name="rag-chroma",
-            embedding=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
+            collection_name=_collection_name(embedding_model),
+            embedding=NVIDIAEmbeddings(model=embedding_model),
             persist_directory="/project/data",
         )
         print(f"[Documents] ✓ Context ready — {len(doc_splits)} chunks stored in the vector database ({time.time() - start:.1f}s)")
@@ -203,7 +214,10 @@ def embed_documents(doc_splits: List[Any]):
 
 ## Main function that use helper functions 
 
-def upload_files(file_paths: List[str]):
+def upload_files(
+    file_paths: List[str],
+    embedding_model: str = EMBEDDINGS_MODEL,
+):
     """Upload files into the vector store pipeline."""
 
     if not file_paths:
@@ -220,7 +234,7 @@ def upload_files(file_paths: List[str]):
             return None
 
         doc_splits = split_documents(docs_list)
-        return embed_documents(doc_splits)
+        return embed_documents(doc_splits, embedding_model)
 
     except Exception as e:
         print(f"[Documents] ✗ Failed to add files to the context: {e}")
@@ -230,18 +244,20 @@ def upload_files(file_paths: List[str]):
 
 
 def _clear(
+    embedding_model: str = EMBEDDINGS_MODEL,
     persist_directory: str = "/project/data",
-    collection_name: str = "rag-chroma",
-    delete_all: bool = True
+    collection_name: Optional[str] = None,
+    delete_all: bool = False,
 ):
     """Clear the Chroma collection and optionally delete all shard folders (excluding hidden files)."""
     try:
         print("[Documents] Clearing the context...")
+        collection_name = collection_name or _collection_name(embedding_model)
 
         # Clear the collection via Chroma client
         vectorstore = Chroma(
             collection_name=collection_name,
-            embedding_function=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
+            embedding_function=NVIDIAEmbeddings(model=embedding_model),
             persist_directory=persist_directory,
         )
         vectorstore._client.delete_collection(name=collection_name)
@@ -284,11 +300,11 @@ def _clear(
 #     vectorstore._client.delete_collection(name="rag-chroma")
 #     vectorstore._client.create_collection(name="rag-chroma")
 
-def get_retriever(): 
+def get_retriever(embedding_model: str = EMBEDDINGS_MODEL):
     """ This is a helper function for returning the retriever object of the vector store. """
     vectorstore = Chroma(
-        collection_name="rag-chroma",
-        embedding_function=NVIDIAEmbeddings(model=EMBEDDINGS_MODEL),
+        collection_name=_collection_name(embedding_model),
+        embedding_function=NVIDIAEmbeddings(model=embedding_model),
         persist_directory="/project/data",
     )
     retriever = vectorstore.as_retriever()
