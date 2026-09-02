@@ -29,7 +29,7 @@ import json
 from langchain_core.runnables import RunnableConfig
 from langgraph.errors import GraphRecursionError 
 
-from requests.exceptions import HTTPError
+from requests.exceptions import HTTPError, RequestException
 import traceback
 
 
@@ -49,7 +49,8 @@ RECURSION_LIMIT = int(os.getenv("RECURSION_LIMIT", DEFAULT_RECURSION_LIMIT))
 
 
 # Model identifiers with prefix
-NANO = "nvidia/nemotron-3-nano-30b-a3b"
+LIGHTNING = "nvidia/nemotron-3.5-lightning-30b-a3b"
+NANO = "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning"
 SUPER = "nvidia/nemotron-3-super-120b-a12b"
 ULTRA = "nvidia/nemotron-3-ultra-550b-a55b"
 
@@ -58,6 +59,7 @@ INTERNAL_API = os.getenv('INTERNAL_API', 'no')
 
 # Modify model identifiers (to use the internal endpoints if that variable is set).
 if INTERNAL_API == 'yes':
+    LIGHTNING = 'nvdev/nvidia/nemotron-3.5-lightning-30b-a3b'
     NANO = 'nvdev/nvidia/nemotron-3-nano-30b-a3b'
     SUPER = 'nvdev/nvidia/nemotron-3-super-120b-a12b'
     ULTRA = 'nvdev/nvidia/nemotron-3-ultra-550b-a55b'
@@ -132,7 +134,7 @@ EXAMPLE_LINKS = "\n".join(doc_links)
 
 from chatui import assets, chat_client
 from chatui.prompts import prompts_nemotron
-from chatui.utils import compile, database, logger, gpu_compatibility
+from chatui.utils import compile, database, logger, gpu_compatibility, model_catalog
 
 from langgraph.graph import END, StateGraph
 
@@ -204,7 +206,8 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
 
     """ List of currently supported models. """
     
-    model_list = [ULTRA, SUPER, NANO]
+    model_list = [LIGHTNING, NANO, SUPER, ULTRA]
+    embedding_model_list = [database.EMBEDDINGS_MODEL]
 
     with gr.Blocks(title=TITLE, theme=kui_theme, css=kui_styles + _LOCAL_CSS) as page:
         gr.Markdown(f"# {TITLE}")
@@ -341,6 +344,17 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                         """
                             )
                             gr.HTML('<hr style="border:1px solid #ccc; margin: 10px 0;">')
+                            with gr.Row():
+                                hosted_model = gr.Dropdown(
+                                    model_list,
+                                    value=LIGHTNING,
+                                    label="Set all hosted chat models",
+                                    interactive=True,
+                                )
+                                refresh_models = gr.Button("Refresh Available Models")
+                            catalog_status = gr.Markdown(
+                                "Model choices refresh from the NVIDIA API catalog."
+                            )
                                     
                             ########################
                             ##### ROUTER MODEL #####
@@ -351,7 +365,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                     with gr.TabItem("API Endpoints", id=0) as router_api:
                                         router_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
                                         model_router = gr.Dropdown(model_list, 
-                                                                value=SUPER,
+                                                                value=LIGHTNING,
                                                                 label="Select a Model",
                                                                 elem_id="rag-inputs", 
                                                                 interactive=True)
@@ -427,7 +441,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
 
                                     with gr.TabItem("API Endpoints", id=0) as retrieval_api:
                                         model_retrieval = gr.Dropdown(model_list, 
-                                                                            value=SUPER,
+                                                                            value=LIGHTNING,
                                                                             label="Select a Model",
                                                                             elem_id="rag-inputs", 
                                                                             interactive=True)
@@ -501,7 +515,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                     generator_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
                                     with gr.TabItem("API Endpoints", id=0) as generator_api:
                                         model_generator = gr.Dropdown(model_list, 
-                                                                    value=SUPER,
+                                                                    value=LIGHTNING,
                                                                     label="Select a Model",
                                                                     elem_id="rag-inputs", 
                                                                     interactive=True)
@@ -575,7 +589,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                     hallucination_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
                                     with gr.TabItem("API Endpoints", id=0) as hallucination_api:
                                         model_hallucination = gr.Dropdown(model_list, 
-                                                                                value=SUPER,
+                                                                                value=LIGHTNING,
                                                                                 label="Select a Model",
                                                                                 elem_id="rag-inputs", 
                                                                                 interactive=True)
@@ -649,7 +663,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                     answer_mode_banner = gr.Markdown(value="💻 **Using API Endpoint**", elem_classes=["mode-banner"])
                                     with gr.TabItem("API Endpoints", id=0) as answer_api:
                                         model_answer = gr.Dropdown(model_list, 
-                                                                        value=SUPER,
+                                                                        value=LIGHTNING,
                                                                         elem_id="rag-inputs",
                                                                         label="Select a Model",
                                                                         interactive=True)
@@ -727,6 +741,20 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                             """
                             )
                         gr.HTML('<hr style="border:1px solid #ccc; margin: 10px 0;">')
+                        with gr.Row():
+                            embedding_model = gr.Dropdown(
+                                embedding_model_list,
+                                value=database.EMBEDDINGS_MODEL,
+                                label="Embedding Model",
+                                info="After changing this model, use Add to Context again to recreate the document context.",
+                                interactive=True,
+                            )
+                            refresh_embedding_models = gr.Button(
+                                "Refresh Embedding Models"
+                            )
+                        embedding_catalog_status = gr.Markdown(
+                            "Embedding choices refresh from the NVIDIA API catalog."
+                        )
                         with gr.Tabs(selected=0) as document_tabs:
                             with gr.TabItem("Webpages", id=0) as url_tab:
                                 url_docs = gr.Textbox(value=EXAMPLE_LINKS,
@@ -771,6 +799,113 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                     with gr.TabItem("Hide All Settings", id=4) as hide_all_settings:
                         gr.Markdown("")
 
+        def _select_available_model(models, current, preferred):
+            if current in models:
+                return current
+            if preferred in models:
+                return preferred
+            return models[0] if models else None
+
+        def _model_dropdown_update(models, current, preferred):
+            selected = _select_available_model(models, current, preferred)
+            ordered_models = (
+                [selected] + [model for model in models if model != selected]
+                if selected
+                else models
+            )
+            return gr.update(choices=ordered_models, value=selected)
+
+        def _refresh_embedding_catalog(current_embedding):
+            try:
+                _, embedding_models = model_catalog.fetch_model_choices()
+            except (RequestException, RuntimeError, ValueError) as exc:
+                return gr.update(), f"Embedding model refresh failed: {exc}"
+
+            update = _model_dropdown_update(
+                embedding_models,
+                current_embedding,
+                database.EMBEDDINGS_MODEL,
+            )
+            return update, f"Loaded {len(embedding_models)} embedding choices."
+
+        def _refresh_model_catalog(
+            current_hosted,
+            current_router,
+            current_retrieval,
+            current_generator,
+            current_hallucination,
+            current_answer,
+            current_embedding,
+        ):
+            try:
+                chat_models, embedding_models = model_catalog.fetch_model_choices()
+            except (RequestException, RuntimeError, ValueError) as exc:
+                unchanged = [gr.update()] * 7
+                return (*unchanged, f"Model catalog refresh failed: {exc}")
+
+            chat_current_values = (
+                current_hosted,
+                current_router,
+                current_retrieval,
+                current_generator,
+                current_hallucination,
+                current_answer,
+            )
+            chat_updates = [
+                _model_dropdown_update(
+                    chat_models,
+                    current,
+                    LIGHTNING,
+                )
+                for current in chat_current_values
+            ]
+            embedding_update = _model_dropdown_update(
+                embedding_models,
+                current_embedding,
+                database.EMBEDDINGS_MODEL,
+            )
+            status = (
+                f"Loaded {len(chat_models)} chat choices and "
+                f"{len(embedding_models)} embedding choices."
+            )
+            return (*chat_updates, embedding_update, status)
+
+        model_inputs = [
+            hosted_model,
+            model_router,
+            model_retrieval,
+            model_generator,
+            model_hallucination,
+            model_answer,
+            embedding_model,
+        ]
+        model_outputs = [*model_inputs, catalog_status]
+        refresh_embedding_models.click(
+            _refresh_embedding_catalog,
+            [embedding_model],
+            [embedding_model, embedding_catalog_status],
+        )
+        refresh_models.click(
+            _refresh_model_catalog,
+            model_inputs,
+            model_outputs,
+        )
+        page.load(
+            _refresh_model_catalog,
+            model_inputs,
+            model_outputs,
+        )
+        hosted_model.change(
+            lambda model: (model, model, model, model, model),
+            [hosted_model],
+            [
+                model_router,
+                model_retrieval,
+                model_generator,
+                model_hallucination,
+                model_answer,
+            ],
+        )
         page.load(logger.read_logs, None, logs, every=1)
 
         """ These helper functions hide all other quickstart steps when one step is expanded. """
@@ -1022,11 +1157,15 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
         
         """ These helper functions upload and clear the documents and webpages to/from the ChromaDB. """
 
-        def _upload_documents_files(files, progress=gr.Progress()):
+        def _upload_documents_files(
+            files,
+            selected_embedding_model,
+            progress=gr.Progress(),
+        ):
             progress(0.25, desc="Initializing Task")
             time.sleep(0.75)
             progress(0.5, desc="Uploading Docs")
-            database.upload_files(files)
+            database.upload_files(files, selected_embedding_model)
             progress(0.75, desc="Cleaning Up")
             time.sleep(0.75)
             return {
@@ -1035,13 +1174,17 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                 agentic_flow: gr.update(visible=True),
             }
 
-        def _upload_documents(docs: str, progress=gr.Progress()):
+        def _upload_documents(
+            docs: str,
+            selected_embedding_model: str,
+            progress=gr.Progress(),
+        ):
             progress(0.2, desc="Initializing Task")
             time.sleep(0.75)
             progress(0.4, desc="Processing URL List")
             docs_list = docs.splitlines()
             progress(0.6, desc="Creating Context")
-            vectorstore = database.upload(docs_list)
+            vectorstore = database.upload(docs_list, selected_embedding_model)
             progress(0.8, desc="Cleaning Up")
             time.sleep(0.75)
             if vectorstore is None:
@@ -1058,11 +1201,14 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                 agentic_flow: gr.update(visible=True),
             }
 
-        def _clear_documents(progress=gr.Progress()):
+        def _clear_documents(
+            selected_embedding_model,
+            progress=gr.Progress(),
+        ):
             progress(0.25, desc="Initializing Task")
             time.sleep(0.75)
             progress(0.5, desc="Clearing Context")
-            database._clear()
+            database._clear(selected_embedding_model)
             progress(0.75, desc="Cleaning Up")
             time.sleep(0.75)
             return {
@@ -1073,10 +1219,10 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                 agentic_flow: gr.update(visible=True),
             }
 
-        url_docs_upload.click(_upload_documents, [url_docs], [url_docs_upload, url_docs_clear, docs_clear, agentic_flow])
-        url_docs_clear.click(_clear_documents, [], [url_docs_upload, url_docs_clear, docs_upload, docs_clear, agentic_flow])
-        docs_upload.upload(_upload_documents_files, [docs_upload], [url_docs_clear, docs_clear, agentic_flow])
-        docs_clear.click(_clear_documents, [], [url_docs_upload, url_docs_clear, docs_upload, docs_clear, agentic_flow])
+        url_docs_upload.click(_upload_documents, [url_docs, embedding_model], [url_docs_upload, url_docs_clear, docs_clear, agentic_flow])
+        url_docs_clear.click(_clear_documents, [embedding_model], [url_docs_upload, url_docs_clear, docs_upload, docs_clear, agentic_flow])
+        docs_upload.upload(_upload_documents_files, [docs_upload, embedding_model], [url_docs_clear, docs_clear, agentic_flow])
+        docs_clear.click(_clear_documents, [embedding_model], [url_docs_upload, url_docs_clear, docs_upload, docs_clear, agentic_flow])
 
         """ These helper functions set state and prompts when either the NIM or API Endpoint tabs are selected. """
         
@@ -1203,6 +1349,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                model_retrieval,
                                model_hallucination,
                                model_answer,
+                               embedding_model,
                                prompt_generator,
                                prompt_router,
                                prompt_retrieval,
@@ -1238,6 +1385,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                model_retrieval,
                                model_hallucination,
                                model_answer,
+                               embedding_model,
                                prompt_generator,
                                prompt_router,
                                prompt_retrieval,
@@ -1273,6 +1421,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                model_retrieval,
                                model_hallucination,
                                model_answer,
+                               embedding_model,
                                prompt_generator,
                                prompt_router,
                                prompt_retrieval,
@@ -1308,6 +1457,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                model_retrieval,
                                model_hallucination,
                                model_answer,
+                               embedding_model,
                                prompt_generator,
                                prompt_router,
                                prompt_retrieval,
@@ -1343,6 +1493,7 @@ def build_page(client: chat_client.ChatClient) -> gr.Blocks:
                                model_retrieval,
                                model_hallucination,
                                model_answer,
+                               embedding_model,
                                prompt_generator,
                                prompt_router,
                                prompt_retrieval,
@@ -1409,6 +1560,7 @@ def _stream_predict(
     model_retrieval: str,
     model_hallucination: str,
     model_answer: str,
+    embedding_model: str,
     prompt_generator: str,
     prompt_router: str,
     prompt_retrieval: str,
@@ -1443,6 +1595,7 @@ def _stream_predict(
               "retrieval_model_id": model_retrieval, 
               "hallucination_model_id": model_hallucination, 
               "answer_model_id": model_answer, 
+              "embedding_model_id": embedding_model,
               "prompt_generator": prompt_generator, 
               "prompt_router": prompt_router, 
               "prompt_retrieval": prompt_retrieval, 

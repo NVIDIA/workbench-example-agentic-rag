@@ -20,6 +20,7 @@ from typing import List, Optional
 
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
+from langchain_core.runnables import RunnableLambda
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from langchain_community.tools.tavily_search import TavilySearchResults
 
@@ -39,6 +40,40 @@ class TavilyAPIError(Exception):
 # component in this workflow expects a direct completion -- the graders parse bare
 # JSON from the response -- so thinking is disabled on each hosted-endpoint call.
 NEMOTRON_NO_THINK = {"chat_template_kwargs": {"enable_thinking": False}}
+HOSTED_MODEL_RETRY_ATTEMPTS = int(os.getenv("HOSTED_MODEL_RETRY_ATTEMPTS", "3"))
+STRUCTURED_OUTPUT_RETRY_ATTEMPTS = int(
+    os.getenv("STRUCTURED_OUTPUT_RETRY_ATTEMPTS", "3")
+)
+
+
+def _hosted_chat(model, temperature):
+    return (
+        ChatNVIDIA(model=model, temperature=temperature)
+        .bind(**NEMOTRON_NO_THINK)
+        .with_retry(stop_after_attempt=HOSTED_MODEL_RETRY_ATTEMPTS)
+    )
+
+
+def _parse_choice(response, key, allowed_values):
+    value = response.get(key) if isinstance(response, dict) else None
+    if not isinstance(value, str) or value.lower() not in allowed_values:
+        raise ValueError(
+            f"Model response must contain {key!r} with one of "
+            f"{sorted(allowed_values)}; received {response!r}"
+        )
+    return value.lower()
+
+
+def _parse_binary_score(response):
+    return _parse_choice(response, "score", {"yes", "no"})
+
+
+def _parse_datasource(response):
+    return _parse_choice(
+        response,
+        "datasource",
+        {"vectorstore", "web_search"},
+    )
 
 
 
@@ -64,6 +99,7 @@ class GraphState(TypedDict):
     retrieval_model_id: str
     hallucination_model_id: str
     answer_model_id: str
+    embedding_model_id: str
     prompt_generator: str
     prompt_router: str
     prompt_retrieval: str
@@ -129,7 +165,7 @@ def retrieve(state):
     question = state["question"]
 
     # Retrieval
-    retriever = database.get_retriever()
+    retriever = database.get_retriever(state["embedding_model_id"])
     documents = retriever.invoke(question)
     print(f"[Retriever] Retrieved {len(documents)} chunk(s) from the vector database")
     return {"documents": documents, "question": question}
@@ -159,7 +195,7 @@ def generate(state):
                                model_name=state["nim_generator_id"] if len(state["nim_generator_id"]) > 0 else "meta/llama-3.1-8b-instruct",
                                gpu_type=state["nim_generator_gpu_type"] if "nim_generator_gpu_type" in state else None,
                                gpu_count=state["nim_generator_gpu_count"] if "nim_generator_gpu_count" in state else None,
-                               temperature=0.7) if state["generator_use_nim"] else ChatNVIDIA(model=state["generator_model_id"], temperature=0.7).bind(**NEMOTRON_NO_THINK)
+                               temperature=0.7) if state["generator_use_nim"] else _hosted_chat(state["generator_model_id"], 0.7)
     rag_chain = prompt | llm | StrOutputParser()
     generation = rag_chain.invoke({"context": documents, "question": question})
     print(f"[Generator] ✓ Draft answer generated ({len(generation)} characters)")
@@ -194,15 +230,19 @@ def grade_documents(state):
                                model_name=state["nim_retrieval_id"] if len(state["nim_retrieval_id"]) > 0 else "meta/llama-3.1-8b-instruct",
                                gpu_type=state["nim_retrieval_gpu_type"] if "nim_retrieval_gpu_type" in state else None,
                                gpu_count=state["nim_retrieval_gpu_count"] if "nim_retrieval_gpu_count" in state else None,
-                               temperature=0.7) if state["retrieval_use_nim"] else ChatNVIDIA(model=state["retrieval_model_id"], temperature=0).bind(**NEMOTRON_NO_THINK)
-    retrieval_grader = prompt | llm | JsonOutputParser()
+                               temperature=0.7) if state["retrieval_use_nim"] else _hosted_chat(state["retrieval_model_id"], 0)
+    retrieval_grader = (
+        prompt
+        | llm
+        | JsonOutputParser()
+        | RunnableLambda(_parse_binary_score)
+    ).with_retry(stop_after_attempt=STRUCTURED_OUTPUT_RETRY_ATTEMPTS)
     for i, d in enumerate(documents):
-        score = retrieval_grader.invoke(
+        grade = retrieval_grader.invoke(
             {"question": question, "document": d.page_content}
         )
-        grade = score["score"]
         # Document relevant
-        if grade.lower() == "yes":
+        if grade == "yes":
             print(f"[Retrieval Grader] Chunk {i + 1} of {len(documents)}: ✓ relevant")
             filtered_docs.append(d)
         # Document not relevant
@@ -283,13 +323,18 @@ def route_question(state):
                                model_name=state["nim_router_id"] if len(state["nim_router_id"]) > 0 else "meta/llama-3.1-8b-instruct",
                                gpu_type=state["nim_router_gpu_type"] if "nim_router_gpu_type" in state else None,
                                gpu_count=state["nim_router_gpu_count"] if "nim_router_gpu_count" in state else None,
-                               temperature=0.7) if state["router_use_nim"] else ChatNVIDIA(model=state["router_model_id"], temperature=0).bind(**NEMOTRON_NO_THINK)
-    question_router = prompt | llm | JsonOutputParser()
+                               temperature=0.7) if state["router_use_nim"] else _hosted_chat(state["router_model_id"], 0)
+    question_router = (
+        prompt
+        | llm
+        | JsonOutputParser()
+        | RunnableLambda(_parse_datasource)
+    ).with_retry(stop_after_attempt=STRUCTURED_OUTPUT_RETRY_ATTEMPTS)
     source = question_router.invoke({"question": question})
-    if source["datasource"] == "web_search":
+    if source == "web_search":
         print("[Router] → Question falls outside the document context — routing to web search")
         return "websearch"
-    elif source["datasource"] == "vectorstore":
+    elif source == "vectorstore":
         print("[Router] → Question matches the document context — routing to the vector database")
         return "vectorstore"
 
@@ -348,13 +393,17 @@ def grade_generation_v_documents_and_question(state):
                                model_name=state["nim_hallucination_id"] if len(state["nim_hallucination_id"]) > 0 else "meta/llama-3.1-8b-instruct",
                                gpu_type=state["nim_hallucination_gpu_type"] if "nim_hallucination_gpu_type" in state else None,
                                gpu_count=state["nim_hallucination_gpu_count"] if "nim_hallucination_gpu_count" in state else None,
-                               temperature=0.7) if state["hallucination_use_nim"] else ChatNVIDIA(model=state["hallucination_model_id"], temperature=0).bind(**NEMOTRON_NO_THINK)
-    hallucination_grader = prompt | llm | JsonOutputParser()
+                               temperature=0.7) if state["hallucination_use_nim"] else _hosted_chat(state["hallucination_model_id"], 0)
+    hallucination_grader = (
+        prompt
+        | llm
+        | JsonOutputParser()
+        | RunnableLambda(_parse_binary_score)
+    ).with_retry(stop_after_attempt=STRUCTURED_OUTPUT_RETRY_ATTEMPTS)
 
-    score = hallucination_grader.invoke(
+    grade = hallucination_grader.invoke(
         {"documents": documents, "generation": generation}
     )
-    grade = score["score"]
 
     # Check hallucination
     prompt = PromptTemplate(
@@ -366,15 +415,21 @@ def grade_generation_v_documents_and_question(state):
                                model_name=state["nim_answer_id"] if len(state["nim_answer_id"]) > 0 else "meta/llama-3.1-8b-instruct",
                                gpu_type=state["nim_answer_gpu_type"] if "nim_answer_gpu_type" in state else None,
                                gpu_count=state["nim_answer_gpu_count"] if "nim_answer_gpu_count" in state else None,
-                               temperature=0.7) if state["answer_use_nim"] else ChatNVIDIA(model=state["answer_model_id"], temperature=0).bind(**NEMOTRON_NO_THINK)
-    answer_grader = prompt | llm | JsonOutputParser()
+                               temperature=0.7) if state["answer_use_nim"] else _hosted_chat(state["answer_model_id"], 0)
+    answer_grader = (
+        prompt
+        | llm
+        | JsonOutputParser()
+        | RunnableLambda(_parse_binary_score)
+    ).with_retry(stop_after_attempt=STRUCTURED_OUTPUT_RETRY_ATTEMPTS)
     
     if grade == "yes":
         print("[Hallucination Grader] ✓ Answer is grounded in the retrieved context")
         # Check question-answering
         print(f"[Answer Grader] Checking the answer addresses the question using {_model_desc(state, 'answer')}...")
-        score = answer_grader.invoke({"question": question, "generation": generation})
-        grade = score["score"]
+        grade = answer_grader.invoke(
+            {"question": question, "generation": generation}
+        )
         if grade == "yes":
             print("[Answer Grader] ✓ Answer addresses the question")
             return "useful"
